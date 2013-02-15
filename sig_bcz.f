@@ -22,7 +22,7 @@
     character (len=80)   :: options_file
 
     real(dp)    :: initial_lambda   ! initial smoothing parameter
-    real(dp)    :: res
+    real(dp)    :: final_chi2
     real(dp)    :: varlim, var
 
 
@@ -59,18 +59,10 @@
 
 !--- Finding the best parameters -
     amess = ' '
-    call fitlamb (initial_lambda, res, amess)
+    call fitlamb (initial_lambda, final_chi2)
 
 !--- Writing the results -
-	! variation in tau0 relative to initial value
-	varlim = 0.2d0
-	var = abs(((c(1)/(w0ref*fac))-tau0)/tau0)
-	if (var .gt. varlim .and. amess(1:1) .eq. ' ') then
-	   amess='.'
-	   write (*,*)"  ==> WARNING: Value of taud not admissible! [.]"
-	endif
-	
-	call output (afile, amess)
+	call output (afile, amess, final_chi2)
 
 	if (iprint.ge.1) close (3)
 	write (6,*)"---------------> PROGRAM SIG_BCZ_genetic <---------------"

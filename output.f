@@ -1,7 +1,7 @@
 !*******************************************************************************
 ! João Faria: Feb 2013
 !*******************************************************************************
-  subroutine output (afile, amess)
+  subroutine output (afile, amess, chi2)
 !   write the OUTPUT
 
     use types_and_interfaces, only: dp, fun
@@ -16,19 +16,21 @@
     character(len=80) :: afile
     character(len=1)  :: amess
 
-    real(dp)            :: tau_bcz, tau_he
-    real(dp)            :: chi2, chi2norm
-
-    real(dp), dimension(150) :: xx, resultfun
-    real(dp)                :: min_xx, max_xx
+    real(dp), intent(in)  :: chi2
+    real(dp)              :: chi2norm
+    real(dp)              :: tau_bcz, tau_he, beta
+    
+    real(dp), dimension(150)  :: xx, resultfun
+    real(dp)                  :: min_xx, max_xx
 
     integer :: nfile, length, i
 
-
+    ! parameters that are in seconds need to be converted
     tau_bcz = c(1) / (w0ref*fac)
     tau_he = c(4) / (w0ref*fac)
+    beta = c(7) / (w0ref*fac)
     
-    call get_chi_square(chi2, chi2norm)
+    chi2norm = chi2 / (n-nconst)
 
     write (6,*) "  Frequencies from file: ", afile
     
@@ -36,7 +38,7 @@
                         'tau_BCZ = ', tau_bcz, 'Phi = ', c(2), &
                         'A_BCZ = ', c(3), &
                         'tau_HeII = ', tau_he, 'Phi = ', c(5), &
-                        'A_HeII = ', c(6), 'beta_HeII = ', c(7), &
+                        'A_HeII = ', c(6), 'beta_HeII = ', beta, &
                         'chi2 = ', chi2, 'chi2norm = ', chi2norm
 
  1010   format (3x, a, //, &

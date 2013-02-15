@@ -1,7 +1,7 @@
 !*******************************************************************************
 ! Joao Faria: Jan 2013
 !*******************************************************************************
-  subroutine fitlamb (initial_lambda, resd)
+  subroutine fitlamb (initial_lambda, chi2)
 !    this subroutine iterates in LAMBDA from the inital value until it reaches
 !    lambda_min or lambda_iter_max iterations are done. For each value of LAMBDA
 !    we call the genetic algorithm to find the parameters that minimize the 
@@ -16,7 +16,7 @@
     implicit none
     
     real(dp), intent(in)            :: initial_lambda
-    real(dp), intent(inout)         :: resd
+    real(dp), intent(inout)         :: chi2
 
     character(len=80)               :: outfile
 
@@ -54,7 +54,7 @@
         
         !     Print the results
         WRITE(*,*) ' status: ', STATUS
-        WRITE(*,*) '      x: ', c(1)/(w0ref*fac), c(4)/(w0ref*fac)
+        WRITE(*,*) '      x: ', c(1)/(w0ref*fac), c(4)/(w0ref*fac), c(7)/(w0ref*fac)
         WRITE(*,*) '  chi^2: ', 1./f
         WRITE(*,*) ctrl
             
@@ -82,7 +82,7 @@
 
     if (iprint.ge.1) write (6,*) ' '
 
-    resd = 1.0_dp / f
+    chi2 = 1.0_dp / f
 
     return
 
