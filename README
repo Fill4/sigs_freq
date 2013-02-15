@@ -1,0 +1,5 @@
+   The program BCZ_SIG fits the signal due to the base of the covnection 
+zone in the frequencies for very low degree data.
+
+   It considers 4 parameters ignoring any degree dependent term of the 
+expression of the signal.
