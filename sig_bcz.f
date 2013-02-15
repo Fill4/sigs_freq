@@ -40,7 +40,8 @@
     call getarg(1, options_file)
     
 !--- number of parameters to fit -
-    nconst = 3
+    !nconst = 3  ! only bcz
+    nconst = 7  ! bcz + heII
     allocate(c(nconst))
 
 !--- file with input options -

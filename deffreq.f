@@ -13,13 +13,16 @@
 
     tau0 = tau0ref
 
-    ! first 2 parameters
-    c(1)=tau0*w0ref*fac ! argument
-    write(*,*) c(1), w0ref, fac
-    c(2)=phi0ref        ! phase
+!    !! *** BCZ *** !! 
+!    ! first 2 parameters
+!    c(1)=tau0*w0ref*fac ! argument
+!    c(2)=phi0ref        ! phase
 
-    ! third parameter
-    c(3)=xamp0          ! amplitude
+!    ! third parameter
+!    c(3)=xamp0          ! amplitude
+!    
+!    !! *** HeII *** !!
+!    c(4)
 
     ! output to terminal -
     !write(*,*) c(1), c(2), c(3)
