@@ -7,13 +7,28 @@
 ! is associated to the third derivative. The smoothed fit to the N points
 ! is returned in YW.
 !
-    implicit double precision (b-h,o-z)
-    implicit integer (i-n)
-    parameter (loc=100,exlim=-200.0d0)
-    dimension xw(lval),yw(lval)
-    dimension y(loc),d(loc,loc),c(loc)
+    use types_and_interfaces, only: dp
 
-    ! This assumes that xw and yw are ordered in the correct way!!!
+    implicit none
+
+    integer, intent(in)     :: lval
+    integer, intent(inout)  :: n
+    real(dp), intent(in)    :: xlamb
+    real(dp), intent(inout), dimension(lval) :: xw, yw
+
+    integer, parameter  :: loc = 100
+    real(dp), parameter :: exlim = -200.0_dp
+    
+    real(dp), dimension(loc)        :: y, c
+    real(dp), dimension(loc,loc)    :: d
+    
+    real(dp)    :: xmax, xmin, ymax, ymin, xa, xb, ya, yb
+    real(dp)    :: xj, xk, fac, fac1, fac2, faci1, faci2
+    real(dp)    :: sum1
+    integer     :: i, j, k
+    
+    
+    ! This assumes that xw and yw are ordered in the correct way
     ! Normalization:
     xmax=xw(n)
     xmin=xw(1)
@@ -31,34 +46,24 @@
 
 
     do j=1,n
-        xj=dfloat(j)
-        do k=j,n
-            fac=0.0d0
-            xk=dble(k)
-            fac1=0.0d0
-            fac2=0.0d0
-            do i=1,n
+        xj = dfloat(j)
+        do k = j,n
+            fac = 0.0d0
+            xk = dble(k)
+            fac1 = 0.0d0
+            fac2 = 0.0d0
+            do i = 1,n
                 if (xw(i).eq.0.0d0) then
-                    faci1=0.0d0
-                    faci2=0.0d0
-                    if (k+j.eq.2) faci1=1.0d0
-                    if (k+j.eq.8) faci2=1.0d0
+                    faci1 = 0.0d0
+                    faci2 = 0.0d0
+                    if (k+j.eq.2) faci1 = 1.0d0
+                    if (k+j.eq.8) faci2 = 1.0d0
                     goto 240
-    !                else
-    !                   xx=abs(xw(i))
-    !           elwx1=dble(k+j-2)*log(xx)
-    !           elwx2=dble(k+j-8)*log(xx)
                 endif
-    !        if (elwx1.lt.exlim) then
-    !                   faci1=0.0d0
-    !        else
+
                 faci1=xw(i)**(k+j-2)
-    !        endif
-    !        if (((j+k).lt.8).or.(elwx2.lt.exlim)) then
-    !               faci2=0.0d0
-    !        else
                 faci2=xw(i)**(k+j-8)
-    !                endif
+
     240         fac1=fac1+faci1
                 fac2=fac2+faci2
             enddo
@@ -71,16 +76,16 @@
             d(j,k)=fac
         enddo
 
-        y(j)=0.0d0
+        y(j) = 0.0d0
 
         ! construct (n-1) degree polynomial
         do i=1,n
             if (j.eq.1) then    ! constant term
-                sum=yw(i)
+                sum1=yw(i)
             else
-                sum=yw(i)*xw(i)**(j-1)
+                sum1=yw(i)*xw(i)**(j-1)
             endif
-            y(j)=y(j)+sum
+            y(j)=y(j)+sum1
 
         enddo
     enddo
