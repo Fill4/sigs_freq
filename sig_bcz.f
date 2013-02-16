@@ -62,12 +62,12 @@
     call fitlamb (initial_lambda, final_chi2)
 
 !--- Writing the results -
-	call output (afile, amess, final_chi2)
+    call output (afile, amess, final_chi2)
 
-	if (iprint.ge.1) close (3)
-	write (6,*)"---------------> PROGRAM SIG_BCZ_genetic <---------------"
-	call flush (6)
-	call flush (9)
+    if (iprint.ge.1) close (3)
+    write (6,*)"---------------> PROGRAM SIG_BCZ_genetic <---------------"
+    call flush (6)
+    call flush (9)
 
     deallocate(c)
 

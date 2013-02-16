@@ -16,7 +16,7 @@ FC	= gfortran
 # for development
 #FFLAGS = -Wall -Wextra -Wimplicit-interface -fPIC -fmax-errors=1 -g -fbounds-check -fcheck-array-temporaries -fbacktrace
 # normal
-FFLAGS = -O0 -ffree-form -Wall -Wtabs -fmax-errors=3 -g
+FFLAGS = -O0 -ffree-form -Wall -fmax-errors=3
 # for production run
 #FFLAGS = -Wall -Wextra -Wimplicit-interface -fPIC -Werror -fmax-errors=1 -O3 -march=native -ffast-math -funroll-loops
 #dbx     = -O5 -r8 -g
@@ -85,7 +85,7 @@ $(JFB)/order.o
 # **********************************************************
 
 sig_bcz: $(FILES) $(FCOM) $(FBASIC)
-	$(FC) $(FILES) $(FCOM) $(FBASIC) -o sig_bcz_run -L$(lib) -I$(lib) $(LINK) -g
+	$(FC) $(FILES) $(FCOM) $(FBASIC) -o sig_bcz_run -L$(lib) -I$(lib) $(LINK)
 
 clean:
 	rm -f $(FILES) $(FCOM) $(FBASIC) *~ *.mod sig_bcz_run
