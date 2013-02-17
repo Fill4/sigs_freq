@@ -30,19 +30,21 @@
     
     ! This assumes that xw and yw are ordered in the correct way
     ! Normalization:
-    xmax=xw(n)
-    xmin=xw(1)
-    ymax=yw(n)
-    ymin=yw(1)
-    xa=2.0d0/(xmax-xmin)
-    xb=-(xmax+xmin)/(xmax-xmin)
-    ya=2.0d0/(ymax-ymin)
-    yb=-(ymax+ymin)/(ymax-ymin)
+    xmax = xw(n)
+    xmin = xw(1)
+    ymax = yw(n)
+    ymin = yw(1)
+    xa = 2.0_dp/(xmax-xmin)
+    xb = -(xmax+xmin)/(xmax-xmin)
+    ya = 2.0_dp/(ymax-ymin)
+    yb = -(ymax+ymin)/(ymax-ymin)
 
-    do j=1,n
-       xw(j)=xa*xw(j)+xb
-       yw(j)=ya*yw(j)+yb
-    enddo
+!    do j=1,n
+!       xw(j)=xa*xw(j)+xb
+!       yw(j)=ya*yw(j)+yb
+!    enddo
+    xw(1:n) = xa*xw(1:n) + xb
+    yw(1:n) = ya*yw(1:n) + yb
 
 
     do j=1,n
@@ -61,31 +63,31 @@
                     goto 240
                 endif
 
-                faci1=xw(i)**(k+j-2)
-                faci2=xw(i)**(k+j-8)
+                faci1 = xw(i)**(k+j-2)
+                faci2 = xw(i)**(k+j-8)
 
-    240         fac1=fac1+faci1
-                fac2=fac2+faci2
+    240         fac1 = fac1+faci1
+                fac2 = fac2+faci2
             enddo
 
             fac = fac2*xlamb*(xk-1.0d0)*(xk-2.0d0)*(xk-3.0d0)
             fac = fac * (xj-1.0d0)*(xj-2.0d0)*(xj-3.0d0)
-
             fac = fac + fac1
-            d(k,j)=fac
-            d(j,k)=fac
+
+            d(k,j) = fac
+            d(j,k) = fac
         enddo
 
         y(j) = 0.0d0
 
         ! construct (n-1) degree polynomial
-        do i=1,n
+        do i = 1,n
             if (j.eq.1) then    ! constant term
-                sum1=yw(i)
+                sum1 = yw(i)
             else
-                sum1=yw(i)*xw(i)**(j-1)
+                sum1 = yw(i)*xw(i)**(j-1)
             endif
-            y(j)=y(j)+sum1
+            y(j) = y(j) + sum1
 
         enddo
     enddo
@@ -94,16 +96,17 @@
     call gauss (loc,d,y,c,n)
 
     ! de-normalization
-    do i=1,n
-        y(i)=c(n)
-        do k=n-1,1,-1
-            y(i)=y(i)*xw(i)+c(k)
+    do i = 1,n
+        y(i) = c(n)
+        do k = n-1,1,-1
+            y(i) = y(i)*xw(i) + c(k)
         enddo
-        yw(i)=(y(i)-yb)/ya
+        yw(i) = (y(i)-yb)/ya
     enddo
 
     return
-  end
+  
+  end subroutine poly_smooth
     
 !****************************************************************************
     subroutine gauss (lval,y,f,c,n)
@@ -115,46 +118,47 @@
     implicit double precision (b-h,o-z)
     implicit integer (i-n)
     dimension y(lval,lval),f(lval),c(lval)
-    !
-    do 10 k=1,n-1
-        imax=k
-        ymax=abs(y(k,k))
-        do 5 i=k+1,n
+ 
+    do k = 1,n-1
+        imax = k
+        ymax = abs(y(k,k))
+        do i = k+1,n
             if (abs(y(i,k)).gt.ymax) then
-                imax=i
-                ymax=abs(y(i,k))
+                imax = i
+                ymax = abs(y(i,k))
             endif
- 5      continue
+        end do
         if (imax.gt.k) then
-            do 6 i=k,n
-                xx=y(imax,i)
-                y(imax,i)=y(k,i)
-                y(k,i)=xx
- 6          continue
-            xx=f(imax)
-            f(imax)=f(k)
-            f(k)=xx
+            do i = k,n
+                xx = y(imax,i)
+                y(imax,i) = y(k,i)
+                y(k,i) = xx
+            end do
+            xx = f(imax)
+            f(imax) = f(k)
+            f(k) = xx
         endif
-!       
-        do 20 i=k+1,n
-            if (y(i,k).eq.0.0d0) goto 20
-            b=-y(i,k)/y(k,k)
-            do 30 j=k+1,n
-                y(i,j)=y(i,j)+b*y(k,j)
- 30         continue
-            f(i)=f(i)+b*f(k)
- 20     continue
- 10 continue
-!
-    c(n)=f(n)/y(n,n)
-    do 40 i=n-1,1,-1
-        b=0.d0
-        do 50 j=i+1,n
-            b=b+y(i,j)*c(j)
- 50     continue
-        c(i)=(f(i)-b)/y(i,i)
- 40 continue
-!
+  
+        do i = k+1,n
+            if (y(i,k).eq.0.0d0) cycle
+            b = -y(i,k)/y(k,k)
+            do j = k+1,n
+                y(i,j) = y(i,j) + b*y(k,j)
+            end do
+            f(i) = f(i)+b*f(k)
+        end do
+    end do
+
+    c(n) = f(n)/y(n,n)
+    
+    do i = n-1,1,-1
+        b = 0.d0
+        do j = i+1,n
+            b = b + y(i,j)*c(j)
+        end do
+        c(i) = (f(i)-b)/y(i,i)
+    end do
+
     return
     end
 !****************************************************************************

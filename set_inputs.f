@@ -36,7 +36,8 @@
     ! minimum number of modes with same degree -
     integer  :: nlmind
     ! wether it should use the errors or not -
-    character(len=10) :: include_errorsd, use_error_chi2d
+    character(len=10) :: include_errorsd
+    logical           :: use_error_chi2d
     integer  :: isigd
     ! upper limit for error -
     real     :: ssmaxd

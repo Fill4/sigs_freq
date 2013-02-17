@@ -5,7 +5,6 @@
 !   Define the reference values of the parameters C(NCP)
 
     use commonvar
-    use commonarray, only: c
 
     character(len=80)    :: afile
     character(len=80)    :: afile0
@@ -35,9 +34,9 @@
 
     write(*,*) ' '
 
-    if (use_error_chi2 == 'yes' .or. use_error_chi2 == 'y') then
+    if (use_error_chi2) then
         write (*,'(2x, a)', advance = "no") "name of input file (l,n,v,sigma) --> "
-    else if (use_error_chi2 == 'no' .or. use_error_chi2 == 'n') then
+    else if (.not. use_error_chi2) then
         write (*,'(2x, a)', advance = "no") "name of input file (l,n,v) --> "
     endif
 

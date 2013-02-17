@@ -16,15 +16,13 @@
 
     implicit none
     
-    integer :: i, argcount
+    integer :: argcount
     character (len=80)   :: afile
     character (len=1)    :: amess
     character (len=80)   :: options_file
 
     real(dp)    :: initial_lambda   ! initial smoothing parameter
     real(dp)    :: final_chi2
-    real(dp)    :: varlim, var
-
 
 
     afile='00000'

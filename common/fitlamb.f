@@ -111,7 +111,6 @@
     ! rescaling parameters
     call rescale(p, c)
     
-!    write(*,*) 'hello from objfun'
     ! subtract the signal (given by FUN, with current values of C)
     ! and then smooth again with current XLAMB -
     call subtract_and_smooth(lambda)
@@ -125,28 +124,25 @@
     endif
     !***********
 
-!    write(*,*) n
     resid = 0.0d0
-    ! if not using errors -
-    if (use_error_chi2 == 'no' .or. use_error_chi2 == 'n') then
-    do i=1,n
-        ww = w(i)
-        sf = fun(ww)
-        resid = resid + (sd(i)-sf)**2
-!        write(*,*) sf
-    end do
     ! if using errors -
-    else if (use_error_chi2 == 'yes' .or. use_error_chi2 == 'y') then
-    do i=1,n
-        ww = w(i)
-        sf = fun(ww)
-        resid = resid + ((sd(i)-sf)/sig(i))**2
-    end do
-    endif
+    if (use_error_chi2) then
+        do i=1,n
+            ww = w(i)
+            sf = fun(ww)
+            resid = resid + ((sd(i)-sf)/sig(i))**2
+        end do
+    ! if not using errors -
+    else if (.not. use_error_chi2) then
+        do i=1,n
+            ww = w(i)
+            sf = fun(ww)
+            resid = resid + (sd(i)-sf)**2
+        end do
+    end if
 
     fun_val = sngl(1.0 / resid)
-    
-!    write(*,*) 'leaving objfun'
+
   end function objfun_ga
 
 

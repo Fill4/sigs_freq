@@ -10,7 +10,7 @@
 !   use gnufor2
 
         use types_and_interfaces, only: dp, fun
-        use commonvar, only : nconst, w0ref
+        use commonvar, only : w0ref
         use commonarray
 
         implicit none
