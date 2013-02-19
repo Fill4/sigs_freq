@@ -11,6 +11,7 @@
     use commonvar, only : nconst, iprint, lambda_iter_max, lambda, w0ref,fac
     use commonarray, only : c
     
+    use lib_io
     use lib_pikaia10
 
     implicit none
@@ -22,9 +23,12 @@
 
 
     real    :: ctrl(12), x(nconst), f
-    integer :: lambda_iter, seed, status
+    integer :: lambda_iter, seed, exit_status, new_unit
 
 
+    !! output file
+    new_unit = next_unit()
+    open (new_unit, file='lamda-chi2.dat', status='unknown')
 
 !    if (iprint.ge.1) call writeout (2,c)
 
@@ -41,19 +45,19 @@
         ! set control variables
         ctrl(1:12) = -1
         ctrl(1) = 50
-        ctrl(2) = 250
+        ctrl(2) = 500
         !ctrl(12) = 2
         outfile = 'param_file'
 
         ! now call pikaia
-        CALL pikaia(objfun_ga, nconst, ctrl, x, f, status)
+        CALL pikaia(objfun_ga, nconst, ctrl, x, f, exit_status)
 
         ! rescaling parameters
         call rescale(x, c)
         
         
         !     Print the results
-        WRITE(*,*) ' status: ', STATUS
+        WRITE(*,*) ' status: ', exit_status
         WRITE(*,*) '      x: ', c(1)/(w0ref*fac), c(4)/(w0ref*fac), c(7)/(w0ref*fac)
         WRITE(*,*) '  chi^2: ', 1./f
         WRITE(*,*) ctrl
@@ -67,7 +71,12 @@
 !!!endif
 !!!!***************
 
-        if (status /= 0) then
+        ! print lambda, chi^2 to file *********
+        write(new_unit, '(es12.2, f10.2)') lambda, 1.0/f
+        call flush(new_unit)
+        !**************************************
+
+        if (exit_status /= 0) then
             write(6,*) "Error in PIKAIA"
             stop
         endif
@@ -84,6 +93,8 @@
 
     chi2 = 1.0_dp / f
 
+    close(new_unit)
+    
     return
 
   end subroutine fitlamb
@@ -163,7 +174,7 @@
         
         array_out(4) = dble(array_in(4)) * (2000.*w0ref*fac - 500.*w0ref*fac) + 500.*w0ref*fac
         array_out(5) = dble(array_in(5)) * 2.0_dp*pi
-        array_out(6) = dble(array_in(6))
+        array_out(6) = dble(array_in(6)) * 10.0_dp
         array_out(7) = dble(array_in(7)) * (200.*w0ref*fac - 100.*w0ref*fac) + 100.*w0ref*fac
   
   
