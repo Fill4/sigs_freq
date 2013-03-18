@@ -28,14 +28,14 @@
 
     !! output file
     new_unit = next_unit()
-    open (new_unit, file='lamda-chi2.dat', status='unknown')
+    open (new_unit, file='lamda-chi2.dat', status='unknown', POSITION='APPEND')
 
 !    if (iprint.ge.1) call writeout (2,c)
 
     do lambda_iter = 1, lambda_iter_max
 
         ! reduce the smoothing parameter by a factor of 2 in each iteration
-        lambda = initial_lambda / 2.0d0**(lambda_iter - 1)
+        lambda = initial_lambda / 1.2d0**(lambda_iter - 1)
         write(*,*) lambda
         
         ! initialize the random-number generator
@@ -45,7 +45,7 @@
         ! set control variables
         ctrl(1:12) = -1
         ctrl(1) = 50
-        ctrl(2) = 500
+        ctrl(2) = 1000
         !ctrl(12) = 2
         outfile = 'param_file'
 
@@ -71,8 +71,10 @@
 !!!endif
 !!!!***************
 
-        ! print lambda, chi^2 to file *********
-        write(new_unit, '(es12.2, f10.2)') lambda, 1.0/f
+        ! print lambda, chi^2 and parameters to file *********
+        write(new_unit, '(es12.2, f10.2, 4f10.4)') lambda, 1.0/f, &
+                                           c(1)/(w0ref*fac), c(4)/(w0ref*fac), &
+                                           c(3), c(6)
         call flush(new_unit)
         !**************************************
 
