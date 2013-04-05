@@ -8,11 +8,11 @@
 !    residuals. 
 
     use types_and_interfaces
-    use commonvar, only : nconst, iprint, lambda_iter_max, lambda, w0ref,fac
+    use commonvar, only : nconst, iprint, lambda_iter_max, lambda, w0ref,fac, iterfit
     use commonarray, only : c
     
     use lib_io
-    use lib_pikaia10
+    use lib_pikaia12
 
     implicit none
     
@@ -45,7 +45,8 @@
         ! set control variables
         ctrl(1:12) = -1
         ctrl(1) = 50
-        ctrl(2) = 1000
+        ctrl(2) = iterfit
+        ctrl(5) = 5 ! one-point+creep, adjustable rate based on fitness
         !ctrl(12) = 2
         outfile = 'param_file'
 
@@ -171,13 +172,13 @@
         real(dp), dimension(:), intent(out) :: array_out
 
         array_out(1) = dble(array_in(1)) * (4000.*w0ref*fac - 2000.*w0ref*fac) + 2000.*w0ref*fac
-        array_out(2) = dble(array_in(2)) * 2.0_dp*pi
+        array_out(2) = dble(array_in(2)) * pi
         array_out(3) = dble(array_in(3))
         
         array_out(4) = dble(array_in(4)) * (2000.*w0ref*fac - 500.*w0ref*fac) + 500.*w0ref*fac
-        array_out(5) = dble(array_in(5)) * 2.0_dp*pi
+        array_out(5) = dble(array_in(5)) * pi
         array_out(6) = dble(array_in(6)) * 10.0_dp
-        array_out(7) = dble(array_in(7)) * (200.*w0ref*fac - 100.*w0ref*fac) + 100.*w0ref*fac
+        array_out(7) = dble(array_in(7)) * (300.*w0ref*fac - 100.*w0ref*fac) + 100.*w0ref*fac
   
   
   end subroutine rescale

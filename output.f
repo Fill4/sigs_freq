@@ -4,7 +4,7 @@
   subroutine output (afile, amess, chi2)
 !   write the OUTPUT
 
-    use types_and_interfaces, only: dp, fun
+    use types_and_interfaces, only: dp, fun, he_comp, bcz_comp
     use commonvar
     use commonarray, only: c, w, sd, sig, n
 
@@ -20,7 +20,7 @@
     real(dp)              :: chi2norm
     real(dp)              :: tau_bcz, tau_he, beta
     
-    real(dp), dimension(150)  :: xx, resultfun
+    real(dp), dimension(150)  :: xx, resultfun, result_he, result_bcz
     real(dp)                  :: min_xx, max_xx
 
     integer :: nfile, length, i
@@ -57,6 +57,8 @@
     call linspace(min_xx, max_xx, xx)
     do i=1,150
         resultfun(i) = fun(xx(i))
+        result_bcz(i) = bcz_comp(xx(i))
+        result_he(i) = he_comp(xx(i))
     end do
 
     call plot(dble(w(1:n)*w0ref), dble(sd(1:n)), xx*w0ref, resultfun, &
@@ -64,7 +66,12 @@
                   errors=dble(sig(1:n)) )!, &
                   !terminal='png')
                   !yrange=(/-3.0d0,3.0d0/) )
-                  
+    
+    call plot(xx*w0ref, result_bcz, &
+              xx*w0ref, result_he, &
+              ' 5.00-',color2='black',color1='green')!, &
+              !terminal='png')
+              !yrange=(/-3.0d0,3.0d0/) )
                   
                   
     nfile = length(afile)

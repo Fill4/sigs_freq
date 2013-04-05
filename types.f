@@ -29,7 +29,25 @@ module types_and_interfaces
             real(kind=8), intent(in)  :: w
         end function fun
     end interface fun
+
+
+   ! interface to the bcz component
+    interface bcz_comp
+        real(kind=8) function bcz_comp(w)
+            implicit none
+            real(kind=8), intent(in)  :: w
+        end function bcz_comp
+    end interface bcz_comp
     
+    
+    ! interface to the helium component
+    interface he_comp
+        real(kind=8) function he_comp (w)
+            implicit none
+            real(kind=8), intent(in)  :: w
+        end function he_comp
+    end interface he_comp
+
     
     ! interface to the parameter rescaling subroutine
     interface rescale
