@@ -16,9 +16,10 @@ FC	= gfortran
 # for development
 #FFLAGS = -Wall -Wextra -Wimplicit-interface -fPIC -fmax-errors=1 -g -fbounds-check -fcheck-array-temporaries -fbacktrace
 # normal
-FFLAGS = -O2 -ffree-form -Wall -Wconversion -fmax-errors=3
+#FFLAGS = -O2 -ffree-form -Wall -Wconversion -fmax-errors=3
+
 # for production run
-#FFLAGS = -Wall -Wextra -Wimplicit-interface -fPIC -Werror -fmax-errors=1 -O3 -march=native -ffast-math -funroll-loops
+FFLAGS = -ffree-form -fPIC -fmax-errors=1 -O3 -march=native -ffast-math -funroll-loops
 #dbx     = -O5 -r8 -g
 #profil  = -p -O5 -r8 
 #samedir = .
@@ -38,9 +39,9 @@ LINK = -lmodules -llapack -L/usr/lib
 # *******************************************************
 # ***   Especificar as directorias com as subrotinas  ***
 # *******************************************************
-JF = /home/joao/Programs/CODE_freqFit/sig_bcz_genetic
-JFA = /home/joao/Programs/CODE_freqFit/sig_bcz_genetic/common
-JFB = /home/joao/Programs/CODE_freqFit/sig_bcz_genetic/basic
+JF = /home/joao/Programs/CODE_freqFit/sig_genetic
+JFA = /home/joao/Programs/CODE_freqFit/sig_genetic/common
+JFB = /home/joao/Programs/CODE_freqFit/sig_genetic/basic
 # plot library:
 JFp = /home/joao/utils/gnuFor2
 # spline library:
@@ -61,7 +62,8 @@ $(JF)/set_inputs.o \
 $(JF)/openfiles.o \
 $(JF)/output.o \
 $(JF)/writeout.o \
-$(JF)/fun.o 
+$(JF)/fun.o \
+$(JF)/components.o
 #$(JF)/fun.o
 
 
