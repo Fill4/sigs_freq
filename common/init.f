@@ -128,6 +128,8 @@
 
     if ((n+1)-np(nnp).le.nlmin) then
         write (6,*) "WARNING: Too few points for l=", l(n)
+        write (6,*) "stopping"
+        stop
         nnp=nnp-1
         n=n-1
     endif
