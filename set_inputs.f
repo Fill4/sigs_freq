@@ -49,6 +49,7 @@
              xamp0d,tau0refd,phi0refd,&
              intyped,&
              iprintd,&
+             write_final,&
              vrigthd,vleftd,&
              nlmind,&
              isigd, include_errorsd, use_error_chi2d, &

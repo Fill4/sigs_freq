@@ -12,6 +12,7 @@ module commonvar
 
     character(len=10), public  :: include_errors
     logical, public            :: use_error_chi2
+    logical, public            :: write_final
 
     integer, public      :: nconst  ! number of parameters to fit
     integer, public      :: iprint
