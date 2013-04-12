@@ -170,7 +170,7 @@
         
         array_out(4) = dble(array_in(4)) * (2000.*w0ref*fac - 500.*w0ref*fac) + 500.*w0ref*fac
         array_out(5) = dble(array_in(5)) * pi
-        array_out(6) = dble(array_in(6)) * 10.0_dp
+        array_out(6) = dble(array_in(6)) * 5.0_dp
         array_out(7) = dble(array_in(7)) * (300.*w0ref*fac - 100.*w0ref*fac) + 100.*w0ref*fac
   
   

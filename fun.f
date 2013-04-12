@@ -28,7 +28,7 @@
     bcz  = ( c(3)/w**2 ) * sin(arg)
 
     arg = 2.0d0 * ( c(4)*w + c(5) )
-    he = ( c(6)/w**2 ) * sin(c(7)*w)**2 * cos(arg)
+    he = ( c(6)/w ) * (sin(c(7)*w))**2 * cos(arg)
     
     fun = bcz + he
 
