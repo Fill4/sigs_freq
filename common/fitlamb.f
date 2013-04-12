@@ -57,20 +57,13 @@
         call rescale(x, c)
         
         
-        !     Print the results
-        WRITE(*,*) ' status: ', exit_status
-        WRITE(*,*) '      x: ', c(1)/(w0ref*fac), c(4)/(w0ref*fac), c(7)/(w0ref*fac)
-        WRITE(*,*) '  chi^2: ', 1./f
-        WRITE(*,*) ctrl
+!        !     Print the results
+!        WRITE(*,*) ' status: ', exit_status
+!        WRITE(*,*) '      x: ', c
+!        WRITE(*,*) '      x: ', c(1)/(w0ref*fac), c(4)/(w0ref*fac), c(7)/(w0ref*fac)
+!        WRITE(*,*) '  chi^2: ', 1./f
+!        WRITE(*,*) ctrl
             
-
-
-!!!!** PRINT ******
-!!!if (iprint.ge.1) then
-!!!call writeout (2,c)
-!!!if (iprint.ge.4) call writeout (3,c)
-!!!endif
-!!!!***************
 
         ! print lambda, chi^2 and parameters to file *********
         write(new_unit, '(es12.2, f10.2, 4f10.4)') lambda, 1.0/f, &
