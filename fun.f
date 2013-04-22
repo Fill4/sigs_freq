@@ -29,6 +29,7 @@
 
     arg = 2.0d0 * ( c(4)*w + c(5) )
     he = ( c(6)/w ) * (sin(c(7)*w))**2 * cos(arg)
+!    he = ( c(6)*w ) * exp(-(c(7)*w)**2) * cos(arg)     ! ** does not work
     
     fun = bcz + he
 

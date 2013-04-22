@@ -39,14 +39,13 @@ LINK = -lmodules -llapack -L/usr/lib
 # *******************************************************
 # ***   Especificar as directorias com as subrotinas  ***
 # *******************************************************
-JF = /home/joao/Programs/CODE_freqFit/sig_genetic
-JFA = /home/joao/Programs/CODE_freqFit/sig_genetic/common
-JFB = /home/joao/Programs/CODE_freqFit/sig_genetic/basic
-# plot library:
-JFp = /home/joao/utils/gnuFor2
-# spline library:
-JFspl = /home/joao/Programs/CODE_freqFit/dierckx
-# miscelaneous library
+BASE = /home/joao/Programs/CODE_freqFit
+
+JF = $(BASE)/sig_genetic
+JFA = $(BASE)/sig_genetic/common
+JFB = $(BASE)/sig_genetic/basic
+
+# library
 lib = /home/joao/Programs/fortran/lib
 
 #----------------------------------------------------------
