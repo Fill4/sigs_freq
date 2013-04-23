@@ -29,10 +29,8 @@ Mazumdar et al. (2012), with a total of 7 free parameters in the fit:
 
 == Compilation ==
 
-1. In the Makefile, change 'BASE' to the directory where you have the sig_genetic folder.
-2. Also change 'lib' to the directory where the library is
-    OR
-   Place "libmodules.a" in the sig_genetic folder and set 'lib' to the same value as 'BASE'
+1. In the Makefile, change 'BASE' to the directory where you have the "glitch" folder.
+2. Also change 'lib' to the directory where the library is.
 
 == Changelog ==
 
