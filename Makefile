@@ -39,14 +39,14 @@ LINK = -lmodules -llapack -L/usr/lib
 # *******************************************************
 # ***   Especificar as directorias com as subrotinas  ***
 # *******************************************************
-BASE = /home/joao/Programs/CODE_freqFit
+BASE = /home/joao/Programs/work/teste
 
-JF = $(BASE)/sig_genetic
-JFA = $(BASE)/sig_genetic/common
-JFB = $(BASE)/sig_genetic/basic
+JF = $(BASE)/glitch
+JFA = $(BASE)/glitch/common
+JFB = $(BASE)/glitch/basic
 
 # library
-lib = /home/joao/Programs/fortran/lib
+lib = $(BASE)/lib-fortran
 
 #----------------------------------------------------------
 
