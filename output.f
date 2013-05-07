@@ -75,13 +75,16 @@
               !yrange=(/-3.0d0,3.0d0/) )
                   
                   
-    nfile = length(afile)
+    
 
     ! output to "res" file -
+    nfile = length(afile)
     if (intype.eq.0) then
-        write (9,9003) afile(nfile-6:nfile-4), tau_bcz, c(2), c(3), amess
- 9003   format (3x, a, x, f9.4, 2x, f7.5, 2x, f10.8, 2x, a1)
+        write (9,9003) &
+           afile(nfile-20:nfile), tau_bcz, c(2), c(3), tau_he, c(5), c(6), beta
+ 9003   format (x, a24, 7f10.4)
     endif
+    close(9)
     
     
     ! output signal to file -

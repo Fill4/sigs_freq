@@ -9,52 +9,38 @@
     implicit none
     
     character(len=80), intent(in)   :: afile
+    logical :: res_exists
     integer :: iwrite
 
     iwrite = 0
 
 
     ! RES file (unit = 9) -
-    !inquire( file="/home/joao/Documents/FCUP/TESE/bcz_fit/res", exist=res_exists)
+    inquire( file="res", exist=res_exists)
+    print *, res_exists
 
-    if (iwrite.eq.0) then
-        iwrite=1
+    if (res_exists) then
+        open (9, file='res', status='old', position='append')
+    else 
         open (9, file='res', status='unknown')
         write (9,*) ' '
         close (9)
+
         open (9,file='res',status='old')
         ! write to terminal that RES was created
-        write (6,*) "  File RES   [Model,C1,C2,...] (all final values)"
+        write (6,*) "  In file RES   [filename,C1,C2,...] (all final values)"
 
         ! header -
-        write (9,9001) "# SIG_BCZ results (", nconst, "parameters)"
- 9001   format (x, a, i1, x, a, /) 
-           
-        write (9,9002) "# Frequency data from: ", afile
- 9002   format (x, a, x, a20, /)
+        write (9,'(x, a, i1, x, a)') "# SIG_GENETIC results (", nconst, "parameters)"
+        write (9,*) ''
 
-
-        if (intype.eq.0) then
-              write (9,*) "# Mod  Tau_d       Phi      A_d"
-              write (9,*) "#------------------------------------"
-              
-     
-           else if (intype.eq.1) then
-              write (9,1065)
- 1065         format('#',/,'# Mod  Tau_d       Phi  ',&
-                  '    A_d           cldovs',/,&
-                  '#----------------------------------------',&
-                  '-------------------------')
-           else if (intype.eq.2) then
-              write (9,1066)
- 1066         format('#',/,'# M   Tau_d     Phi  ',&
-                  '    A_d      mass   w_ref   fw',/,&
-                  '#--------------------------------------------',&
-                  '-------------------------')
-        else
-              write (*,*) 'WARNING: No output to COF!'
-           endif
+        write (9,'(x, a, a23, 7a10)') &
+          "#", "file", "tau_bcz", "phi_bcz", "amp_bcz", "tau_he", "phi_he", "amp_he", "beta"
+        write (9,*) &
+          "#---------------------------------------------------------------------------------------------"
+        write (9,*) ''
     endif
+
 
     ! COF file (unit = 3) -
     if (iprint.ge.1 .and. iprint.le.4) then
