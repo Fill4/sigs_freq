@@ -39,7 +39,7 @@
         write(*,*) lambda
         
         ! initialize the random-number generator
-        seed=13579
+        seed=135900
         call rninit(seed)
         
         ! set control variables
@@ -68,7 +68,7 @@
         ! print lambda, chi^2 and parameters to file *********
         write(new_unit, '(es12.2, f10.2, 4f10.4)') lambda, 1.0/f, &
                                            c(1)/(w0ref*fac), c(4)/(w0ref*fac), &
-                                           c(3), c(6)
+                                           c(3), c(6) * (sin(c(7)))**2
         call flush(new_unit)
         !**************************************
 
