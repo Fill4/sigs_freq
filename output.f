@@ -20,6 +20,7 @@
     real(dp), intent(in)  :: chi2
     real(dp)              :: chi2norm
     real(dp)              :: tau_bcz, tau_he, beta
+    real(dp)              :: a_bcz, a_he
     
     real(dp), dimension(150)  :: xx, resultfun, result_he, result_bcz
     real(dp)                  :: min_xx, max_xx
@@ -31,15 +32,18 @@
     tau_he = c(4) / (w0ref*fac)
     beta = c(7) / (w0ref*fac)
     
+    a_bcz = c(3)
+    a_he = c(6) * (sin(c(7)))**2
+    
     chi2norm = chi2 / (n-nconst)
 
     write (6,*) "  Frequencies from file: ", afile
     
     write (6,1010) 'Results:', &
                         'tau_BCZ = ', tau_bcz, 'Phi = ', c(2), &
-                        'A_BCZ = ', c(3), &
+                        'A_BCZ = ', a_bcz, &
                         'tau_HeII = ', tau_he, 'Phi = ', c(5), &
-                        'A_HeII = ', c(6), 'beta_HeII = ', beta, &
+                        'A_HeII = ', a_he, 'beta_HeII = ', beta, &
                         'chi2 = ', chi2, 'chi2norm = ', chi2norm
 
  1010   format (3x, a, //, &
@@ -61,19 +65,18 @@
         result_bcz(i) = bcz_comp(xx(i))
         result_he(i) = he_comp(xx(i))
     end do
-
-    call plot(dble(w(1:n)*w0ref), dble(sd(1:n)), xx*w0ref, resultfun, &
-                  ' 5.00-',color2='black',color1='green', &
-                  errors=dble(sig(1:n)) )!, &
-                  !terminal='png')
-                  !yrange=(/-3.0d0,3.0d0/) )
     
     call plot(xx*w0ref, result_bcz, &
               xx*w0ref, result_he, &
               ' 5.00-',color2='black',color1='green')!, &
               !terminal='png')
               !yrange=(/-3.0d0,3.0d0/) )
-                  
+
+    call plot(dble(w(1:n)*w0ref), dble(sd(1:n)), xx*w0ref, resultfun, &
+                  ' 5.00-',color2='black',color1='green', &
+                  errors=dble(sig(1:n)) )!, &
+                  !terminal='png')
+                  !yrange=(/-3.0d0,3.0d0/) )                  
                   
     
 
@@ -81,7 +84,7 @@
     nfile = length(afile)
     if (intype.eq.0) then
         write (9,9003) &
-           afile(nfile-20:nfile), tau_bcz, c(2), c(3), tau_he, c(5), c(6), beta
+           afile(nfile-20:nfile), tau_bcz, c(2), a_bcz, tau_he, c(5), a_he, beta
  9003   format (x, a24, 7f10.4)
     endif
     close(9)
