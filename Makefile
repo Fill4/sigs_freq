@@ -14,12 +14,12 @@
 #FC	= g77 -Wall
 FC	= gfortran
 # for development
-#FFLAGS = -Wall -Wextra -Wimplicit-interface -fPIC -fmax-errors=1 -g -fbounds-check -fcheck-array-temporaries -fbacktrace
+FFLAGS = -ffree-form -Wall -Wextra -Wimplicit-interface -fPIC -fmax-errors=1 -g -fbounds-check -fcheck-array-temporaries -fbacktrace
 # normal
 #FFLAGS = -O2 -ffree-form -Wall -Wconversion -fmax-errors=3
 
 # for production run
-FFLAGS = -ffree-form -fPIC -fmax-errors=1 -O3 -march=native -ffast-math -funroll-loops
+#FFLAGS = -ffree-form -fPIC -fmax-errors=1 -O3 -march=native -ffast-math -funroll-loops
 #dbx     = -O5 -r8 -g
 #profil  = -p -O5 -r8 
 #samedir = .
@@ -41,9 +41,9 @@ LINK = -lmodules -llapack -L/usr/lib
 # *******************************************************
 BASE = /home/joao/Programs/CODE_freqFit
 
-JF = $(BASE)/sig_genetic
-JFA = $(BASE)/sig_genetic/common
-JFB = $(BASE)/sig_genetic/basic
+JF = $(BASE)/
+JFA = $(BASE)/common
+JFB = $(BASE)/basic
 
 # library
 lib = /home/joao/Programs/fortran/lib
