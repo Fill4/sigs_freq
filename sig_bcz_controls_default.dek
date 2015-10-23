@@ -25,7 +25,7 @@
 
     nlmind = 5
 
-    include_errors = 'no'
+    include_errorsd = 'no'
     isigd = 0
 
     ssmaxd = 0.500

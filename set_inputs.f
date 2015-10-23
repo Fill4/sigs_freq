@@ -124,13 +124,18 @@
     isel = 0
 
       
-    include_errors = include_errorsd 
-    use_error_chi2 = use_error_chi2d
+    include_errors = include_errorsd
+    if (include_errors == 'no') then
+      use_error_chi2 = .false.
+    else 
+      use_error_chi2 = .true.
+    endif
     isig = isigd
     ssmax = ssmaxd
 
 
-
+    print *, include_errors, include_errorsd
+    print *, use_error_chi2
     return
 
   end subroutine set_inputs

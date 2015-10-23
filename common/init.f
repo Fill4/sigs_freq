@@ -26,9 +26,11 @@
     ! if not using errors -
 10  if (include_errors == 'no' .or. include_errors == 'n') then
         read (1,*,end=20) ll,nn,ww
+        print *, ll, nn, ww
     ! if using errors - 
     else if (include_errors == 'yes' .or. include_errors == 'y') then
         read (1,*,end=20) ll,nn,ww,ss
+        print *, ll, nn, ww, ss
         if (ss.gt.ssmax) goto 10
     endif
 
