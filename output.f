@@ -84,7 +84,7 @@
     nfile = length(afile)
     if (intype.eq.0) then
         write (9,9003) &
-           afile(nfile-20:nfile), tau_bcz, c(2), a_bcz, tau_he, c(5), a_he, beta
+           afile, tau_bcz, c(2), a_bcz, tau_he, c(5), a_he, beta
  9003   format (x, a24, 7f10.4)
     endif
     close(9)
