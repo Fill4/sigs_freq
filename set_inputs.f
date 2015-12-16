@@ -60,7 +60,7 @@
     integer :: unit1 = 8
 
     ! initialize controls to default values -
-    include "sig_bcz_controls_default.dek"
+    include "options_default.dat"
 
     !write (6,*) ' '
     write (6,*) " Reading the parameters from file: ", filepar
