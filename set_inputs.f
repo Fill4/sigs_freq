@@ -32,11 +32,10 @@
     ! 5 - only the signal for the first iteration is written
     integer  :: iprintd
     ! borders to ignore in frequency (right and left) -
-    real     :: vrigthd,vleftd
+    real     :: vrightd,vleftd
     ! minimum number of modes with same degree -
     integer  :: nlmind
     ! wether it should use the errors or not -
-    character(len=10) :: include_errorsd
     logical           :: use_error_chi2d
     integer  :: isigd
     ! upper limit for error -
@@ -50,9 +49,9 @@
              intyped,&
              iprintd,&
              write_final,&
-             vrigthd,vleftd,&
+             vrightd,vleftd,&
              nlmind,&
-             isigd, include_errorsd, use_error_chi2d, &
+             isigd, use_error_chi2d, &
              ssmaxd,&
              lmind,lmaxd
      
@@ -76,7 +75,7 @@
 
     if( iprintd .ne. 0 ) then
         write (6,'( a,/ )') "  Input parameters are:"
-        write (6, 6001) xinitd, xamp0d, tau0refd, phi0refd, iprintd, include_errorsd
+        write (6, 6001) xinitd, xamp0d, tau0refd, phi0refd, iprintd, use_error_chi2d
  6001   format(4x, "XINIT = ", es10.4, /, &
                    4x, "AMP0 = ", f5.3, 4x, "TAU0 = ", f9.2, 4x, "PHI0 = ", f5.3, /, &
                    4x, "IPRINT = ", i1, 4x, "ERRORS = ", a1, / )
@@ -114,28 +113,18 @@
       xrad = 1.0
     endif
 
-
     iprint = iprintd
-
 
     lmin = lmind
     lmax = lmaxd
     nlmin = nlmind
     isel = 0
 
-      
-    include_errors = include_errorsd
-    if (include_errors == 'no') then
-      use_error_chi2 = .false.
-    else 
-      use_error_chi2 = .true.
-    endif
+    use_error_chi2 = use_error_chi2d
+
     isig = isigd
     ssmax = ssmaxd
 
-
-    print *, include_errors, include_errorsd
-    print *, use_error_chi2
     return
 
   end subroutine set_inputs

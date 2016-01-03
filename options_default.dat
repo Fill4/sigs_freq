@@ -20,13 +20,14 @@
 
     iprintd = 3
 
-    vrigthd = 0.0
+    vrightd = 0.0
     vleftd = 0.0
 
     nlmind = 5
 
-    include_errorsd = 'no'
     isigd = 0
+    
+    use_error_chi2d = .FALSE.
 
     ssmaxd = 0.500
 

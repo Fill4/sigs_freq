@@ -28,8 +28,10 @@
 
 	!! output file
 	new_unit = next_unit()
-	open (new_unit, file='lamda-chi2.dat', status='unknown', POSITION='APPEND')
-	seed=TIME() !Filipe - Seed fora do ciclo de lambda para garantir os mesmos numeros aleatorios para diferentes lambdas mas diferentes seeds para diferentes execucoes
+	open (new_unit, file='lambda-chi2.dat', status='unknown', POSITION='APPEND')
+
+	seed=135900 !Filipe - Seed fora do ciclo de lambda para garantir os mesmos numeros aleatorios para diferentes lambdas mas diferentes seeds para diferentes execucoes
+	!seed=TIME()
 
 !    if (iprint.ge.1) call writeout (2,c)
 
@@ -148,8 +150,6 @@
 			resid = resid + (sd(i)-sf)**2
 		end do
 	end if
-	print *, n
-	print *, resid
 
 	fun_val = sngl(1.0 / resid)
 

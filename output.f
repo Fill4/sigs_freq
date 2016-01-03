@@ -81,7 +81,7 @@
     
 
     ! output to "res" file -
-    nfile = length(afile)
+    nfile = length(afile) !Filipe - Variavel nao e usada
     if (intype.eq.0) then
         write (9,9003) &
            afile, tau_bcz, c(2), a_bcz, tau_he, c(5), a_he, beta

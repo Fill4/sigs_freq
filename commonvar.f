@@ -10,7 +10,6 @@ module commonvar
 	
     implicit none
 
-    character(len=10), public  :: include_errors
     logical, public            :: use_error_chi2
     logical, public            :: write_final
 
@@ -23,7 +22,7 @@ module commonvar
     integer, public      :: iterinit,iterfit, lambda_iter_max
     integer, public      :: itermod
     integer, public      :: isig, isel
-    integer, public      :: nleft,nrigth
+    integer, public      :: nleft,nright
 
     real(dp), public    :: fac,pi
 
@@ -32,7 +31,7 @@ module commonvar
     real(dp), public    :: xinit
     real(dp), public    :: ftol,tolfit,dc
     real(dp), public    :: valtype
-    real(dp), public    :: vleft,vrigth
+    real(dp), public    :: vleft,vright
     real(dp), public    :: xmass,xrad          ! mass & radius of star
     real(dp), public    :: ssmax               ! max error allowed in frequencies
     real(dp), public    :: w0,xl0,xamp0,tau0   ! initial values

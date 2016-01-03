@@ -51,7 +51,7 @@
     initial_lambda = xinit
     write(*,*) ' '
     write(*,'("   Smoothing parameter = " d8.2,/)') initial_lambda
-    call openfiles (afile, initial_lambda)
+    call openfiles (afile)
     call flush (6)
 
 

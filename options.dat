@@ -1,6 +1,5 @@
 &sig_bcz_controls
-
-    xinitd = 1.00E-07
+    xinitd = 1.00E-04           !Filipe - Defines the initial smoothing parameter value
 
     ftold = 0.10E-06
 
@@ -11,28 +10,28 @@
     iterinitd = 3
     iterfitd = 3
 
-    w0refd = 2100.0
-    xl0d = 3.0
+    w0refd = 2000.0
+    xl0d = 3.0                  !Nao e usado
 
-    xamp0d = 0.08
-    tau0refd = 2200.0
-    phi0refd = 1.00
+    xamp0d = 0.08               !Nao e usado
+    tau0refd = 2200.0           !Nao e usado
+    phi0refd = 1.00             !Nao e usado
 
     intyped = 0
 
-    iprintd = 3
+    iprintd = 1
 
-    vrigthd = 0.0
+    vrightd = 0.0
     vleftd = 0.0
 
     nlmind = 5
 
-    include_errorsd = 'yes'
     isigd = 0
+
+    use_error_chi2d = .TRUE.    !Filipe - Defines whether to use account for the frequency errors
 
     ssmaxd = 0.500
 
     lmind = 0
     lmaxd = 2
 /
-
