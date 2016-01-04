@@ -37,7 +37,6 @@
     integer  :: nlmind
     ! wether it should use the errors or not -
     logical           :: use_error_chi2d
-    integer  :: isigd
     ! upper limit for error -
     real     :: ssmaxd
     ! range in degree -
@@ -51,7 +50,7 @@
              write_final,&
              vrightd,vleftd,&
              nlmind,&
-             isigd, use_error_chi2d, &
+             use_error_chi2d, &
              ssmaxd,&
              lmind,lmaxd
      
@@ -78,7 +77,7 @@
         write (6, 6001) xinitd, xamp0d, tau0refd, phi0refd, iprintd, use_error_chi2d
  6001   format(4x, "XINIT = ", es10.4, /, &
                    4x, "AMP0 = ", f5.3, 4x, "TAU0 = ", f9.2, 4x, "PHI0 = ", f5.3, /, &
-                   4x, "IPRINT = ", i1, 4x, "ERRORS = ", a1, / )
+                   4x, "IPRINT = ", i1, 4x, "ERRORS = ", L1, / )
     end if
 
 !    write(6,'( a,/ )') "  Input parameters are:"
@@ -122,7 +121,6 @@
 
     use_error_chi2 = use_error_chi2d
 
-    isig = isigd
     ssmax = ssmaxd
 
     return

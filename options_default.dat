@@ -24,8 +24,6 @@
     vleftd = 0.0
 
     nlmind = 5
-
-    isigd = 0
     
     use_error_chi2d = .FALSE.
 

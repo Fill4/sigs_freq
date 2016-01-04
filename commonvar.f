@@ -21,7 +21,7 @@ module commonvar
                                                 ! nlmin - min # of l points
     integer, public      :: iterinit,iterfit, lambda_iter_max
     integer, public      :: itermod
-    integer, public      :: isig, isel
+    integer, public      :: isel
     integer, public      :: nleft,nright
 
     real(dp), public    :: fac,pi

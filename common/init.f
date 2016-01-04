@@ -105,6 +105,9 @@
 
  21 close (1)
 
+ !O ciclo a seguir nao esta a funcionar corretamente
+ !No caso de o ultimo l nao ter pontos superiores a nlmin o codigo para mesmo tendo linhas
+ !suficientes nos l's anteriores
 
  39 nnp=1
     np(1)=1
@@ -119,7 +122,7 @@
                     l(j)=l(j+nd)
                     w(j)=w(j+nd)
                     xn(j)=xn(j+nd)
-                    if (isig.gt.0) sig(n)=sig(j+nd)
+                    if (use_error_chi2) sig(n)=sig(j+nd)
                 end do
                 n=n-nd
                 goto 39

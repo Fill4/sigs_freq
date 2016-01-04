@@ -1,5 +1,5 @@
 &sig_bcz_controls
-    xinitd = 1.00E-04           !Filipe - Defines the initial smoothing parameter value
+    xinitd = 1.00E-06           !Filipe - Defines the initial smoothing parameter value
 
     ftold = 0.10E-06
 
@@ -26,9 +26,7 @@
 
     nlmind = 5
 
-    isigd = 0
-
-    use_error_chi2d = .TRUE.    !Filipe - Defines whether to use account for the frequency errors
+    use_error_chi2d = .T.    !Filipe - Defines whether to use account for the frequency errors
 
     ssmaxd = 0.500
 
