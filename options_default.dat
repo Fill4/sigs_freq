@@ -6,7 +6,7 @@
 
     dcd = 0.010
 
-    iterinitd = 3
+    lambda_iter_maxd = 3
     iterfitd = 3
 
     w0refd = 2100.0

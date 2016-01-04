@@ -16,7 +16,7 @@
     ! smoothing and fitting control parameters -
     real    :: xinitd, ftold, tolfitd, dcd
     ! fitting procedure -
-    integer :: iterinitd,iterfitd
+    integer :: lambda_iter_maxd,iterfitd
     ! reference values -
     real    :: w0refd,xl0d
     ! initial guesses of the parameters -
@@ -42,7 +42,7 @@
     ! range in degree -
     integer  :: lmind,lmaxd
     namelist / sig_bcz_controls / xinitd, ftold, tolfitd, dcd,&
-             iterinitd,iterfitd,&
+             lambda_iter_maxd,iterfitd,&
              w0refd,xl0d,&
              xamp0d,tau0refd,phi0refd,&
              intyped,&
@@ -93,9 +93,8 @@
     tolfit = tolfitd
 
     dc = dcd
-    iterinit = iterinitd
     iterfit = iterfitd
-    lambda_iter_max = iterinitd
+    lambda_iter_max = lambda_iter_maxd
 
 
     w0ref = w0refd

@@ -19,7 +19,7 @@ module commonvar
     integer, public      :: lmin, lmax, nlmin   ! lmin - min degree l to consider
                                                 ! lmax - max degree l to consider
                                                 ! nlmin - min # of l points
-    integer, public      :: iterinit,iterfit, lambda_iter_max
+    integer, public      :: iterfit, lambda_iter_max
     integer, public      :: itermod
     integer, public      :: isel
     integer, public      :: nleft,nright
