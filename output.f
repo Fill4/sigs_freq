@@ -66,22 +66,23 @@
         result_he(i) = he_comp(xx(i))
     end do
     
-    call plot(xx*w0ref, result_bcz, &
-              xx*w0ref, result_he, &
-              ' 5.00-',color2='black',color1='green')!, &
-              !terminal='png')
-              !yrange=(/-3.0d0,3.0d0/) )
+    if (iprint .ge. 1) then
+        call plot(xx*w0ref, result_bcz, &
+            xx*w0ref, result_he, &
+            ' 5.00-',color2='black',color1='green')!, &
+            !terminal='png')
+            !yrange=(/-3.0d0,3.0d0/) )
 
-    call plot(dble(w(1:n)*w0ref), dble(sd(1:n)), xx*w0ref, resultfun, &
-                  ' 5.00-',color2='black',color1='green', &
-                  errors=dble(sig(1:n)) )!, &
-                  !terminal='png')
-                  !yrange=(/-3.0d0,3.0d0/) )                  
-                  
+        call plot(dble(w(1:n)*w0ref), dble(sd(1:n)), xx*w0ref, resultfun, &
+            ' 5.00-',color2='black',color1='green', &
+            errors=dble(sig(1:n)) )!, &
+            !terminal='png')
+            !yrange=(/-3.0d0,3.0d0/) )                  
+    endif              
     
 
     ! output to "res" file -
-    nfile = length(afile) !Filipe - Variavel nao e usada
+    !nfile = length(afile) !Filipe - Variavel nao e usada
     if (intype.eq.0) then
         write (9,9003) &
            afile, tau_bcz, c(2), a_bcz, tau_he, c(5), a_he, beta

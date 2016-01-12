@@ -8,11 +8,13 @@
 !    residuals. 
 
 	use types_and_interfaces
-	use commonvar, only : nconst, iprint, lambda_iter_max, lambda, w0ref,fac, iterfit
-	use commonarray, only : c
+	use commonvar, only : nconst, iprint, lambda_iter_max, lambda, w0ref,fac, iterfit, use_error_chi2
+	use commonarray
 	
 	use lib_io
 	use lib_pikaia12
+	use lib_array
+	use lib_plot
 
 	implicit none
 	
@@ -22,33 +24,44 @@
 	character(len=80)               :: outfile
 
 
-	real    :: ctrl(12), x(nconst), f
-	integer :: lambda_iter, seed, exit_status, new_unit
+	real    :: ctrl(12), x(nconst), f, rtol, c0(nconst), ftol
+	integer :: seed, exit_status, new_unit, i, iter, j, ii
 
 
 	!! output file
 	new_unit = next_unit()
 	open (new_unit, file='lambda-chi2.dat', status='unknown', POSITION='APPEND')
 
-	seed=13579 !Filipe - Seed fora do ciclo de lambda para garantir os mesmos numeros aleatorios para diferentes lambdas mas diferentes seeds para diferentes execucoes
+	!Define seed for random number generator
+	!seed=13579
 	!seed=135900
-	!seed=TIME()
+	seed=TIME()
+	! initialize the random-number generator
+	call rninit(seed)
+	
+	!Initialize c(:) and n to 0
+	do i=1,nconst
+		c(i)=0
+	end do
+	iter = 1
+	ftol = 1E-2
+	rtol = 1d0
 
-!    if (iprint.ge.1) call writeout (2,c)
+	do while (rtol.gt.ftol .and. iter.le.lambda_iter_max)
+		!Update c0 to determine rtol in the final part of the cycle to check for continuation in while
+		j = 0
+		do j=1,nconst
+			c0(j)=c(j)
+		end do
+		rtol=0.0d0
 
-	do lambda_iter = 1, lambda_iter_max
+		!Remove already determined function to initial frequencies to improve smooth fit.
+		!On first run it doesn't remove anything because parameters c(:) are unknown 
+		call subtract_and_smooth(initial_lambda)
 
-		! reduce the smoothing parameter by a factor of 2 in each iteration
-		lambda = initial_lambda / 1.2d0**(lambda_iter - 1)
-		write(*,*) lambda
-		
-		! initialize the random-number generator
-		
-		call rninit(seed)
-		
 		! set control variables
 		ctrl(1:12) = -1
-		ctrl(1) = 50
+		ctrl(1) = 30
 		ctrl(2) = iterfit
 		ctrl(5) = 5 ! one-point+creep, adjustable rate based on fitness
 		!ctrl(12) = 2
@@ -60,7 +73,6 @@
 		! rescaling parameters
 		call rescale(x, c)
 		
-		
 !        !     Print the results
 !        WRITE(*,*) ' status: ', exit_status
 !        WRITE(*,*) '      x: ', c
@@ -68,6 +80,8 @@
 !        WRITE(*,*) '  chi^2: ', 1./f
 !        WRITE(*,*) ctrl
 			
+		print *,c
+		print *,f
 
 		! print lambda, chi^2 and parameters to file *********
 		write(new_unit, '(es12.2, f10.2, 4f10.4)') lambda, 1.0/f, &
@@ -81,10 +95,14 @@
 			stop
 		endif
 
-
-		if (iprint.ge.1) write (3,*) ' '
-		
+		do ii=1,nconst
+	    	rtol=rtol+abs((c(ii)-c0(ii)))/max(1.0d0,abs(c(ii)+c0(ii)))
+		end do
+		print *,rtol,ftol
+		iter = iter + 1
 	end do
+
+	if (iprint.ge.1) write (3,*) ' '
 
 
 	if (iprint.ge.3) call writeout (1)
@@ -121,19 +139,6 @@
 	
 	! rescaling parameters
 	call rescale(p, c)
-	
-	! subtract the signal (given by FUN, with current values of C)
-	! and then smooth again with current XLAMB -
-	call subtract_and_smooth(lambda)
-
-	!** PRINT **
-	if (iprint.eq.5) then
-		call writeout (3)
-		write(*,*) c
-		write(*,*) 'stoping'
-		stop
-	endif
-	!***********
 
 	resid = 0.0d0
 	! if using errors -

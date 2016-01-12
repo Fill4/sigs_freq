@@ -7,8 +7,8 @@
 
     dcd = 0.010
 
-    lambda_iter_maxd = 3
-    iterfitd = 3
+    lambda_iter_maxd = 5
+    iterfitd = 50
 
     w0refd = 2000.0
     xl0d = 3.0                  !Nao e usado
@@ -26,10 +26,10 @@
 
     nlmind = 5
 
-    use_error_chi2d = .T.    !Filipe - Defines whether to use account for the frequency errors
+    use_error_chi2d = .TRUE.    !Filipe - Defines whether to use the frequency errors
 
     ssmaxd = 0.500
 
     lmind = 0
-    lmaxd = 2
+    lmaxd = 3
 /

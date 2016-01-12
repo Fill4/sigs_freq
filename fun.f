@@ -14,8 +14,7 @@
 
     real(dp), intent(in)    :: w
     real(dp)  :: arg, bcz, he
-
-
+    
     ! c(1) = tau_bcz
     ! c(2) = phi_bcz
     ! c(3) = amp_bcz
