@@ -26,7 +26,7 @@
 
     nlmind = 5
 
-    use_error_chi2d = .TRUE.    !Filipe - Defines whether to use the frequency errors
+    use_error_chi2d = .FALSE.    !Filipe - Defines whether to use the frequency errors
 
     ssmaxd = 0.500
 
