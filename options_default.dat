@@ -1,13 +1,11 @@
     xinitd = 1.00E-07
-
     ftold = 0.10E-06
 
-    tolfitd = 0.10E-07
-
-    dcd = 0.010
-
     lambda_iter_maxd = 3
-    iterfitd = 3
+    smooth_iter_max = 3
+
+    pikaia_popd = 30
+    pikaia_gend = 200
 
     w0refd = 2100.0
     xl0d = 3.0

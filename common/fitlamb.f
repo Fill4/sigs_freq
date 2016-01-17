@@ -2,13 +2,15 @@
 ! Joao Faria: Jan 2013
 !*******************************************************************************
   subroutine fitlamb (initial_lambda, chi2)
-!    this subroutine iterates in LAMBDA from the inital value until it reaches
-!    lambda_min or lambda_iter_max iterations are done. For each value of LAMBDA
-!    we call the genetic algorithm to find the parameters that minimize the 
-!    residuals. 
+!    This subroutine iterates on various values of lambda to estimate the best
+!    guess for the parameters. For each value of lambda we run a cycle where we 
+!    remove a smooth function and then use a minimization algorithm to determine
+!    the best parameters that represent the residuals, and repeating the process
+!	 using the previously determined parameters to improve the smooth function 
+! 	 until convergence is achieved.
 
 	use types_and_interfaces
-	use commonvar, only : nconst, iprint, lambda_iter_max, lambda, w0ref,fac, iterfit, use_error_chi2
+	use commonvar
 	use commonarray
 	
 	use lib_io
@@ -24,7 +26,7 @@
 	character(len=80)               :: outfile
 
 
-	real    :: ctrl(12), x(nconst), f, rtol, c0(nconst), ftol
+	real    :: ctrl(12), x(nconst), f, rtol, c0(nconst)
 	integer :: seed, exit_status, new_unit, i, iter, j, ii
 
 
@@ -33,18 +35,17 @@
 	open (new_unit, file='lambda-chi2.dat', status='unknown', POSITION='APPEND')
 
 	!Define seed for random number generator
-	!seed=13579
 	!seed=135900
 	seed=TIME()
 	! initialize the random-number generator
 	call rninit(seed)
 	
-	!Initialize c(:) and n to 0
+	!Initialize c(:) and iter to 0
 	do i=1,nconst
 		c(i)=0
 	end do
 	iter = 1
-	ftol = 1E-2
+	!Colocar como valor para definição incial
 	rtol = 1d0
 
 	do while (rtol.gt.ftol .and. iter.le.lambda_iter_max)
@@ -61,8 +62,8 @@
 
 		! set control variables
 		ctrl(1:12) = -1
-		ctrl(1) = 30
-		ctrl(2) = iterfit
+		ctrl(1) = pikaia_pop
+		ctrl(2) = pikaia_gen
 		ctrl(5) = 5 ! one-point+creep, adjustable rate based on fitness
 		!ctrl(12) = 2
 		outfile = 'param_file'
@@ -98,7 +99,9 @@
 		do ii=1,nconst
 	    	rtol=rtol+abs((c(ii)-c0(ii)))/max(1.0d0,abs(c(ii)+c0(ii)))
 		end do
-		print *,rtol,ftol
+
+		print *,rtol
+
 		iter = iter + 1
 	end do
 
@@ -173,11 +176,11 @@
 		real, dimension(:), intent(in)      :: array_in
 		real(dp), dimension(:), intent(out) :: array_out
 
-		array_out(1) = dble(array_in(1)) * (4000.*w0ref*fac - 2000.*w0ref*fac) + 2000.*w0ref*fac
+		array_out(1) = dble(array_in(1)) * (3000.*w0ref*fac - 2000.*w0ref*fac) + 2000.*w0ref*fac
 		array_out(2) = dble(array_in(2)) * pi
 		array_out(3) = dble(array_in(3))
 		
-		array_out(4) = dble(array_in(4)) * (2000.*w0ref*fac - 500.*w0ref*fac) + 500.*w0ref*fac
+		array_out(4) = dble(array_in(4)) * (800.*w0ref*fac - 500.*w0ref*fac) + 500.*w0ref*fac
 		array_out(5) = dble(array_in(5)) * pi
 		array_out(6) = dble(array_in(6)) * 5.0_dp
 		array_out(7) = dble(array_in(7)) * (300.*w0ref*fac - 100.*w0ref*fac) + 100.*w0ref*fac

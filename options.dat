@@ -1,14 +1,13 @@
 &sig_bcz_controls
-    xinitd = 1.00E-06           !Filipe - Defines the initial smoothing parameter value
+    xinitd = 1.00E-06           !Initial smoothing parameter value
 
-    ftold = 0.10E-06
+    ftold = 0.10E-02            !Value for parameter change evaluation (stops cycle of smooth improvement)
 
-    tolfitd = 0.10E-07
+    lambda_iter_maxd = 5        !Max lambda iterations
+    smooth_iter_maxd = 5        !Max iterations in smooth function improvement
 
-    dcd = 0.010
-
-    lambda_iter_maxd = 5
-    iterfitd = 50
+    pikaia_popd = 30            !Initial population of pikaia (Number of initial guesses)
+    pikaia_gend = 200           !Number of generations evolved to determine the parameters
 
     w0refd = 2000.0
     xl0d = 3.0                  !Nao e usado

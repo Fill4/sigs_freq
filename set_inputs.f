@@ -14,9 +14,9 @@
     ! sig_bcz_controls
 
     ! smoothing and fitting control parameters -
-    real    :: xinitd, ftold, tolfitd, dcd
+    real    :: xinitd, ftold
     ! fitting procedure -
-    integer :: lambda_iter_maxd,iterfitd
+    integer :: lambda_iter_maxd,smooth_iter_maxd,pikaia_popd, pikaia_gend
     ! reference values -
     real    :: w0refd,xl0d
     ! initial guesses of the parameters -
@@ -41,8 +41,9 @@
     real     :: ssmaxd
     ! range in degree -
     integer  :: lmind,lmaxd
-    namelist / sig_bcz_controls / xinitd, ftold, tolfitd, dcd,&
-             lambda_iter_maxd,iterfitd,&
+    namelist / sig_bcz_controls / xinitd, ftold,&
+             lambda_iter_maxd, smooth_iter_maxd,&
+             pikaia_popd, pikaia_gend,&
              w0refd,xl0d,&
              xamp0d,tau0refd,phi0refd,&
              intyped,&
@@ -90,26 +91,20 @@
 
     xinit = xinitd
     ftol = ftold
-    tolfit = tolfitd
 
-    dc = dcd
-    iterfit = iterfitd
+    pikaia_gen = pikaia_gend 
+    pikaia_pop = pikaia_popd
     lambda_iter_max = lambda_iter_maxd
-
+    smooth_iter_max = smooth_iter_maxd
 
     w0ref = w0refd
     xl0 = xl0d
-
 
     xamp0 = xamp0d
     tau0ref = tau0refd
     phi0ref = phi0refd
 
     intype = intyped
-    if (intype.eq.0) then
-      xmass = 1.0
-      xrad = 1.0
-    endif
 
     iprint = iprintd
 
