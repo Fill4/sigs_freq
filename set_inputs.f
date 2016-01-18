@@ -1,5 +1,5 @@
 !*******************************************************************************
-! João Faria: Feb 2013
+! João Faria: Feb 2013     |     Revised: Filipe Pereira - Jan 2016
 !*******************************************************************************
   subroutine set_inputs(filepar)
 !   The input options to fit the signal are read here (from a namelist file)
@@ -14,7 +14,7 @@
     ! sig_bcz_controls
 
     ! smoothing and fitting control parameters -
-    real    :: xinitd, ftold
+    real    :: lambda_initd, ftold
     ! fitting procedure -
     integer :: lambda_iter_maxd,smooth_iter_maxd,pikaia_popd, pikaia_gend
     ! reference values -
@@ -41,7 +41,7 @@
     real     :: ssmaxd
     ! range in degree -
     integer  :: lmind,lmaxd
-    namelist / sig_bcz_controls / xinitd, ftold,&
+    namelist / sig_bcz_controls / lambda_initd, ftold,&
              lambda_iter_maxd, smooth_iter_maxd,&
              pikaia_popd, pikaia_gend,&
              w0refd,xl0d,&
@@ -75,7 +75,7 @@
 
     if( iprintd .ne. 0 ) then
         write (6,'( a,/ )') "  Input parameters are:"
-        write (6, 6001) xinitd, xamp0d, tau0refd, phi0refd, iprintd, use_error_chi2d
+        write (6, 6001) lambda_initd, xamp0d, tau0refd, phi0refd, iprintd, use_error_chi2d
  6001   format(4x, "XINIT = ", es10.4, /, &
                    4x, "AMP0 = ", f5.3, 4x, "TAU0 = ", f9.2, 4x, "PHI0 = ", f5.3, /, &
                    4x, "IPRINT = ", i1, 4x, "ERRORS = ", L1, / )
@@ -89,7 +89,7 @@
     fac = 2.0d-6*pi
 
 
-    xinit = xinitd
+    lambda_init = lambda_initd
     ftol = ftold
 
     pikaia_gen = pikaia_gend 

@@ -81,13 +81,10 @@
     endif              
     
 
-    ! output to "res" file -
-    !nfile = length(afile) !Filipe - Variavel nao e usada
-    if (intype.eq.0) then
-        write (9,9003) &
+    ! output parameters to "res" file -
+    write (9,9003) &
            afile, tau_bcz, c(2), a_bcz, tau_he, c(5), a_he, beta
  9003   format (x, a24, 7f10.4)
-    endif
     close(9)
     
     

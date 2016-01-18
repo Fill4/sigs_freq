@@ -48,7 +48,7 @@
 !--- initialize all quantities, read in frequencies and create output files -
     call deffreq (afile)
     call init (afile)
-    initial_lambda = xinit
+    initial_lambda = lambda_init
     write(*,*) ' '
     write(*,'("   Smoothing parameter = " d8.2,/)') initial_lambda
     call openfiles (afile)

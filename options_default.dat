@@ -1,4 +1,4 @@
-    xinitd = 1.00E-07
+    lambda_initd = 1.00E-07
     ftold = 0.10E-06
 
     lambda_iter_maxd = 3

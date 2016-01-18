@@ -35,9 +35,8 @@
 	open (new_unit, file='lambda-chi2.dat', status='unknown', POSITION='APPEND')
 
 	!Define seed for random number generator
-	!seed=135900
 	seed=TIME()
-	! initialize the random-number generator
+	!Initialize the random-number generator
 	call rninit(seed)
 	
 	!Initialize c(:) and iter to 0
@@ -45,10 +44,15 @@
 		c(i)=0
 	end do
 	iter = 1
-	!Colocar como valor para definição incial
+	!Initial definition to enter cycle
 	rtol = 1d0
+	
 
-	do while (rtol.gt.ftol .and. iter.le.lambda_iter_max)
+	!Cycles through values of lambda from inital_lambda until lambda_max_iterations have been completed
+	lambda = initial_lambda
+	!Cycle updates the smooth function with last determined parameters c(:) until parameters
+	!converge or smooth_max_iter is reached
+	do while (rtol.gt.ftol .and. iter.le.smooth_iter_max)
 		!Update c0 to determine rtol in the final part of the cycle to check for continuation in while
 		j = 0
 		do j=1,nconst
@@ -58,7 +62,7 @@
 
 		!Remove already determined function to initial frequencies to improve smooth fit.
 		!On first run it doesn't remove anything because parameters c(:) are unknown 
-		call subtract_and_smooth(initial_lambda)
+		call subtract_and_smooth(lambda)
 
 		! set control variables
 		ctrl(1:12) = -1
@@ -73,16 +77,6 @@
 
 		! rescaling parameters
 		call rescale(x, c)
-		
-!        !     Print the results
-!        WRITE(*,*) ' status: ', exit_status
-!        WRITE(*,*) '      x: ', c
-!        WRITE(*,*) '      x: ', c(1)/(w0ref*fac), c(4)/(w0ref*fac), c(7)/(w0ref*fac)
-!        WRITE(*,*) '  chi^2: ', 1./f
-!        WRITE(*,*) ctrl
-			
-		print *,c
-		print *,f
 
 		! print lambda, chi^2 and parameters to file *********
 		write(new_unit, '(es12.2, f10.2, 4f10.4)') lambda, 1.0/f, &
@@ -128,7 +122,7 @@
 ! and the result is smoothed by a polynomial before calculating the chi^2
 	
 	use types_and_interfaces, only: dp, fun, rescale
-	use commonvar, only : iprint, lambda, use_error_chi2
+	use commonvar, only : iprint, use_error_chi2
 	use commonarray
 	
 	implicit none

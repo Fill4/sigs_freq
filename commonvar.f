@@ -11,7 +11,7 @@ module commonvar
     implicit none
 
     logical, public      :: use_error_chi2
-    logical, public      :: write_final
+    logical, public      :: write_final 
 
     integer, public      :: nconst  ! number of parameters to fit
     integer, public      :: iprint
@@ -27,9 +27,8 @@ module commonvar
 
     real(dp), public    :: lambda
 	
-    real(dp), public    :: xinit
+    real(dp), public    :: lambda_init
     real(dp), public    :: ftol
-    real(dp), public    :: valtype
     real(dp), public    :: vleft,vright
     real(dp), public    :: ssmax               ! max error allowed in frequencies
     real(dp), public    :: w0,xl0,xamp0,tau0   ! initial values
