@@ -9,23 +9,6 @@
     character(len=80)    :: afile
     character(len=80)    :: afile0
 
-
-    tau0 = tau0ref
-
-!    !! *** BCZ *** !! 
-!    ! first 2 parameters
-!    c(1)=tau0*w0ref*fac ! argument
-!    c(2)=phi0ref        ! phase
-
-!    ! third parameter
-!    c(3)=xamp0          ! amplitude
-!    
-!    !! *** HeII *** !!
-!    c(4)
-
-    ! output to terminal -
-    !write(*,*) c(1), c(2), c(3)
-
     if (afile(1:5).eq.'00000') then
         afile0='freqs'
     else

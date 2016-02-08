@@ -1,3 +1,5 @@
 Implement lambda iteration
 Implement initial guess (Change in rescale instead of Pikaia)
 Improve convergence (Try different methods instead of limiiting possible values)
+
+Check changes made Feb 7, 2016 - Some change in variables caused values to stop converging to correct solution. Nothing should be affected because only unused variables were removed.

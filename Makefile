@@ -60,9 +60,9 @@ $(JF)/deffreq.o \
 $(JF)/set_inputs.o \
 $(JF)/openfiles.o \
 $(JF)/output.o \
-$(JF)/writeout.o \
 $(JF)/fun.o \
 $(JF)/components.o
+#$(JF)/writeout.o \
 
 
 FCOM = \

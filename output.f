@@ -1,7 +1,7 @@
 !*******************************************************************************
 ! João Faria: Feb 2013
 !*******************************************************************************
-  subroutine output (afile, amess, chi2)
+  subroutine output (afile, chi2)
 !   write the OUTPUT
 
     use types_and_interfaces, only: dp, fun, he_comp, bcz_comp
@@ -15,7 +15,6 @@
     implicit none
 
     character(len=80) :: afile, filename
-    character(len=1)  :: amess
 
     real(dp), intent(in)  :: chi2
     real(dp)              :: chi2norm
@@ -66,7 +65,7 @@
         result_he(i) = he_comp(xx(i))
     end do
     
-    if (iprint .ge. 1) then
+    if (show_plots) then
         call plot(xx*w0ref, result_bcz, &
             xx*w0ref, result_he, &
             ' 5.00-',color2='black',color1='green')!, &
@@ -89,21 +88,21 @@
     
     
     ! output signal to file -
-    if (write_final) then
-        write(filename, '("signal_",i4,"-",i0.4,".dat")') int(tau_bcz), int(tau_he)
-        write(*,*) filename
-        new_unit = next_unit()
-        open (new_unit, file=filename, status='unknown')
-        write(new_unit,'(a)') '# observed frequencies after smoothing'
-        write(new_unit,'(a)') '# N'
-        write(new_unit,'(a, x, a, 3a12)') '#', 'l', 'nu(muHz)', 'sd(muHz)', 'err(muHz)'
-        write(new_unit,'(i3)') n
-        write(new_unit,'(i3, 3f12.4)') (l(i), w(i)*w0ref, sd(i), sig(i), i=1,n)
-        write(new_unit,'(a)') '# fitted signals'
-        write(new_unit,'(a, x, 4a12)') '#', 'nu(muHz)', 'bcz', 'he', 'sum'
-        write(new_unit,'(2x, 4f12.5)') (xx(i)*w0ref, result_bcz(i), result_he(i), resultfun(i), i=1,150)
-        close(new_unit)
-    endif
+    !if (write_final) then
+    !    write(filename, '("signal_",i4,"-",i0.4,".dat")') int(tau_bcz), int(tau_he)
+    !    write(*,*) filename
+    !    new_unit = next_unit()
+    !    open (new_unit, file=filename, status='unknown')
+    !    write(new_unit,'(a)') '# observed frequencies after smoothing'
+    !    write(new_unit,'(a)') '# N'
+    !    write(new_unit,'(a, x, a, 3a12)') '#', 'l', 'nu(muHz)', 'sd(muHz)', 'err(muHz)'
+    !    write(new_unit,'(i3)') n
+    !    write(new_unit,'(i3, 3f12.4)') (l(i), w(i)*w0ref, sd(i), sig(i), i=1,n)
+    !    write(new_unit,'(a)') '# fitted signals'
+    !    write(new_unit,'(a, x, 4a12)') '#', 'nu(muHz)', 'bcz', 'he', 'sum'
+    !    write(new_unit,'(2x, 4f12.5)') (xx(i)*w0ref, result_bcz(i), result_he(i), resultfun(i), i=1,150)
+    !    close(new_unit)
+    !endif
     
 
     return

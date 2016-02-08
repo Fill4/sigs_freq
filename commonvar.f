@@ -11,11 +11,10 @@ module commonvar
     implicit none
 
     logical, public      :: use_error_chi2
-    logical, public      :: write_final 
+    logical, public      :: show_plots 
 
     integer, public      :: nconst  ! number of parameters to fit
-    integer, public      :: iprint
-    integer, public      :: intype  ! type of frequency input
+
     integer, public      :: lmin, lmax, nlmin   ! lmin - min degree l to consider
                                                 ! lmax - max degree l to consider
                                                 ! nlmin - min # of l points
@@ -24,15 +23,12 @@ module commonvar
     integer, public      :: nleft,nright
 
     real(dp), public    :: fac,pi
-
-    real(dp), public    :: lambda
 	
     real(dp), public    :: lambda_init
     real(dp), public    :: ftol
     real(dp), public    :: vleft,vright
-    real(dp), public    :: ssmax               ! max error allowed in frequencies
-    real(dp), public    :: w0,xl0,xamp0,tau0   ! initial values
-    real(dp), public    :: w0ref,xamp0ref,tau0ref,phi0ref  ! reference values
+    real(dp), public    :: ssmax                !Max error allowed in frequencies
+    real(dp), public    :: w0ref                !Reference values
 	
 
 end module commonvar
