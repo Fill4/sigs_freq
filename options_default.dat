@@ -16,7 +16,7 @@
 	nlmind = 5
 
 	use_error_chi2d = .FALSE.	!Defines whether to use the frequency errors
-	show_plots = .FALSE.
+	show_plotsd = .FALSE.
 
 	ssmaxd = 0.500
 

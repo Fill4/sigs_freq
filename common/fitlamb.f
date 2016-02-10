@@ -24,15 +24,12 @@
 	real(dp), intent(inout)			:: final_chi2
 
 	character(len=80)				:: outfile
+	integer*4 						:: datee(3), timee(3)
+
 
 
 	real    :: ctrl(12), x(nconst), f, rtol, c0(nconst)
 	integer :: seed, exit_status, new_unit, i, iter, j, ii
-
-
-	!! output file
-	new_unit = next_unit()
-	open (new_unit, file='lambda-chi2.dat', status='unknown', POSITION='APPEND')
 
 	!Define seed for random number generator
 	seed=TIME()
@@ -48,6 +45,12 @@
 	!Initial definition to enter cycle
 	rtol = 1d0
 	
+	!Write date and time to IterInfo
+	call idate(datee)
+	call itime(timee)
+	write(3,'(a9, i2.2, a1, i2.2, a1, i4.4, a11, i2.2, a1, i2.2, a1, i2.2)') &
+	'  Date:  ', datee(1), '-', datee(2), '-', datee(3), '  |  Time: ', timee(1), ':', timee(2), ':', timee(3)
+
 
 	!Cycles through values of lambda from inital_lambda until lambda_max_iterations have been completed
 	lambda = lambda_init
@@ -91,9 +94,9 @@
 		end do
 
 		!Write more complete iteration information to iter_info file
-		write(3, '(es12.2, f10.2, 4f10.4)') lambda, 1.0/f, &
-											c(1)/(w0ref*fac), c(4)/(w0ref*fac), &
-											c(3), c(6) * (sin(c(7)))**2
+		write(3, '(es10.2, i8, f10.2, f15.4, 6f10.4)') lambda, iter, 1.0/f, &
+											c(1)/(w0ref*fac), c(3), c(2), c(4)/(w0ref*fac), &
+											c(5), c(6) * (sin(c(7)))**2, c(7) / (w0ref*fac)
 		call flush(3)
 
 		!increase iteration number
