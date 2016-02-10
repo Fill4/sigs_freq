@@ -15,23 +15,23 @@ module interfaces
 !   'use interfaces' 
 ! statement.
 !**********************************************************
-    interface minimize_nl2sol
-        subroutine minimize( n, p, x, resid, resd )
-	        implicit none
-	        integer, intent(in) :: n
-	        integer, intent(in) :: p
-	        real, intent(inout) :: x(:)
-	        real, intent(inout) :: resd
-            real, dimension(p)  :: x0
-            ! NL2SOL control variables:
-	        integer :: uiparm(1)
-	        real    :: urparm(1)
-	        integer, dimension(60+p)                    :: iv
-	        real, dimension( 93+n*(p+3)+p*(3*p+33)/2 )  :: v
+	interface minimize_nl2sol
+		subroutine minimize( n, p, x, resid, resd )
+			implicit none
+			integer, intent(in) :: n
+			integer, intent(in) :: p
+			real, intent(inout) :: x(:)
+			real, intent(inout) :: resd
+			real, dimension(p)  :: x0
+			! NL2SOL control variables:
+			integer :: uiparm(1)
+			real    :: urparm(1)
+			integer, dimension(60+p)                    :: iv
+			real, dimension( 93+n*(p+3)+p*(3*p+33)/2 )  :: v
 		
-            external resid
-            external ufparm  
-        end subroutine minimize
-    end interface 
-    
+			external resid
+			external ufparm  
+		end subroutine minimize
+	end interface 
+	
 end module

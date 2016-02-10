@@ -112,8 +112,6 @@
 
   end subroutine fitlamb
   
-  
-  
   function objfun_ga(npar, p) result(fun_val)
 ! This function calculates the objective function value, i.e. the chi^2.
 ! The signal with the current parameters P is subtracted from the frequencies

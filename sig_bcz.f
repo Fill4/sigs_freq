@@ -18,10 +18,8 @@
 	
 	integer :: argcount
 	character (len=80)   :: afile
-	character (len=1)    :: amess
 	character (len=80)   :: options_file
 
-	real(dp)    :: initial_lambda   ! initial smoothing parameter
 	real(dp)    :: final_chi2
 
 
@@ -48,12 +46,8 @@
 !--- initialize all quantities, read in frequencies and create output files -
 	call deffreq (afile)
 	call init (afile)
-	initial_lambda = lambda_init
-	write(*,*) ' '
-	write(*,'("   Smoothing parameter = " d8.2,/)') initial_lambda
 	call openfiles (afile)
 	call flush (6)
-
 
 !--- Finding the best parameters -
 	call fitlamb (final_chi2)
