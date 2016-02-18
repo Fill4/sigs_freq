@@ -1,15 +1,15 @@
 &sig_bcz_controls
-	lambda_initd = 1.00E-06		!Initial smoothing parameter value
+	lambda_initd = 1.00E-04		!Initial smoothing parameter value
 
 	ftold = 0.10E-02			!Value for parameter change evaluation (stops cycle of smooth improvement)
 
 	lambda_iter_maxd = 5		!Max lambda iterations
-	smooth_iter_maxd = 5		!Max iterations in smooth function improvement
+	smooth_iter_maxd = 3		!Max iterations in smooth function improvement
 
-	pikaia_popd = 30			!Initial population of pikaia (Number of initial guesses)
-	pikaia_gend = 250			!Number of generations evolved to determine the parameters
+	pikaia_popd = -1			!Initial population of pikaia (Number of initial guesses)
+	pikaia_gend = -1			!Number of generations evolved to determine the parameters
 
-	w0refd = 2000.0
+	w0refd = 3000.0
 
 	vrightd = 0.0
 	vleftd = 0.0
@@ -17,7 +17,7 @@
 	nlmind = 5
 
 	use_error_chi2d = .FALSE.	!Defines whether to use the frequency errors
-	show_plots = .FALSE.
+	show_plotsd = .TRUE.
 
 	ssmaxd = 0.500
 

@@ -11,7 +11,17 @@
 	character (len=80), intent(in)  :: options_file
 
 
-	! sig_bcz_controls
+	!Defining namelist sig_bcz_controls for easy input of a list of variables
+	namelist / sig_bcz_controls / lambda_initd, ftold,&
+								lambda_iter_maxd, smooth_iter_maxd,&
+								pikaia_popd, pikaia_gend,&
+								w0refd,&
+								vrightd,vleftd,&
+								nlmind,&
+								use_error_chi2d,&
+								show_plotsd,&
+								ssmaxd,&
+								lmind,lmaxd	
 
 	!Smoothing control parameter
 	real(dp)	:: lambda_initd
@@ -33,16 +43,7 @@
 	real		:: ssmaxd
 	!Range in degree
 	integer		:: lmind,lmaxd
-	namelist / sig_bcz_controls / lambda_initd, ftold,&
-			 lambda_iter_maxd, smooth_iter_maxd,&
-			 pikaia_popd, pikaia_gend,&
-			 w0refd,&
-			 vrightd,vleftd,&
-			 nlmind,&
-			 use_error_chi2d,&
-			 show_plots,&
-			 ssmaxd,&
-			 lmind,lmaxd
+
 	 
 	integer :: ierr = 1
 	integer :: unit1 = 8

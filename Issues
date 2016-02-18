@@ -4,8 +4,10 @@ Improve convergence (Try different methods instead of limiiting possible values)
 Correct parsing error on common/init
 
 
-Feb 7, 2016 - Some change in variables caused values to stop converging to correct solution. Nothing should be affected because only unused variables were removed.
+Feb 7 - Some change in variables caused values to stop converging to correct solution. Nothing should be affected because only unused variables were removed.
 
-Feb 8 - Lambda needs to be a dp variable so that the results are decent.
+Feb 8 - Lambda needs to be a dp variable so that the results are decent. Solved Feb 7 problems.
 
 Feb 10 - Output has now simple information on results and separate flags for iteration complete information and plot toggle.
+
+Feb 11 - Need to have more constrain on the values of rescale. In the Cyg A example there is no correct convergence to correct result because another smaller value for tau_bcz results in lower chi_2.

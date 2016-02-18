@@ -166,11 +166,11 @@
 		real, dimension(:), intent(in)      :: array_in
 		real(dp), dimension(:), intent(out) :: array_out
 
-		array_out(1) = dble(array_in(1)) * (3500.*w0ref*fac - 1500.*w0ref*fac) + 1500.*w0ref*fac
+		array_out(1) = dble(array_in(1)) * (3000.*w0ref*fac - 1500.*w0ref*fac) + 1500.*w0ref*fac
 		array_out(2) = dble(array_in(2)) * pi
 		array_out(3) = dble(array_in(3))
 		
-		array_out(4) = dble(array_in(4)) * (1500.*w0ref*fac - 500.*w0ref*fac) + 500.*w0ref*fac
+		array_out(4) = dble(array_in(4)) * (1200.*w0ref*fac - 500.*w0ref*fac) + 500.*w0ref*fac
 		array_out(5) = dble(array_in(5)) * pi
 		array_out(6) = dble(array_in(6)) * 5.0_dp
 		array_out(7) = dble(array_in(7)) * (300.*w0ref*fac - 100.*w0ref*fac) + 100.*w0ref*fac
