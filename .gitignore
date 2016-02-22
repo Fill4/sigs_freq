@@ -1,0 +1,6 @@
+*.o
+*.mod
+*.freqs
+freqs
+*.dat
+sig_bcz_run
