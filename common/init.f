@@ -137,6 +137,8 @@
 		write (6,*) "Not enough points to run program. Stopping"
 		stop
 	endif
+	!Add final value to np to later iterate through all l's again
+	np(nnp+1) = n+1
 
 	write (6,1015) "Points read: ", n
  1015 format (7x, a, i3)
