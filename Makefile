@@ -14,7 +14,7 @@
 #FC	= g77 -Wall
 FC	= gfortran
 # for development
-FFLAGS = -ffree-form -Wall -Wextra -Wimplicit-interface -fPIC -fmax-errors=1 -g -fbounds-check -fcheck-array-temporaries -fbacktrace
+FFLAGS = -ffree-form -Wall -Wtabs -Wextra -Wimplicit-interface -fPIC -fmax-errors=1 -g -fbounds-check -fcheck-array-temporaries -fbacktrace
 # normal
 #FFLAGS = -O2 -ffree-form -Wall -Wconversion -fmax-errors=3
 
@@ -61,7 +61,8 @@ $(JF)/set_inputs.o \
 $(JF)/openfiles.o \
 $(JF)/output.o \
 $(JF)/fun.o \
-$(JF)/components.o
+$(JF)/components.o \
+$(JF)/rescale.o
 #$(JF)/writeout.o \
 
 

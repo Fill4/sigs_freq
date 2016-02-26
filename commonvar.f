@@ -10,25 +10,32 @@ module commonvar
 	
 	implicit none
 
-	logical, public		:: use_error_chi2
-	logical, public		:: show_plots 
+	logical, public		:: use_error_chi2		!Define use of frequency errors
+	logical, public		:: show_plots			!Define if plots are shown at the end of the execution
 
-	integer, public		:: nconst  ! number of parameters to fit
+	integer, public		:: nconst  				!Number of parameters to fit
 
-	integer, public		:: lmin, lmax, nlmin	! lmin - min degree l to consider
-												! lmax - max degree l to consider
-												! nlmin - min # of l points
-	integer, public		:: pikaia_pop, pikaia_gen, lambda_iter_max, smooth_iter_max
-	integer, public		:: isel
-	integer, public		:: nleft,nright
+	integer, public		:: lmin, lmax, nlmin	!Min degree l to consider
+												!Max degree l to consider
+												!Minimum number of l points
 
-	real(dp), public	:: fac,pi
+
+	integer, public		:: pikaia_pop			!Controls the initial population size of pikaia
+	integer, public		:: pikaia_gen			!Controls the number of generations for pikaia
+	integer, public		:: smooth_iter_max		!Number of times the minimization code tries to improve the smooth function
+	integer, public		:: isel					!Mostly unused, needs to be reviewed
+	integer, public		:: nleft,nright			! 
+
+	real(dp), public	:: fac,pi 				!Constants
 	
-	real(dp), public	:: lambda_init
-	real(dp), public	:: ftol
-	real(dp), public	:: vleft,vright
+	real(dp), public	:: ftol					!Stop value for paramter improvement
+	real(dp), public	:: vleft,vright			!
 	real(dp), public	:: ssmax                !Max error allowed in frequencies
 	real(dp), public	:: w0ref                !Reference values
-	
+
+	!Variables to use in rescale function
+	real(dp), public		:: upper_tau_bcz, lower_tau_bcz
+	real(dp), public		:: upper_tau_he2, lower_tau_he2
+	real(dp), public		:: upper_beta, lower_beta
 
 end module commonvar

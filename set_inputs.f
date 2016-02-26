@@ -12,8 +12,8 @@
 
 
 	!Defining namelist sig_bcz_controls for easy input of a list of variables
-	namelist / sig_bcz_controls / lambda_initd, ftold,&
-								lambda_iter_maxd, smooth_iter_maxd,&
+	namelist / sig_bcz_controls / ftold,&
+								smooth_iter_maxd,&
 								pikaia_popd, pikaia_gend,&
 								w0refd,&
 								vrightd,vleftd,&
@@ -24,11 +24,11 @@
 								lmind,lmaxd	
 
 	!Smoothing control parameter
-	real(dp)	:: lambda_initd
+	!real(dp)	:: lambda_initd
 	!Fitting control parameter
 	real		:: ftold
 	!Fitting procedure values
-	integer		:: lambda_iter_maxd,smooth_iter_maxd,pikaia_popd, pikaia_gend
+	integer		:: smooth_iter_maxd,pikaia_popd, pikaia_gend
 	!Reference values -
 	real		:: w0refd
 	!Borders to ignore in frequency (right and left)
@@ -70,12 +70,11 @@
 	fac = 2.0d-6*pi
 
 	!Attribute input values to all variables
-	lambda_init = lambda_initd
+	!lambda_init = lambda_initd
 	ftol = ftold
 
 	pikaia_gen = pikaia_gend 
 	pikaia_pop = pikaia_popd
-	lambda_iter_max = lambda_iter_maxd
 	smooth_iter_max = smooth_iter_maxd
 
 	w0ref = w0refd

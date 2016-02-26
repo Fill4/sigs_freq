@@ -1,8 +1,7 @@
-	lambda_initd = 1.00E-06		!Initial smoothing parameter value
+	!lambda_initd = 1.00E-06		!Initial smoothing parameter value
 
 	ftold = 0.10E-06			!Value for parameter change evaluation (stops cycle of smooth improvement)
 
-	lambda_iter_maxd = 5		!Max lambda iterations
 	smooth_iter_maxd = 5		!Max iterations in smooth function improvement
 
 	pikaia_popd = -1			!Initial population of pikaia (Number of initial guesses)

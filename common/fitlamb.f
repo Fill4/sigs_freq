@@ -1,7 +1,7 @@
 !*******************************************************************************
 ! Joao Faria: Jan 2013
 !*******************************************************************************
-  subroutine fitlamb (final_chi2)
+subroutine fitlamb (final_chi2)
 !    This subroutine iterates on various values of lambda to estimate the best
 !    guess for the parameters. For each value of lambda we run a cycle where we 
 !    remove a smooth function and then use a minimization algorithm to determine
@@ -28,7 +28,7 @@
 	integer*4 						:: datee(3), timee(3)
 
 	real    :: ctrl(12), x(nconst), f, rtol, c0(nconst)
-	integer :: seed, exit_status, new_unit, i, iter, j, ii, lambda_n, lambda_index
+	integer :: seed, exit_status, i, iter, j, ii, lambda_n, lambda_index, rescale_iter
 
 	lambda_list = (/ 1E-4, 5E-5, 1E-5, 5E-6, 1E-6, 5E-7, 1E-7/)
 
@@ -43,67 +43,81 @@
 	write(3,'(a9, i2.2, a1, i2.2, a1, i4.4, a11, i2.2, a1, i2.2, a1, i2.2)') &
 	'  Date:  ', datee(1), '-', datee(2), '-', datee(3), '  |  Time: ', timee(1), ':', timee(2), ':', timee(3)
 
-	lambda_n = 5
-	!Cycles through values of lambda from inital_lambda until lambda_max_iterations have been completed
-	do lambda_index = lambda_n, lambda_n+2
-		lambda = lambda_list(lambda_index)
+	!Select lambda_n according to number of available frequencies
+	select case (n)
+		case (60 :)
+			lambda_n = 5
+		case (30:59)
+			lambda_n = 3
+		case (: 29)
+			lambda_n = 1
+	end select
 
-		!Initialize c(:) and iter to 1
-		do i=1,nconst
-			c(i)=0
-			x(i)=0
-		end do
-		iter = 1
-		!Initial definition to enter cycle
-		rtol = 1d0
+	!Call set_rescale_values to define first interval
+	call set_rescale_values(0)
 
-		!Cycle updates the smooth function with last determined parameters c(:) until parameters
-		!converge or smooth_max_iter is reached
-		do while (rtol.gt.ftol .and. iter.le.smooth_iter_max)
-			!Update previous iteration parameters to calculate new ones
-			j = 0
-			do j=1,nconst
-				c0(j)=x(j)
+	do rescale_iter = 1,1
+		!Cycles through values of lambda. These are defined according to number of frequencies available
+		do lambda_index = lambda_n, lambda_n+2
+			lambda = lambda_list(lambda_index)
+
+			!Initialize c(:) and iter to 1
+			do i=1,nconst
+				c(i)=0
+				x(i)=0
 			end do
-			!Reset rtol
-			rtol=0.0d0
+			iter = 1
+			!Initial definition to enter cycle
+			rtol = 1d0
 
-			!Remove already determined function to initial frequencies to improve smooth fit.
-			!On first run it doesn't remove anything because parameters c(:) are unknown 
-			call subtract_and_smooth(lambda)
+			!Cycle updates the smooth function with last determined parameters c(:) until parameters
+			!converge or smooth_max_iter is reached
+			do while (rtol.gt.ftol .and. iter.le.smooth_iter_max)
+				!Update previous iteration parameters to calculate new ones
+				j = 0
+				do j=1,nconst
+					c0(j)=x(j)
+				end do
+				!Reset rtol
+				rtol=0.0d0
 
-			!Set control variables
-			ctrl(1:12) = -1
-			ctrl(1) = pikaia_pop
-			ctrl(2) = pikaia_gen
-			ctrl(5) = 5 ! one-point+creep, adjustable rate based on fitness
-			outfile = 'param_file'
+				!Remove already determined function to initial frequencies to improve smooth fit.
+				!On first run it doesn't remove anything because parameters c(:) are unknown 
+				call subtract_and_smooth(lambda)
 
-			! now call pikaia
-			CALL pikaia(objfun_ga, nconst, ctrl, x, f, exit_status)
+				!Set control variables
+				ctrl(1:12) = -1
+				ctrl(1) = pikaia_pop
+				ctrl(2) = pikaia_gen
+				ctrl(5) = 5 ! one-point+creep, adjustable rate based on fitness
+				outfile = 'param_file'
 
-			! rescaling parameters
-			call rescale(x, c)
+				! now call pikaia
+				CALL pikaia(objfun_ga, nconst, ctrl, x, f, exit_status)
 
-			!Check exit_status for errors during PIKAIA execution and stop if there were any
-			if (exit_status /= 0) then
-				write(6,*) "Error in PIKAIA"
-				stop
-			endif
+				! rescaling parameters
+				call rescale(x, c)
 
-			!Determine rtol to measure parameter change between iterations
-			do ii=1,nconst
-				rtol=rtol+abs((x(ii)-c0(ii)))/max(1.0d0,abs(x(ii)+c0(ii)))
+				!Check exit_status for errors during PIKAIA execution and stop if there were any
+				if (exit_status /= 0) then
+					write(6,*) "Error in PIKAIA"
+					stop
+				endif
+
+				!Determine rtol to measure parameter change between iterations
+				do ii=1,nconst
+					rtol=rtol+abs((x(ii)-c0(ii)))/max(1.0d0,abs(x(ii)+c0(ii)))
+				end do
+
+				!Write more complete iteration information to iter_info file
+				write(3, '(es10.2, i8, f10.2, f15.4, 6f10.4)') lambda, iter, 1.0/f, &
+													c(1)/(w0ref*fac), c(3), c(2), c(4)/(w0ref*fac), &
+													c(5), c(6) * (sin(c(7)))**2, c(7) / (w0ref*fac)
+				call flush(3)
+
+				!increase iteration number
+				iter = iter + 1
 			end do
-
-			!Write more complete iteration information to iter_info file
-			write(3, '(es10.2, i8, f10.2, f15.4, 6f10.4)') lambda, iter, 1.0/f, &
-												c(1)/(w0ref*fac), c(3), c(2), c(4)/(w0ref*fac), &
-												c(5), c(6) * (sin(c(7)))**2, c(7) / (w0ref*fac)
-			call flush(3)
-
-			!increase iteration number
-			iter = iter + 1
 		end do
 	end do
 
@@ -114,9 +128,9 @@
 	
 	return
 
-  end subroutine fitlamb
+end subroutine fitlamb
   
-  function objfun_ga(npar, p) result(fun_val)
+function objfun_ga(npar, p) result(fun_val)
 ! This function calculates the objective function value, i.e. the chi^2.
 ! The signal with the current parameters P is subtracted from the frequencies
 ! and the result is smoothed by a polynomial before calculating the chi^2
@@ -156,28 +170,4 @@
 
 	fun_val = sngl(1.0 / resid)
 
-  end function objfun_ga
-
-
-
-  subroutine rescale(array_in, array_out)
-		
-		use types_and_interfaces, only: dp
-		use commonvar, only: pi, w0ref, fac
-		
-		implicit none
-		
-		real, dimension(:), intent(in)      :: array_in
-		real(dp), dimension(:), intent(out) :: array_out
-
-		array_out(1) = dble(array_in(1)) * (3000.*w0ref*fac - 1500.*w0ref*fac) + 1500.*w0ref*fac
-		array_out(2) = dble(array_in(2)) * pi
-		array_out(3) = dble(array_in(3))
-		
-		array_out(4) = dble(array_in(4)) * (1200.*w0ref*fac - 500.*w0ref*fac) + 500.*w0ref*fac
-		array_out(5) = dble(array_in(5)) * pi
-		array_out(6) = dble(array_in(6)) * 5.0_dp
-		array_out(7) = dble(array_in(7)) * (200.*w0ref*fac - 100.*w0ref*fac) + 100.*w0ref*fac
-  
-  
-  end subroutine rescale
+end function objfun_ga
