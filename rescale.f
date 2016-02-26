@@ -31,6 +31,10 @@ subroutine set_rescale_values(iter)
 	implicit none
 
 	integer, intent(in)		:: iter
+	real(dp)				:: interval_size(3)
+	real(dp)				:: interval
+
+	interval_size = (/ 1000, 750, 500/)
 
 	!In the case of iter = 0 it's the first time the function is called.
 	!Values for the rescale variables are defined according to star data.
@@ -41,11 +45,16 @@ subroutine set_rescale_values(iter)
 		lower_tau_he2 = 500
 		upper_beta = 300
 		lower_beta = 100
-
 	!In the case of iter =! 0 we are calling a recalculation of the parameters.
 	!This recalculation is based on the results obtained from the previous attempt
 	else
-		print*, 'here'
+		interval = interval_size(iter)
+		upper_tau_bcz = (c(1)/(w0ref*fac))+(interval/2)
+		lower_tau_bcz = (c(1)/(w0ref*fac))-(interval/2)
+		upper_tau_he2 = (c(4)/(w0ref*fac))+(interval/2)
+		lower_tau_he2 = (c(4)/(w0ref*fac))-(interval/2)
+		upper_beta = c(7)/(w0ref*fac)+(interval/10)
+		lower_beta = c(7)/(w0ref*fac)-(interval/10)
 	endif
 
 end subroutine set_rescale_values

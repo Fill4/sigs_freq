@@ -56,11 +56,11 @@ subroutine fitlamb (final_chi2)
 	!Call set_rescale_values to define first interval
 	call set_rescale_values(0)
 
-	do rescale_iter = 1,1
-		!Cycles through values of lambda. These are defined according to number of frequencies available
-		do lambda_index = lambda_n, lambda_n+2
-			lambda = lambda_list(lambda_index)
+	!Cycles through values of lambda. These are defined according to number of frequencies available
+	do lambda_index = lambda_n, lambda_n+2
+		lambda = lambda_list(lambda_index)
 
+		do rescale_iter = 1,3
 			!Initialize c(:) and iter to 1
 			do i=1,nconst
 				c(i)=0
@@ -118,6 +118,10 @@ subroutine fitlamb (final_chi2)
 				!increase iteration number
 				iter = iter + 1
 			end do
+
+			!Change the parameters according to the results obtained in the minimization process
+			call set_rescale_values(rescale_iter)
+
 		end do
 	end do
 
