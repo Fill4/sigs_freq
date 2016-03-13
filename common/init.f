@@ -87,12 +87,12 @@
 	if (nn.lt.0) goto 11
 	if (isel.eq.0) then
 		if (ww.gt.wupper.or.ww.lt.wlower) goto 11
-	else if (isel.eq.1) then
-		if (nn.lt.nleft) goto 11
-		if (nn.gt.nright) goto 11
-	else
-		write (*,*) 'WARNING: Wrong option for ISEL!'
-	endif
+		else if (isel.eq.1) then
+			if (nn.lt.nleft) goto 11
+			if (nn.gt.nright) goto 11
+		else
+			write (*,*) 'WARNING: Wrong option for ISEL!'
+		endif
 
 	if (l(n+1).gt.lmax.or.l(n+1).lt.lmin) goto 11
 
