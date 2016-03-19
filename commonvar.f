@@ -14,11 +14,9 @@ module commonvar
 	logical, public		:: show_plots			!Define if plots are shown at the end of the execution
 
 	integer, public		:: nconst  				!Number of parameters to fit
-
 	integer, public		:: lmin, lmax, nlmin	!Min degree l to consider
 												!Max degree l to consider
 												!Minimum number of l points
-
 
 	integer, public		:: pikaia_pop			!Controls the initial population size of pikaia
 	integer, public		:: pikaia_gen			!Controls the number of generations for pikaia

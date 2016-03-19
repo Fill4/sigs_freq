@@ -58,7 +58,6 @@
 	close (3)
 	write (6,*)"---------------> PROGRAM SIG_BCZ_genetic <---------------"
 	call flush (6)
-
 	deallocate(c)
 
   end program sig_bcz_genetic

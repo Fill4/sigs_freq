@@ -5,7 +5,7 @@
 	smooth_iter_maxd = 5		!Max iterations in smooth function improvement
 
 	pikaia_popd = -1			!Initial population of pikaia (Number of initial guesses)
-	pikaia_gend = .1			!Number of generations evolved to determine the parameters
+	pikaia_gend = -1			!Number of generations evolved to determine the parameters
 
 	w0refd = 2000.0
 

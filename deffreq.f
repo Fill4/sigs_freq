@@ -1,7 +1,7 @@
 ! Joao Faria
 ! Last changed: 19/08/2012 
 !--------------------------------------------------------------------
-  subroutine deffreq (afile)
+subroutine deffreq (afile)
 !   Define the reference values of the parameters C(NCP)
 
     use commonvar
@@ -34,4 +34,4 @@
 
     return
   
-  end
+end

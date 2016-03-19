@@ -62,9 +62,6 @@
 	close (unit1)
 	if (ierr /= 0) write(*,*) " --> failed in ", trim(options_file), " with error code ", ierr
 
-!    write(6,'( a,/ )') "  Input parameters are:"
-!    write(6,nml=sig_bcz_controls)
-
 	!Constants
 	pi  = 4.0d0*atan(1.0d0)
 	fac = 2.0d-6*pi
