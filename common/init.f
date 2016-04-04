@@ -1,7 +1,7 @@
 !--------------------------------------------------------------------
-  subroutine init (afile)
-!   this subroutine reads frequency data from file AFILE,
-!   and divides it in groups of modes with same degree "l"
+subroutine init (afile)
+! This subroutine reads frequency data from file AFILE,
+! and divides it in groups of modes with same degree "l"
 
 	use types_and_interfaces, only: dp
 	use commonvar
@@ -145,4 +145,4 @@
 
 	return
 
-  end subroutine init
+end subroutine init

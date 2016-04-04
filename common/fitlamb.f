@@ -28,7 +28,7 @@ subroutine fitlamb (final_chi2)
 	integer*4 						:: datee(3), timee(3)
 
 	real    :: ctrl(12), x(nconst), f, rtol, c0(nconst)
-	integer :: seed, exit_status, i, iter, j, ii, lambda_n, lambda_index, rescale_iter
+	integer :: seed, exit_status, i, iter, j, ii, lambda_n, lambda_index
 
 	lambda_list = (/ 1E-4, 5E-5, 1E-5, 5E-6, 1E-6, 5E-7, 1E-7/)
 
@@ -44,84 +44,80 @@ subroutine fitlamb (final_chi2)
 	'  Date:  ', datee(1), '-', datee(2), '-', datee(3), '  |  Time: ', timee(1), ':', timee(2), ':', timee(3)
 
 	!Select lambda_n according to number of available frequencies
+	! TODO: Cycle for lambda not working! Change after testing rest of code.
 	select case (n)
 		case (60 :)
-			lambda_n = 5
+			lambda_n = 6
 		case (30:59)
-			lambda_n = 3
+			lambda_n = 4
 		case (: 29)
-			lambda_n = 1
+			lambda_n = 2
 	end select
 
 	!Call set_rescale_values to define first interval
-	call set_rescale_values(0)
+	call set_rescale_values()
 
 	!Cycles through values of lambda. These are defined according to number of frequencies available
-	do lambda_index = lambda_n, lambda_n+2
+	do lambda_index = lambda_n, lambda_n
 		lambda = lambda_list(lambda_index)
 
-		do rescale_iter = 1,3
-			!Initialize c(:) and iter to 1
-			do i=1,nconst
-				c(i)=0
-				x(i)=0
+		!Initialize c(:) and iter to 1
+		do i=1,nconst
+			c(i)=0
+			x(i)=0
+		end do
+		iter = 1
+		!Initial definition to enter cycle
+		rtol = 1d0
+
+		!Cycle updates the smooth function with last determined parameters c(:) until parameters
+		!converge or smooth_max_iter is reached
+		do while (rtol.gt.ftol .and. iter.le.smooth_iter_max)
+			!Update previous iteration parameters to calculate new ones
+			j = 0
+			do j=1,nconst
+				c0(j)=x(j)
 			end do
-			iter = 1
-			!Initial definition to enter cycle
-			rtol = 1d0
+			!Reset rtol
+			rtol=0.0d0
 
-			!Cycle updates the smooth function with last determined parameters c(:) until parameters
-			!converge or smooth_max_iter is reached
-			do while (rtol.gt.ftol .and. iter.le.smooth_iter_max)
-				!Update previous iteration parameters to calculate new ones
-				j = 0
-				do j=1,nconst
-					c0(j)=x(j)
-				end do
-				!Reset rtol
-				rtol=0.0d0
+			!Remove already determined function to initial frequencies to improve smooth fit.
+			!On first run it doesn't remove anything because parameters c(:) are unknown 
+			call subtract_and_smooth(lambda)
 
-				!Remove already determined function to initial frequencies to improve smooth fit.
-				!On first run it doesn't remove anything because parameters c(:) are unknown 
-				call subtract_and_smooth(lambda)
+			!Set control variables
+			ctrl(1:12) = -1
+			ctrl(1) = pikaia_pop
+			ctrl(2) = pikaia_gen
+			ctrl(5) = 5 ! one-point+creep, adjustable rate based on fitness
+			outfile = 'param_file'
 
-				!Set control variables
-				ctrl(1:12) = -1
-				ctrl(1) = pikaia_pop
-				ctrl(2) = pikaia_gen
-				ctrl(5) = 5 ! one-point+creep, adjustable rate based on fitness
-				outfile = 'param_file'
+			! now call pikaia
+			CALL pikaia(objfun_ga, nconst, ctrl, x, f, exit_status)
 
-				! now call pikaia
-				CALL pikaia(objfun_ga, nconst, ctrl, x, f, exit_status)
+			! rescaling parameters
+			call rescale(x, c)
 
-				! rescaling parameters
-				call rescale(x, c)
+			!Check exit_status for errors during PIKAIA execution and stop if there were any
+			if (exit_status /= 0) then
+				write(6,*) "Error in PIKAIA"
+				stop
+			endif
 
-				!Check exit_status for errors during PIKAIA execution and stop if there were any
-				if (exit_status /= 0) then
-					write(6,*) "Error in PIKAIA"
-					stop
-				endif
-
-				!Determine rtol to measure parameter change between iterations
-				do ii=1,nconst
-					rtol=rtol+abs((x(ii)-c0(ii)))/max(1.0d0,abs(x(ii)+c0(ii)))
-				end do
-
-				!Write more complete iteration information to iter_info file
-				write(3, '(es10.2, i8, f10.2, f15.4, 6f10.4)') lambda, iter, 1.0/f, &
-													c(1)/(w0ref*fac), c(3), c(2), c(4)/(w0ref*fac), &
-													c(5), c(6) * (sin(c(7)))**2, c(7) / (w0ref*fac)
-				call flush(3)
-
-				!increase iteration number
-				iter = iter + 1
+			!Determine rtol to measure parameter change between iterations
+			do ii=1,nconst
+				rtol=rtol+abs((x(ii)-c0(ii)))/max(1.0d0,abs(x(ii)+c0(ii)))
 			end do
+			print *,rtol
 
-			!Change the parameters according to the results obtained in the minimization process
-			call set_rescale_values(rescale_iter)
+			!Write more complete iteration information to iter_info file
+			write(3, '(es10.2, i8, f10.2, f15.4, 6f10.4)') lambda, iter, 1.0/f, &
+												c(1)/(w0ref*fac), c(3), c(2), c(4)/(w0ref*fac), &
+												c(5), c(6) * (sin(c(7)))**2, c(7) / (w0ref*fac)
+			call flush(3)
 
+			!increase iteration number
+			iter = iter + 1
 		end do
 	end do
 
@@ -156,6 +152,7 @@ function objfun_ga(npar, p) result(fun_val)
 	call rescale(p, c)
 
 	resid = 0.0d0
+	! Dividing by the error throws the chi2 too high and makes it difficult to evaluate result
 	! if using errors -
 	if (use_error_chi2) then
 		do i=1,n

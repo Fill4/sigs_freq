@@ -60,9 +60,8 @@ module types_and_interfaces
 
 	!Interface for subroutine used to define interval of values in rescale subroutine
 	interface set_rescale_values
-		subroutine set_rescale_values(iter)
+		subroutine set_rescale_values()
 			implicit none
-			integer, intent(in)    :: iter
 		end subroutine set_rescale_values
 	end interface set_rescale_values
 	
