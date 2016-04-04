@@ -1,3 +1,4 @@
+!Revised: Filipe Pereira, 2016
 !--------------------------------------------------------------------
 subroutine init (afile)
 ! This subroutine reads frequency data from file AFILE,

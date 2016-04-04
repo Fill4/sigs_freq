@@ -65,7 +65,6 @@
 		result_he(i) = he_comp(xx(i))
 	end do
 	
-	print *, show_plots
 	if (show_plots) then
 		call plot(xx*w0ref, result_bcz, &
 			xx*w0ref, result_he, &

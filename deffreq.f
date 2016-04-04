@@ -1,5 +1,4 @@
-! Joao Faria
-! Last changed: 19/08/2012 
+! Joao Faria  |  Revised: Filipe Pereira, 2016  
 !--------------------------------------------------------------------
 subroutine deffreq (afile)
 !   Define the reference values of the parameters C(NCP)
@@ -33,5 +32,4 @@ subroutine deffreq (afile)
     write (*,*) "  Reading frequencies from File: ", afile
 
     return
-  
 end

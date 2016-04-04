@@ -1,5 +1,5 @@
 !*******************************************************************************
-! Joao Faria: Jan 2013
+! Joao Faria: Jan 2013  |  Revised: Filipe Pereira, 2016
 !*******************************************************************************
 subroutine fitlamb (final_chi2)
 !    This subroutine iterates on various values of lambda to estimate the best
@@ -108,7 +108,6 @@ subroutine fitlamb (final_chi2)
 			do ii=1,nconst
 				rtol=rtol+abs((x(ii)-c0(ii)))/max(1.0d0,abs(x(ii)+c0(ii)))
 			end do
-			print *,rtol
 
 			!Write more complete iteration information to iter_info file
 			write(3, '(es10.2, i8, f10.2, f15.4, 6f10.4)') lambda, iter, 1.0/f, &
