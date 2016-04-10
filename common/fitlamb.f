@@ -47,7 +47,7 @@ subroutine fitlamb (final_chi2)
 	! TODO: Cycle for lambda not working! Change after testing rest of code.
 	select case (n)
 		case (60 :)
-			lambda_n = 6
+			lambda_n = 7
 		case (30:59)
 			lambda_n = 4
 		case (: 29)

@@ -11,7 +11,7 @@ subroutine rescale(array_in, array_out)
 	array_out(1) = dble(array_in(1)) * (upper_tau_bcz*w0ref*fac - lower_tau_bcz*w0ref*fac) &
 												+ lower_tau_bcz*w0ref*fac
 	array_out(2) = dble(array_in(2)) * pi
-	array_out(3) = dble(array_in(3)) * 3.0_dp
+	array_out(3) = dble(array_in(3)) * 5.0_dp
 	
 	array_out(4) = dble(array_in(4)) * (upper_tau_he2*w0ref*fac - lower_tau_he2*w0ref*fac) &
 												+ lower_tau_he2*w0ref*fac
@@ -30,13 +30,11 @@ subroutine set_rescale_values()
 
 	implicit none
 
-	real(dp)				:: interval
-
 	!Values for the rescale variables are defined according to star data.
-	upper_tau_bcz = 2500
-	lower_tau_bcz = 1800
-	upper_tau_he2 = 1000
-	lower_tau_he2 = 500
+	upper_tau_bcz = 3000
+	lower_tau_bcz = 2400
+	upper_tau_he2 = 1100
+	lower_tau_he2 = 700
 	upper_beta = 300
 	lower_beta = 100
 

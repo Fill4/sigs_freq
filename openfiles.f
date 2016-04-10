@@ -26,7 +26,7 @@
 
 		open (9,file='Results.dat',status='old')
 		! write to terminal that RES was created
-		write (6,*) "  In file Results   [filename,C1,C2,...] (all final values)"
+		!write (6,*) "  In file Results   [filename,C1,C2,...] (all final values)"
 
 		! header -
 		write (9,'(x, a, i1, x, a)') "# SIG_GENETIC results (", nconst, "parameters)"
@@ -51,7 +51,7 @@
 
 		open (3,file='IterInfo.dat',status='old')
 		! write to terminal that RES was created
-		write (6,*) "  In file IterInfo   [filename,C1,C2,...] (all final values)"
+		!write (6,*) "  In file IterInfo   [filename,C1,C2,...] (all final values)"
 
 		! header -
 		write (3,'(x, a, i1, x, a)') "# SIG_GENETIC results (", nconst, "parameters)"

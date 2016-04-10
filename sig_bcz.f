@@ -39,7 +39,7 @@ program sig_bcz_genetic
 	!nconst = 3  ! only bcz
  1	nconst = 7  ! bcz + heII
 	allocate(c(nconst))
-	options_file = 'options.dat'
+	options_file = 'options_file'
 !--- file with input options -
 	call set_inputs(options_file)
 

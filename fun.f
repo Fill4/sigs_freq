@@ -9,6 +9,7 @@
 
     use types_and_interfaces, only: dp
     use commonarray, only: c
+    use commonvar, only: w0ref
         
     implicit none
 

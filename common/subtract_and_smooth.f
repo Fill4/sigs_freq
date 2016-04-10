@@ -41,9 +41,7 @@ subroutine subtract_and_smooth (xlamb)
 		do i=ni,nf
 			sd(i) = w0ref*w(i) - y(i+1-ni)
 		end do
-
 	end do
-
 	return
 
 end subroutine subtract_and_smooth

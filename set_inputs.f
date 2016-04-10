@@ -49,7 +49,7 @@
 	integer :: unit1 = 8
 
 	!Initialize controls to default values
-	include "options_default.dat"
+	include "options_default"
 
 	write (6,*) " Reading the parameters from file: ", options_file
 	!Open Options File
