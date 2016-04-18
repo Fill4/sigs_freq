@@ -14,15 +14,14 @@
 
 	implicit none
 
-	character(len=80) :: afile, filename
+	character(len=80) :: afile
 
-	real(dp), intent(in)  :: chi2
-	real(dp)              :: chi2norm
-	real(dp)              :: tau_bcz, tau_he, beta
-	real(dp)              :: a_bcz, a_he
+	real(dp), intent(in)	:: chi2
+	real(dp)				:: tau_bcz, tau_he, beta
+	real(dp)				:: a_bcz, a_he
 	
-	real(dp), dimension(150)  :: xx, resultfun, result_he, result_bcz
-	real(dp)                  :: min_xx, max_xx
+	real(dp), dimension(150)	:: xx, resultfun, result_he, result_bcz
+	real(dp)					:: min_xx, max_xx
 
 	integer :: nfile, length, new_unit, i
 
@@ -33,17 +32,15 @@
 	
 	a_bcz = c(3)
 	a_he = c(6) * (sin(c(7)))**2
-	
-	chi2norm = chi2 / (n-nconst)
 
 	write (6,*) "  Frequencies from file: ", afile
 	
-	write (6,1010) 'Results:', &
-						'tau_BCZ = ', tau_bcz, 'Phi = ', c(2), &
-						'A_BCZ = ', a_bcz, &
-						'tau_HeII = ', tau_he, 'Phi = ', c(5), &
-						'A_HeII = ', a_he, 'beta_HeII = ', beta, &
-						'chi2 = ', chi2, 'chi2norm = ', chi2norm
+	write (6,1010)	'Results:', &
+					'tau_BCZ = ', tau_bcz, 'Phi = ', c(2), &
+					'A_BCZ = ', a_bcz, &
+					'tau_HeII = ', tau_he, 'Phi = ', c(5), &
+					'A_HeII = ', a_he, 'beta_HeII = ', beta, &
+					'chi2 = ', chi2, 'chi2norm = ', chi2/(n-nconst)
 
  1010   format (3x, a, //, &
 				6x, a11, f10.2, 6x, a, f8.5, //, &
@@ -77,34 +74,14 @@
 			errors=dble(sig(1:n)) )!, &
 			!terminal='png')
 			!yrange=(/-3.0d0,3.0d0/) )                  
-	endif              
+	endif
 	
 
 	! output parameters to "res" file -
-	write (9,9003) &
-		   afile, tau_bcz, c(2), a_bcz, tau_he, c(5), a_he, beta
- 9003   format (x, a24, 7f10.4)
+	write (9,9003) afile, tau_bcz, c(2), a_bcz, tau_he, c(5), a_he, beta
+9003	format (x, a24, 7f10.4)
 	close(9)
 	
-	
-	! output signal to file -
-	!if (write_final) then
-	!    write(filename, '("signal_",i4,"-",i0.4,".dat")') int(tau_bcz), int(tau_he)
-	!    write(*,*) filename
-	!    new_unit = next_unit()
-	!    open (new_unit, file=filename, status='unknown')
-	!    write(new_unit,'(a)') '# observed frequencies after smoothing'
-	!    write(new_unit,'(a)') '# N'
-	!    write(new_unit,'(a, x, a, 3a12)') '#', 'l', 'nu(muHz)', 'sd(muHz)', 'err(muHz)'
-	!    write(new_unit,'(i3)') n
-	!    write(new_unit,'(i3, 3f12.4)') (l(i), w(i)*w0ref, sd(i), sig(i), i=1,n)
-	!    write(new_unit,'(a)') '# fitted signals'
-	!    write(new_unit,'(a, x, 4a12)') '#', 'nu(muHz)', 'bcz', 'he', 'sum'
-	!    write(new_unit,'(2x, 4f12.5)') (xx(i)*w0ref, result_bcz(i), result_he(i), resultfun(i), i=1,150)
-	!    close(new_unit)
-	!endif
-	
-
 	return
   
-  end subroutine output
+end subroutine output

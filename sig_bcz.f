@@ -20,7 +20,7 @@ program sig_bcz_genetic
 	character (len=80)   :: afile
 	character (len=80)   :: options_file
 
-	real(dp)    :: final_chi2
+	real(dp)    :: chi2
 
 
 	afile='00000'
@@ -50,10 +50,10 @@ program sig_bcz_genetic
 	call flush (6)
 
 !--- Finding the best parameters -
-	call fitlamb (final_chi2)
+	call fitlamb (chi2)
 
 !--- Writing the results -
-	call output (afile, final_chi2)
+	call output (afile, chi2)
 
 	call flush (9)
 	call flush (3)

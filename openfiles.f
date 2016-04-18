@@ -1,7 +1,7 @@
 !*******************************************************************************
-! Joao Faria: Jan 2013
+! Joao Faria: Jan 2013 | 
 !*******************************************************************************
-  subroutine openfiles(afile)
+subroutine openfiles(afile)
 !   open the files necessary for the OUTPUT
 
 	use commonvar
@@ -10,23 +10,18 @@
 	
 	character(len=80), intent(in)   :: afile
 	logical :: bool_Results, bool_IterInfo
-	integer :: iwrite
-
-	iwrite = 0
 
 
 	! Results file (unit = 9) -
-	inquire( file="Results.dat", exist=bool_Results)
+	inquire( file="Results", exist=bool_Results)
 	if (bool_Results) then
-		open (9, file='Results.dat', status='old', position='append')
+		open (9, file='Results', status='old', position='append')
 	else 
-		open (9, file='Results.dat', status='unknown')
+		open (9, file='Results', status='unknown')
 		write (9,*) ' '
 		close (9)
 
-		open (9,file='Results.dat',status='old')
-		! write to terminal that RES was created
-		!write (6,*) "  In file Results   [filename,C1,C2,...] (all final values)"
+		open (9,file='Results',status='old')
 
 		! header -
 		write (9,'(x, a, i1, x, a)') "# SIG_GENETIC results (", nconst, "parameters)"
@@ -68,4 +63,4 @@
 
 	return
 
-  end subroutine openfiles
+end subroutine openfiles
