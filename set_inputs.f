@@ -1,5 +1,5 @@
 !*******************************************************************************
-! João Faria: Feb 2013     |     Revised: Filipe Pereira - Jan 2016
+! João Faria: Feb 2013     |     Revised: Filipe Pereira - Abr 2016
 !*******************************************************************************
   subroutine set_inputs(options_file)
 !   The input options to fit the signal are read here (from a namelist file)
@@ -23,34 +23,36 @@
 								ssmaxd,&
 								lmind,lmaxd	
 
+	! Declaration adn default initialization of all user defined variables
 	!Smoothing control parameter
 	!real(dp)	:: lambda_initd
 	!Fitting control parameter
-	real		:: ftold
+	real		:: ftold = 0.10E-06
 	!Fitting procedure values
-	integer		:: smooth_iter_maxd,pikaia_popd, pikaia_gend
+	integer		:: smooth_iter_maxd = 5
+	!Fitting procedure values
+	integer		:: pikaia_popd = -1
+	!Fitting procedure values
+	integer		:: pikaia_gend = -1
 	!Reference values -
-	real		:: w0refd
+	real		:: w0refd = 2000.0
 	!Borders to ignore in frequency (right and left)
-	real		:: vrightd,vleftd
+	real		:: vrightd = 0.0, vleftd = 0.0
 	!Minimum number of modes with same degree
-	integer		:: nlmind
+	integer		:: nlmind = 5
 	!Whether it should use the errors or not
-	logical		:: use_error_chi2d
+	logical		:: use_error_chi2d = .FALSE.
 	!Display plots or not
-	logical		:: show_plotsd
+	logical		:: show_plotsd = .FALSE.
 	!Upper limit for error
-	real		:: ssmaxd
+	real		:: ssmaxd = 0.500
 	!Range in degree
-	integer		:: lmind,lmaxd
+	integer		:: lmind = 0,lmaxd = 2
 
-	 
 	integer :: ierr = 1
 	integer :: unit1 = 8
 
-	!Initialize controls to default values
-	include "options_default"
-
+	! Read user defined options file (overwrites default values)
 	write (6,*) " Reading the parameters from file: ", options_file
 	!Open Options File
 	open(unit=unit1, file=options_file, &

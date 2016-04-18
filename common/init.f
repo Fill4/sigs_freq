@@ -1,5 +1,6 @@
-!Revised: Filipe Pereira, 2016
-!--------------------------------------------------------------------
+!****************************************************************************
+! Joao Faria: Feb 2013	|	Revised: Filipe Pereira - Abr 2016
+!****************************************************************************
 subroutine init (afile)
 ! This subroutine reads frequency data from file AFILE,
 ! and divides it in groups of modes with same degree "l"

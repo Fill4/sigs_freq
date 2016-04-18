@@ -1,5 +1,5 @@
 !*******************************************************************************
-! Joao Faria: Jan 2013  |  Revised: Filipe Pereira, 2016
+! Joao Faria: Jan 2013  |  Revised: Filipe Pereira - Abr 2016
 !*******************************************************************************
 subroutine fitlamb (final_chi2)
 !    This subroutine iterates on various values of lambda to estimate the best

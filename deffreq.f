@@ -1,4 +1,5 @@
-! Joao Faria  |  Revised: Filipe Pereira, 2016  
+!--------------------------------------------------------------------
+! Joao Faria  |  Revised: Filipe Pereira - Abr 2016  
 !--------------------------------------------------------------------
 subroutine deffreq (afile)
 !   Define the reference values of the parameters C(NCP)
