@@ -34,8 +34,8 @@ subroutine set_rescale_values()
 	implicit none
 
 	!Values for the rescale variables are defined according to star data.
-	upper_tau_bcz = 3000
-	lower_tau_bcz = 2400
+	upper_tau_bcz = 3200
+	lower_tau_bcz = 2300
 	upper_tau_he2 = 1100
 	lower_tau_he2 = 700
 	upper_beta = 300

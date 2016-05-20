@@ -7,48 +7,42 @@
 	use types_and_interfaces, only: dp, fun, he_comp, bcz_comp
 	use commonvar
 	use commonarray, only: c, w, sd, sig, n, l
-
 	use lib_io
 	use lib_array
 	use lib_plot
-
 	implicit none
 
-	character(len=80) :: afile
-
-	real(dp), intent(in)	:: chi2
+	character(len=80), intent(in) :: afile
+	real(dp), intent(inout)	:: chi2
 	real(dp)				:: tau_bcz, tau_he, beta
 	real(dp)				:: a_bcz, a_he
-	
 	real(dp), dimension(150)	:: xx, resultfun, result_he, result_bcz
 	real(dp)					:: min_xx, max_xx
-
 	integer :: nfile, length, new_unit, i
 
 	! parameters that are in seconds need to be converted
 	tau_bcz = c(1) / (w0ref*fac)
 	tau_he = c(4) / (w0ref*fac)
 	beta = c(7) / (w0ref*fac)
-	
 	a_bcz = c(3)
 	a_he = c(6) * (sin(c(7)))**2
 
-	write (6,*) "  Frequencies from file: ", afile
-	
-	write (6,1010)	'Results:', &
-					'tau_BCZ = ', tau_bcz, 'Phi = ', c(2), &
-					'A_BCZ = ', a_bcz, &
-					'tau_HeII = ', tau_he, 'Phi = ', c(5), &
-					'A_HeII = ', a_he, 'beta_HeII = ', beta, &
-					'chi2 = ', chi2, 'chi2norm = ', chi2/(n-nconst)
+	if (verbose) then
+		write (6,*) "  Frequencies from file: ", afile
+		write (6,1010)	'Results:', &
+						'tau_BCZ = ', tau_bcz, 'Phi = ', c(2), &
+						'A_BCZ = ', a_bcz, &
+						'tau_HeII = ', tau_he, 'Phi = ', c(5), &
+						'A_HeII = ', a_he, 'beta_HeII = ', beta, &
+						'chi2 = ', chi2, 'chi2norm = ', chi2/(n-nconst)
+	end if
 
- 1010   format (3x, a, //, &
-				6x, a11, f10.2, 6x, a, f8.5, //, &
-				6x, a11, f10.4, //, &
-				6x, a11, f10.2, 6x, a, f8.5, //, &
-				6x, a11, f10.4, 6x, a, f8.2, //, &
-				//, &
-				6x, a, f15.3, 5x, a, f15.3, /)
+1010 format (3x, a, //, &
+			&3x, a, f9.4, 6x, a, f10.6, //,&
+			&3x, a, f9.2, //,&
+			&3x, a, f9.4, 6x, a, f10.6, //,&
+			&3x, a, f9.2, 6x, a, f10.4, //,&
+			&3x, a, f12.5, 3x, a, f10	.5 //)
 
 
 	! ploting the results

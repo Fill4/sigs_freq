@@ -1,15 +1,14 @@
-!*******************************************************************************
+!----------------------------------------------------------------------------
 ! João Faria: Feb 2013     |     Revised: Filipe Pereira - Abr 2016
-!*******************************************************************************
+!----------------------------------------------------------------------------
   subroutine set_inputs(options_file)
-!   The input options to fit the signal are read here (from a namelist file)
+! This subroutine parses through the options_file assigning the input values to 
+! all variables.
 
 	use commonvar
-
 	implicit none
 
 	character (len=80), intent(in)  :: options_file
-
 
 	!Defining namelist sig_bcz_controls for easy input of a list of variables
 	namelist / sig_bcz_controls / ftold,&
@@ -19,7 +18,6 @@
 								vrightd,vleftd,&
 								nlmind,&
 								use_error_chi2d,&
-								show_plotsd,&
 								ssmaxd,&
 								lmind,lmaxd	
 
@@ -42,8 +40,6 @@
 	integer		:: nlmind = 5
 	!Whether it should use the errors or not
 	logical		:: use_error_chi2d = .FALSE.
-	!Display plots or not
-	logical		:: show_plotsd = .FALSE.
 	!Upper limit for error
 	real		:: ssmaxd = 0.500
 	!Range in degree
@@ -53,7 +49,7 @@
 	integer :: unit1 = 8
 
 	! Read user defined options file (overwrites default values)
-	write (6,*) " Reading the parameters from file: ", options_file
+	if (verbose) write (6,*) " Reading the parameters from file: ", options_file
 	!Open Options File
 	open(unit=unit1, file=options_file, &
 					  action='read', delim='quote', &
@@ -84,8 +80,6 @@
 	isel = 0
 
 	use_error_chi2 = use_error_chi2d
-	show_plots = show_plotsd
-
 	ssmax = ssmaxd
 
 	return

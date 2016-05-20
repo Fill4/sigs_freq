@@ -1,18 +1,18 @@
-!*******************************************************************************
+!----------------------------------------------------------------------------
 ! Joao Faria: Jan 2013  |  Revised: Filipe Pereira - Abr 2016
-!*******************************************************************************
+!----------------------------------------------------------------------------
 subroutine fitlamb (final_chi2)
-!    This subroutine iterates on various values of lambda to estimate the best
-!    guess for the parameters. For each value of lambda we run a cycle where we 
-!    remove a smooth function and then use a minimization algorithm to determine
-!    the best parameters that represent the residuals, and repeating the process
-!	 using the previously determined parameters to improve the smooth function 
-! 	 until convergence is achieved.
+! This subroutine iterates on various values of lambda to estimate the best
+! guess for the parameters. For each value of lambda we run a cycle where we 
+! remove a smooth function and then use a minimization algorithm to determine
+! the best parameters that represent the residuals, and repeating the process
+! using the previously determined parameters to improve the smooth function 
+! until convergence is achieved.
 
 	use types_and_interfaces
 	use commonvar
 	use commonarray
-	
+
 	use lib_io
 	use lib_pikaia12
 	use lib_array
@@ -47,7 +47,7 @@ subroutine fitlamb (final_chi2)
 	! TODO: Cycle for lambda not working! Change after testing rest of code.
 	select case (n)
 		case (60 :)
-			lambda_n = 7
+			lambda_n = 6
 		case (30:59)
 			lambda_n = 4
 		case (: 29)
@@ -110,7 +110,7 @@ subroutine fitlamb (final_chi2)
 			end do
 
 			!Write more complete iteration information to iter_info file
-			write(3, '(es10.2, i8, f10.2, f15.4, 6f10.4)') lambda, iter, 1.0/f, &
+			if (verbose) write(3, '(es10.2, i8, f10.2, f15.4, 6f10.4)') lambda, iter, 1.0/f, &
 												c(1)/(w0ref*fac), c(3), c(2), c(4)/(w0ref*fac), &
 												c(5), c(6) * (sin(c(7)))**2, c(7) / (w0ref*fac)
 			call flush(3)
@@ -120,7 +120,7 @@ subroutine fitlamb (final_chi2)
 		end do
 	end do
 
-	write(6,*) ' '
+	if (verbose) write(6,*) ' '
 	!Value for the chi squared obtained for the final parameters obtained
 	final_chi2 = 1.0_dp / f
 	close(3)

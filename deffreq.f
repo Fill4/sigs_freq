@@ -2,35 +2,37 @@
 ! Joao Faria  |  Revised: Filipe Pereira - Abr 2016  
 !--------------------------------------------------------------------
 subroutine deffreq (afile)
-!   Define the reference values of the parameters C(NCP)
+! This subroutine reads all the frequencies files on afile.
 
-    use commonvar
+	use commonvar
+	implicit none
+	
+	character(len=80), intent(inout)	:: afile
+	character(len=80)					:: afile0
 
-    character(len=80)    :: afile
-    character(len=80)    :: afile0
+	if (afile(1:5).eq.'00000') then
+		afile0='freqs'
+	else
+		afile0='stop'
+	endif
 
-    if (afile(1:5).eq.'00000') then
-        afile0='freqs'
-    else
-        afile0='stop'
-    endif
+	if (use_error_chi2) then
+		if (verbose) write (*,'(2x, a)', advance = "no") "name of input file (l,n,v,sigma) --> "
+	else if (.not. use_error_chi2) then
+		if (verbose) write (*,'(2x, a)', advance = "no") "name of input file (l,n,v) --> "
+	endif
 
-    write(*,*) ' '
+	read (*,'(a80)') afile
 
-    if (use_error_chi2) then
-        write (*,'(2x, a)', advance = "no") "name of input file (l,n,v,sigma) --> "
-    else if (.not. use_error_chi2) then
-        write (*,'(2x, a)', advance = "no") "name of input file (l,n,v) --> "
-    endif
+	if (verbose) write (*,*) ' '
 
-    read (*,'(a80)') afile
+	if (afile(1:1).eq.' ') afile = afile0
+	if (afile(1:4).eq.'stop') stop
 
-    write (*,*) ' '
+	if (verbose) then
+		write (*,*) " Reading frequencies from File: ", afile
+		write (*,*) ' '
+	end if
 
-    if (afile(1:1).eq.' ') afile = afile0
-    if (afile(1:4).eq.'stop') stop
-
-    write (*,*) "  Reading frequencies from File: ", afile
-
-    return
+	return
 end

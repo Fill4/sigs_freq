@@ -1,38 +1,43 @@
-!****************************************************************************
+!----------------------------------------------------------------------------
 ! Joao Faria: Feb 2013	|	Revised: Filipe Pereira - Abr 2016
-!****************************************************************************
+!----------------------------------------------------------------------------
 subroutine init (afile)
 ! This subroutine reads frequency data from file AFILE,
 ! and divides it in groups of modes with same degree "l"
 
 	use types_and_interfaces, only: dp
 	use commonvar
-	! contains npt, n, l, sd, sig, xn, w -
 	use commonarray
-
 	implicit none
 	
 	character(len=80), intent(inout) :: afile
-
 	real(dp) :: dw, fw, ww, ss, wlower, wupper, wmax, wmin
 	integer  :: ll, nd, nn
-	integer  :: i, j
+	integer  :: i, j, k
 
 	close (1)
 	open (1,file=afile,status='old')
 	call skpcom (1)
 
+	! Necessary change for fgong freq files
+	if (is_model) then
+		do k=1,6
+			read(1,*)
+		end do
+	end if
+
 	wmin = 1.0d6
 	wmax = 0.0d0
+	n=0
 
-	! if not using errors -
+	! A first loop over the frequencies is performed to define the maximum
+	! and minimum frequencies accepted from the data.
 10  if (.NOT. use_error_chi2) then
 		read (1,*,end=20) ll,nn,ww
-		print *, ll, nn, ww
-	! if using errors - 
+		if (verbose) print *, ll, nn, ww
 	else if (use_error_chi2) then
 		read (1,*,end=20) ll,nn,ww,ss
-		print *, ll, nn, ww, ss
+		if (verbose) print *, ll, nn, ww, ss
 		if (ss.gt.ssmax) goto 10
 	endif
 
@@ -49,10 +54,15 @@ subroutine init (afile)
 
  20 rewind (1)
 
-
 	call skpcom (1)
 
-	n=0
+	! Necessary change for fgong freq files
+	if (is_model) then
+		do k=1,6
+			read(1,*)
+		end do
+	end if
+
 	if (isel.eq.1) then
 		vleft = 0.0d0
 		vright = 0.0d0
@@ -62,25 +72,23 @@ subroutine init (afile)
 	wlower = wmin + dw*vleft
 	wupper = wmax - dw*vright
 
-	write (*,1013) 'Range in frequencies:', wlower, wupper
+	if (verbose) write (*,1013) 'Range in frequencies:', wlower, wupper
  1013 format (7x, a, f10.4, x, '-', x, f9.4)
  
-	write (*,1014) 'Reference frequency :', w0ref
+	if (verbose) write (*,1014) 'Reference frequency :', w0ref
  1014 format (7x, a, f10.4)
 
-
+	! Check if reference frequency is adequate
 	fw = (w0ref-wlower)/(wupper-wlower)
 	if (fw.lt.0.1d0.or.fw.gt.0.9d0) then
 		write (*,*) 'WARNING: Reference w is inadequate for data!'
 	endif
 
+	! Redo cycle to read the frequencies and its data to the arrays
  11 continue
 
-
-	! if not using errors -
 	if (.NOT. use_error_chi2) then
 		read (1,*,end=21) l(n+1),nn,ww
-	! if using errors -
 	else if (use_error_chi2) then
 		read (1,*,end=21) l(n+1),nn,ww,sig(n+1)
 		if (sig(n+1).gt.ssmax) goto 11
@@ -142,7 +150,7 @@ subroutine init (afile)
 	!Add final value to np to later iterate through all l's again
 	np(nnp+1) = n+1
 
-	write (6,1015) "Points read: ", n
+	if (verbose) write (6,1015) "Points read: ", n
  1015 format (7x, a, i3)
 
 	return
