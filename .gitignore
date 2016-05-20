@@ -2,5 +2,6 @@
 *.mod
 *.freqs
 freqs
-*.dat
+Iterinfo
+Results
 sig_bcz_run
