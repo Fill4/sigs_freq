@@ -19,7 +19,10 @@
 								nlmind,&
 								use_error_chi2d,&
 								ssmaxd,&
-								lmind,lmaxd	
+								lmind,lmaxd,&
+								upper_tau_bczd, lower_tau_bczd,&
+								upper_tau_he2d,lower_tau_he2d
+
 
 	! Declaration adn default initialization of all user defined variables
 	!Smoothing control parameter
@@ -27,7 +30,7 @@
 	!Fitting control parameter
 	real		:: ftold = 0.10E-06
 	!Fitting procedure values
-	integer		:: smooth_iter_maxd = 5
+	integer		:: smooth_iter_maxd = 4
 	!Fitting procedure values
 	integer		:: pikaia_popd = -1
 	!Fitting procedure values
@@ -44,9 +47,13 @@
 	real		:: ssmaxd = 0.500
 	!Range in degree
 	integer		:: lmind = 0,lmaxd = 2
+	!Initial values for parameters
+	integer		:: upper_tau_bczd, lower_tau_bczd
+	integer		:: upper_tau_he2d, lower_tau_he2d 
 
 	integer :: ierr = 1
 	integer :: unit1 = 8
+	character (len=256)            :: message
 
 	! Read user defined options file (overwrites default values)
 	if (verbose) write (6,*) " Reading the parameters from file: ", options_file
@@ -56,9 +63,10 @@
 					  iostat=ierr)
 
 	!Read Options File
-	read(unit1, nml=sig_bcz_controls, iostat=ierr)  
+	read(unit1, nml=sig_bcz_controls, iostat=ierr, iomsg=message)  
 	close (unit1)
-	if (ierr /= 0) write(*,*) " --> failed in ", trim(options_file), " with error code ", ierr
+	if (ierr /= 0) write(*,*) " Failed reading ", trim(options_file), &
+				  " with error code ", ierr, '/', message
 
 	!Constants
 	pi  = 4.0d0*atan(1.0d0)
@@ -81,6 +89,11 @@
 
 	use_error_chi2 = use_error_chi2d
 	ssmax = ssmaxd
+
+	upper_tau_bcz = upper_tau_bczd
+	lower_tau_bcz = lower_tau_bczd
+	upper_tau_he2 = upper_tau_he2d
+	lower_tau_he2 = lower_tau_he2d
 
 	return
 
