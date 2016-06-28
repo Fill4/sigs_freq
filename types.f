@@ -57,13 +57,5 @@ module types_and_interfaces
 		real(kind=8), dimension(:), intent(out) :: array_out
 	  end subroutine rescale
 	end interface rescale
-
-	!Interface for subroutine used to define interval of values in rescale subroutine
-	interface set_rescale_values
-		subroutine set_rescale_values()
-			implicit none
-		end subroutine set_rescale_values
-	end interface set_rescale_values
-	
 	
 end module types_and_interfaces

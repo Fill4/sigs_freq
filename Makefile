@@ -64,7 +64,6 @@ $(BASE)/skpcom.o \
 $(BASE)/poly_smooth.o \
 $(BASE)/rescale.o \
 $(BASE)/help.o \
-$(BASE)/star_par.o \
 $(BASE)/sig_bcz.o
 
 # **********************************************************

@@ -20,6 +20,7 @@
 								use_error_chi2d,&
 								ssmaxd,&
 								lmind,lmaxd,&
+								large_sepd, teffd, lumd,&
 								upper_tau_bczd, lower_tau_bczd,&
 								upper_tau_he2d,lower_tau_he2d
 
@@ -47,9 +48,11 @@
 	real		:: ssmaxd = 0.500
 	!Range in degree
 	integer		:: lmind = 0,lmaxd = 2
+	!Star parameters
+	real		:: large_sepd, teffd, lumd
 	!Initial values for parameters
-	integer		:: upper_tau_bczd, lower_tau_bczd
-	integer		:: upper_tau_he2d, lower_tau_he2d 
+	integer		:: upper_tau_bczd = 2500, lower_tau_bczd = 1500
+	integer		:: upper_tau_he2d = 1400, lower_tau_he2d = 500
 
 	integer :: ierr = 1
 	integer :: unit1 = 8
@@ -94,6 +97,10 @@
 	lower_tau_bcz = lower_tau_bczd
 	upper_tau_he2 = upper_tau_he2d
 	lower_tau_he2 = lower_tau_he2d
+
+	teff = teffd
+	lum = lumd
+	large_sep = large_sepd
 
 	return
 

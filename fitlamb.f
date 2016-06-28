@@ -53,10 +53,7 @@ subroutine fitlamb (final_chi2)
 		case (: 29)
 			lambda_n = 2
 	end select
-
-	!Call set_rescale_values to define first interval
-	call set_rescale_values()
-
+	
 	!Cycles through values of lambda. These are defined according to number of frequencies available
 	do lambda_index = lambda_n, lambda_n
 		lambda = lambda_list(lambda_index)

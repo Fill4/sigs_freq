@@ -35,8 +35,6 @@ program sig_bcz_genetic
 				verbose = .TRUE.
 			case('-p','--plots')
 				show_plots = .TRUE.
-			case('-f','-fgong')
-				is_model = .TRUE.
 			case default
 				write(6,*)"Option ",adjustl(name),"unknown"
 			end select
@@ -56,12 +54,6 @@ program sig_bcz_genetic
 
 	! Initializing all quantities, read in frequencies and create output files
 	call deffreq (afile) 	! Reads freqs_list file
-	! Necessary change for fgong freq files
-	if (is_model) then
-		star_file = afile
-		afile = trim(afile) // '.freq'
-		call star_par (star_file)
-	end if
 	call init (afile) 		! Reads frequencias and calculates 2nd differences
 	call openfiles			! Prepare output files
 

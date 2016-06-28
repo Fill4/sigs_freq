@@ -20,21 +20,7 @@ subroutine rescale(array_in, array_out)
 												+ lower_tau_he2*w0ref*fac
 	array_out(5) = dble(array_in(5)) * pi
 	array_out(6) = dble(array_in(6)) * 5.0_dp
-	array_out(7) = dble(array_in(7)) * (upper_beta*w0ref*fac - lower_beta*w0ref*fac) &
-												+ lower_beta*w0ref*fac
+	array_out(7) = dble(array_in(7)) * (500*w0ref*fac - 0*w0ref*fac) &
+												+ 0*w0ref*fac
 
 end subroutine rescale
-
-subroutine set_rescale_values()
-
-	use types_and_interfaces, only: dp
-	use commonvar
-	use commonarray
-
-	implicit none
-
-	!Values for the rescale variables are defined according to star data
-	upper_beta = 300
-	lower_beta = 0
-
-end subroutine set_rescale_values

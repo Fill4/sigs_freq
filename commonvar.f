@@ -13,7 +13,6 @@ module commonvar
 	logical, public		:: use_error_chi2		! Define use of frequency errors
 	logical, public		:: show_plots = .FALSE.
 	logical, public		:: verbose = .FALSE.	! Toggle print information during execution
-	logical, public		:: is_model = .FALSE.
 
 	integer, public		:: nconst  				! Number of parameters to fit
 	integer, public		:: lmin, lmax, nlmin	! Min degree l to consider
@@ -38,11 +37,6 @@ module commonvar
 	real(dp), public		:: upper_tau_he2, lower_tau_he2
 	real(dp), public		:: upper_beta, lower_beta
 
-	real, public		:: star_mass			
-	real, public		:: star_rad
-	real, public		:: star_lum				!Various star parameters
-	real, public		:: star_teff
-	real, public		:: star_age
-
+	reaL, public		:: large_sep, teff, lum
 
 end module commonvar

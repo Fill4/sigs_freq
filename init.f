@@ -19,13 +19,6 @@ subroutine init (afile)
 	open (1,file=afile,status='old')
 	call skpcom (1)
 
-	! Necessary change for fgong freq files
-	if (is_model) then
-		do k=1,6
-			read(1,*)
-		end do
-	end if
-
 	wmin = 1.0d6
 	wmax = 0.0d0
 	n=0
@@ -55,14 +48,7 @@ subroutine init (afile)
  20 rewind (1)
 
 	call skpcom (1)
-
-	! Necessary change for fgong freq files
-	if (is_model) then
-		do k=1,6
-			read(1,*)
-		end do
-	end if
-
+	
 	if (isel.eq.1) then
 		vleft = 0.0d0
 		vright = 0.0d0
