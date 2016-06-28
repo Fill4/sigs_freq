@@ -70,7 +70,7 @@
 			!yrange=(/-3.0d0,3.0d0/) )                  
 	endif
 
-	! output parameters to "res" file -
+	! output parameters to "Results" file -
 	write (9,9003) afile, tau_bcz, c(2), a_bcz, tau_he, c(5), a_he, beta
 9003	format (a24, 7f10.4)
 	close(9)
