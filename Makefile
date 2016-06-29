@@ -50,7 +50,6 @@ FILES = \
 $(BASE)/types.o \
 $(BASE)/commonvar.o \
 $(BASE)/commonarray.o \
-$(BASE)/get_chi_square.o \
 $(BASE)/deffreq.o \
 $(BASE)/set_inputs.o \
 $(BASE)/openfiles.o \
