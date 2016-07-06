@@ -18,7 +18,7 @@
 	real(dp)				:: a_bcz, a_he
 	real(dp), dimension(150)	:: xx, resultfun, result_he, result_bcz
 	real(dp)					:: min_xx, max_xx
-	integer :: nfile, length, new_unit, i
+	integer :: nfile, length, new_unit, i, j, k
 
 	! parameters that are in seconds need to be converted
 	tau_bcz = c(1) / (w0ref*fac)
@@ -74,7 +74,21 @@
 	write (9,9003) afile, tau_bcz, c(2), a_bcz, tau_he, c(5), a_he, beta
 9003	format (a24, 7f10.4)
 	close(9)
-	
+
+	if (show_plots) then
+		open (8, file='data_funcs', status='unknown')
+		do j = 1,150
+			write(8,9004) xx(j)*w0ref, resultfun(j), result_bcz(j), result_he(j)
+	9004	format (4f15.5)
+		end do
+
+		open (7, file='data', status='unknown')
+		do k = 1,n
+			write(7,9005) w(k)*w0ref, dble(sd(k)), sig(k)
+	9005	format (3f15.6)
+		end do
+	end if
+
 	return
   
 end subroutine output

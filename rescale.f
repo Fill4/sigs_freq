@@ -20,7 +20,7 @@ subroutine rescale(array_in, array_out)
 												+ lower_tau_he2*w0ref*fac
 	array_out(5) = dble(array_in(5)) * pi
 	array_out(6) = dble(array_in(6)) * 5.0_dp
-	array_out(7) = dble(array_in(7)) * (500*w0ref*fac - 0*w0ref*fac) &
+	array_out(7) = dble(array_in(7)) * (300*w0ref*fac - 0*w0ref*fac) &
 												+ 0*w0ref*fac
 
 end subroutine rescale

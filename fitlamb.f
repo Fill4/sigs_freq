@@ -40,7 +40,7 @@ subroutine fitlamb (final_chi2)
 	!Write date and time to IterInfo
 	call idate(datee)
 	call itime(timee)
-	write(3,'(a9, i2.2, a1, i2.2, a1, i4.4, a11, i2.2, a1, i2.2, a1, i2.2)') &
+	if (verbose) write(3,'(a9, i2.2, a1, i2.2, a1, i4.4, a11, i2.2, a1, i2.2, a1, i2.2)') &
 	'  Date:  ', datee(1), '-', datee(2), '-', datee(3), '  |  Time: ', timee(1), ':', timee(2), ':', timee(3)
 
 	!Select lambda_n according to number of available frequencies
