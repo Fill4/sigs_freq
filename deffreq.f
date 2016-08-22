@@ -17,9 +17,9 @@ subroutine deffreq (afile)
 	endif
 
 	if (use_error_chi2) then
-		if (verbose) write (*,'(2x, a)', advance = "no") "name of input file (l,n,v,sigma) --> "
+		if (verbose) write (*,'(x, a)', advance = "no") "name of input file (l,n,v,sigma) --> "
 	else if (.not. use_error_chi2) then
-		if (verbose) write (*,'(2x, a)', advance = "no") "name of input file (l,n,v) --> "
+		if (verbose) write (*,'(x, a)', advance = "no") "name of input file (l,n,v) --> "
 	endif
 
 	read (*,'(a80)') afile

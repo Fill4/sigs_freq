@@ -59,7 +59,7 @@
 	character (len=256)            :: message
 
 	! Read user defined options file (overwrites default values)
-	if (verbose) write (6,*) " Reading the parameters from file: ", options_file
+	if (verbose) write (6,*) "Reading the parameters from file: ", options_file
 	!Open Options File
 	open(unit=unit1, file=options_file, &
 					  action='read', delim='quote', &
@@ -68,7 +68,7 @@
 	!Read Options File
 	read(unit1, nml=sig_bcz_controls, iostat=ierr, iomsg=message)  
 	close (unit1)
-	if (ierr /= 0) write(*,*) " Failed reading ", trim(options_file), &
+	if (ierr /= 0) write(*,*) "Failed reading ", trim(options_file), &
 				  " with error code ", ierr, '/', message
 
 	!Constants
