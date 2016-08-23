@@ -59,7 +59,7 @@
 	character (len=256)            :: message
 
 	! Read user defined options file (overwrites default values)
-	if (verbose) write (6,*) "Reading the parameters from file: ", options_file
+	if (verbose) write (6,*) " Reading the parameters from file: ", options_file
 	!Open Options File
 	open(unit=unit1, file=options_file, &
 					  action='read', delim='quote', &
@@ -73,7 +73,6 @@
 
 	!Constants
 	pi  = 4.0d0*atan(1.0d0)
-	fac = 2.0d-6*pi
 
 	!Attribute input values to all variables
 	!lambda_init = lambda_initd

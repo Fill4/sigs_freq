@@ -21,12 +21,12 @@
 	integer :: nfile, length, new_unit, i, j, k
 
 	! parameters that are in seconds need to be converted
-	tau_bcz = c(1) / (w0ref*fac)
-	tau_he = c(4) / (w0ref*fac)
-	beta = c(7) / (w0ref*fac)
+	tau_bcz = c(1)
+	tau_he = c(4)
+	beta = c(7)
 	a_bcz = c(3)
-	a_he = c(6) * (sin(c(7)))**2
-
+	a_he = c(6)
+	
 	if (verbose) then
 		write (6,*) "  Frequencies from file: ", afile
 		write (6,1010)	'Results:', &

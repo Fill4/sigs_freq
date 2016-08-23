@@ -108,8 +108,8 @@ subroutine fitlamb (final_chi2)
 
 			!Write more complete iteration information to iter_info file
 			if (verbose) write(3, '(es10.2, i8, f10.2, f15.4, 6f10.4)') lambda, iter, 1.0/f, &
-												c(1)/(w0ref*fac), c(3), c(2), c(4)/(w0ref*fac), &
-												c(5), c(6) * (sin(c(7)))**2, c(7) / (w0ref*fac)
+												c(1), c(3), c(2), c(4), &
+												c(5), c(6) * (sin(c(7)))**2, c(7)
 			call flush(3)
 
 			!increase iteration number
@@ -137,9 +137,9 @@ function objfun_ga(npar, p) result(fun_val)
 	
 	implicit none
 	
-	integer, intent(in) :: npar ! size of parameter space
-	real, intent(in)    :: p(:)
-	real                :: fun_val
+	integer, intent(in) 	:: npar ! size of parameter space
+	real, intent(in)    	:: p(:)
+	real                	:: fun_val
 	
 	real(dp)    :: ww, sf, resid
 	integer     :: i

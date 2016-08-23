@@ -25,7 +25,7 @@ module commonvar
 	integer, public		:: isel					! Mostly unused, needs to be reviewed
 	integer, public		:: nleft,nright			! 
 
-	real(dp), public	:: fac,pi 				! Constants
+	real(dp), public	:: pi 				! Constants
 	
 	real(dp), public	:: ftol					! Stop value for paramter improvement
 	real(dp), public	:: vleft,vright			!

@@ -64,7 +64,7 @@ subroutine init (afile)
 	endif
 1013 format (2x, a, f10.4, x, '-', x, f9.4)
 1014 format (2x, a, f10.4)
-1015 format (a4, a5, a12, a9)
+1015 format (a3, a4, a12, a9)
 
 	! Check if reference frequency is adequate
 	fw = (w0ref-wlower)/(wupper-wlower)
@@ -98,7 +98,7 @@ subroutine init (afile)
 	w(n) = ww/w0ref
 	xn(n) = dble(nn)
 	if (verbose) write(*,1016) l(n), xn(n), w(n)*w0ref, sig(n)
- 1016 format (i4, i5, f12.4, f9.4)
+ 1016 format (i3, f4.0, f12.4, f9.4)
 	goto 11
 
  21 close (1)
@@ -140,8 +140,10 @@ subroutine init (afile)
 	!Add final value to np to later iterate through all l's again
 	np(nnp+1) = n+1
 
-	if (verbose) write (6,1015) "Points read: ", n
- 1015 format (7x, a, i3)
+	if (verbose) write(*,*) ' '
+	if (verbose) write (6,1017) "Frequencies read: ", n
+1017 format (2x, a, i3)
+	if (verbose) write(*,*) ' '
 
 	return
 
