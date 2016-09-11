@@ -1,15 +1,14 @@
 &sig_bcz_controls
+
 pikaia_popd = -1			!Initial population of pikaia (Number of initial guesses)
 pikaia_gend = -1			!Number of generations evolved to determine the parameters
 
-w0refd = 2000.0
+w0refd = 2500
 
-vrightd = 0.0
-vleftd = 0.0
-
-nlmind = 5
 lmind = 0
 lmaxd = 3
+nlmind = 5
+nmin = 8
 
 use_error_chi2d = .TRUE.
 ssmaxd = 0.300

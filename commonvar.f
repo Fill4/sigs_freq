@@ -15,28 +15,27 @@ module commonvar
 	logical, public		:: verbose = .FALSE.	! Toggle print information during execution
 
 	integer, public		:: nconst  				! Number of parameters to fit
-	integer, public		:: lmin, lmax, nlmin	! Min degree l to consider
-												! Max degree l to consider
-												! Minimum number of l points
+	real(dp), public	:: pi 					! Constants
+	real(dp), public	:: w0ref                ! Reference frequency
 
 	integer, public		:: pikaia_pop			! Controls the initial population size of pikaia
 	integer, public		:: pikaia_gen			! Controls the number of generations for pikaia
-	integer, public		:: smooth_iter_max		! Number of times the minimization code tries to improve the smooth function
-	integer, public		:: isel					! Mostly unused, needs to be reviewed
-	integer, public		:: nleft,nright			! 
-
-	real(dp), public	:: pi 				! Constants
 	
 	real(dp), public	:: ftol					! Stop value for paramter improvement
-	real(dp), public	:: vleft,vright			!
-	real(dp), public	:: ssmax                ! Max error allowed in frequencies
-	real(dp), public	:: w0ref                ! Reference values
-
+	real(dp), public	:: lambda				! Smooth parameter
+	integer, public		:: smooth_iter_max		! Number of times the minimization code tries to improve the smooth function
+	
+	integer, public		:: lmin, lmax			! Min and max degree l to consider
+	integer, public		:: nlmin				! Minimum number of l points
+	integer, public		:: nmin, nmax			! Min and max radial order n to consider
+	real(dp), public	:: vleft,vright			! Percentage of left and right bounds of frequencies to consider
+	real(dp), public	:: ssmax				! Max error allowed in frequencies
+	
 	!Variables to use in rescale function
-	real(dp), public		:: upper_tau_bcz, lower_tau_bcz
-	real(dp), public		:: upper_tau_he2, lower_tau_he2
-	real(dp), public		:: upper_beta, lower_beta
+	real(dp), public	:: upper_tau_bcz, lower_tau_bcz
+	real(dp), public	:: upper_tau_he2, lower_tau_he2
+	real(dp), public	:: upper_beta, lower_beta
 
-	reaL, public		:: large_sep, teff, lum
+	real, public		:: large_sep, teff, lum
 
 end module commonvar

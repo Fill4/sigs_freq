@@ -13,7 +13,7 @@ module commonarray
 	integer, parameter, public			:: npt = 2000
 	integer, public						:: n
 
-	integer, public, dimension(100)		:: np
+	integer, public, dimension(10)		:: np
 	integer, public						:: nnp
 
 	integer, dimension(npt), public		:: l
