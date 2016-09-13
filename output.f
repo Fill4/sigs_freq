@@ -61,13 +61,17 @@
 			xx*w0ref, result_he, &
 			' 5.00-',color2='black',color1='green')!, &
 			!terminal='png')
-			!yrange=(/-3.0d0,3.0d0/) )
 
-		call plot(dble(w(1:n)*w0ref), dble(sd(1:n)), xx*w0ref, resultfun, &
-			' 5.00-',color2='black',color1='green', &
-			errors=dble(sig(1:n)) )!, &
-			!terminal='png')
-			!yrange=(/-3.0d0,3.0d0/) )                  
+		if (use_error_chi2) then
+			call plot(dble(w(1:n)*w0ref), dble(sd(1:n)), xx*w0ref, resultfun, &
+				' 5.00-',color2='black',color1='green', &
+				errors=dble(sig(1:n)) )! , &
+				!terminal='png')
+		else
+			call plot(dble(w(1:n)*w0ref), dble(sd(1:n)), xx*w0ref, resultfun, &
+				' 5.00-',color2='black',color1='green')!, &
+				!terminal='png')
+		endif
 	endif
 
 	! output parameters to "Results" file -
