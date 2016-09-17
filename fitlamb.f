@@ -70,7 +70,7 @@ subroutine fitlamb (final_chi2)
 		!Update previous iteration parameters to calculate new ones
 		j = 0
 		do j=1,nconst
-			c0(j)=x(j)
+			c0(j)=c(j)
 		end do
 		!Reset rtol
 		rtol=0.0d0
@@ -100,7 +100,7 @@ subroutine fitlamb (final_chi2)
 
 		!Determine rtol to measure parameter change between iterations
 		do ii=1,nconst
-			rtol=rtol+abs((x(ii)-c0(ii)))/max(1.0d0,abs(x(ii)+c0(ii)))
+			rtol=rtol+abs((c(ii)-c0(ii)))/max(1.0d0,abs(c(ii)+c0(ii)))
 		end do
 
 		!Write more complete iteration information to iter_info file
