@@ -13,6 +13,7 @@ module commonvar
 	logical, public		:: use_error_chi2		! Define use of frequency errors
 	logical, public		:: show_plots = .FALSE.
 	logical, public		:: verbose = .FALSE.	! Toggle print information during execution
+	real				:: start, finish
 
 	integer, public		:: nconst  				! Number of parameters to fit
 	real(dp), public	:: pi 					! Constants

@@ -8,7 +8,7 @@ w0refd = 3000
 lmind = 0
 lmaxd = 3
 nlmind = 5
-nmind = 4
+nmind = 10
 
 use_error_chi2d = .TRUE.
 ssmaxd = 0.100

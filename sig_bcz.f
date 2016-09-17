@@ -21,7 +21,6 @@ program sigs_freq
 	character (len=80)	:: afile, options_file, star_file
 	character (len=20)	:: name
 	real(dp)			:: chi2
-	real				:: start, finish
 
 	! Check if arguments are found
 	narg=command_argument_count()
