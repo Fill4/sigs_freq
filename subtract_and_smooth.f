@@ -12,7 +12,7 @@ subroutine subtract_and_smooth (xlamb)
 	use types_and_interfaces, only: dp, fun
 	use commonvar, only : w0ref
 	use commonarray
-
+	
 	implicit none
 	 
 	real(dp), intent(in) :: xlamb
@@ -42,6 +42,7 @@ subroutine subtract_and_smooth (xlamb)
 			sd(i) = w0ref*w(i) - y(i+1-ni)
 		end do
 	end do
+
 	return
 
 end subroutine subtract_and_smooth

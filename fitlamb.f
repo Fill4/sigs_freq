@@ -62,7 +62,7 @@ subroutine fitlamb (final_chi2)
 	end do
 	iter = 1
 	!Initial definition to enter cycle
-	rtol = 1d0
+	rtol = 100
 
 	!Cycle updates the smooth function with last determined parameters c(:) until parameters
 	!converge or smooth_max_iter is reached

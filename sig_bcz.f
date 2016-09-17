@@ -21,6 +21,7 @@ program sigs_freq
 	character (len=80)	:: afile, options_file, star_file
 	character (len=20)	:: name
 	real(dp)			:: chi2
+	real				:: start, finish
 
 	! Check if arguments are found
 	narg=command_argument_count()
@@ -41,6 +42,8 @@ program sigs_freq
 			end select
 		end do
 	end if
+	
+	call cpu_time(start)
 
 	afile='00000'
 	options_file = 'options_file'
@@ -74,5 +77,8 @@ program sigs_freq
 	deallocate(c)
 
 	goto 1
+
+	call cpu_time(finish)
+	print '("Time = ",f6.3," seconds.")',finish-start
 
 end program sigs_freq

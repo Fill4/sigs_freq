@@ -16,6 +16,7 @@ FC	= gfortran
 # for development
 #FFLAGS = -ffree-form -Wall -Wtabs -Wextra -Wimplicit-interface -fPIC -fmax-errors=1 -g -fbounds-check -fcheck-array-temporaries -fbacktrace
 FFLAGS = -O3 -ffree-form -ffast-math -fexternal-blas
+#FFLAGS = -O3 -ffree-form
 # normal
 
 # for production run
@@ -25,7 +26,6 @@ FFLAGS = -O3 -ffree-form -ffast-math -fexternal-blas
 #samedir = .
 #FTN     = ftnchek
 LINK = -lmodules -llapack -lblas -L/usr/lib
-
 
 # *******************************************************
 # *** Regra que por defeito produz os ficheiros .o **
@@ -39,10 +39,11 @@ LINK = -lmodules -llapack -lblas -L/usr/lib
 # *******************************************************
 # ***   Especificar as directorias com as subrotinas  ***
 # *******************************************************
-BASE = /home/fill/Documents/repos/glitch
+
+BASE := $(abspath $(dir $(lastword $(MAKEFILE_LIST))))
 
 # library
-lib = /home/fill/Documents/repos/lib-fortran
+lib := $(abspath $(dir $(lastword $(MAKEFILE_LIST)))../lib-fortran)
 
 #----------------------------------------------------------
 
@@ -69,8 +70,8 @@ $(BASE)/sig_bcz.o
 # ***             Compilar os programas                  *** 
 # **********************************************************
 
-sig_bcz: $(FILES)
-	$(FC) $(FILES) -o sig_bcz_run -L$(lib) -I$(lib) $(LINK) -O3
+sigs_freq: $(FILES)
+	$(FC) $(FILES) -o sigs_freq -L$(lib) -I$(lib) $(LINK) -O3
 
 clean:
-	rm -f $(FILES) *~ *.mod sig_bcz_run
+	rm -f $(FILES) *~ *.mod sigs_freq
