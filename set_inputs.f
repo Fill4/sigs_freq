@@ -24,12 +24,14 @@ subroutine set_inputs(options_file)
 
 
 	! Declaration and default initialization of all user defined variables
+	! Value to work with sigs_diff
+	integer		:: degreed
 	! Smoothing control parameter
 	real(dp)	:: lambdad = -1
 	! Fitting control parameter
 	real		:: ftold = 1.0E-04
 	! Fitting procedure values
-	integer		:: smooth_iter_maxd = 3, degreed
+	integer		:: smooth_iter_maxd = 3
 	! Fitting procedure values
 	integer		:: pikaia_popd = 80, pikaia_gend = 3000
 	! Reference frequency
