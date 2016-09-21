@@ -11,7 +11,7 @@ subroutine set_inputs(options_file)
 	namelist / sig_bcz_controls / lambdad,ftold,&
 								smooth_iter_maxd,&
 								pikaia_popd, pikaia_gend,&
-								w0refd,&
+								w0refd,degreed,&
 								lmind,lmaxd,&
 								nlmind,&
 								nmind,nmaxd,&
@@ -29,11 +29,11 @@ subroutine set_inputs(options_file)
 	! Fitting control parameter
 	real		:: ftold = 1.0E-04
 	! Fitting procedure values
-	integer		:: smooth_iter_maxd = 3
+	integer		:: smooth_iter_maxd = 3, degreed
 	! Fitting procedure values
-	integer		:: pikaia_popd = -1, pikaia_gend = -1
+	integer		:: pikaia_popd = 80, pikaia_gend = 3000
 	! Reference frequency
-	real		:: w0refd = 2000.0
+	real		:: w0refd = -1
 	! Range in degree
 	integer		:: lmind = 0, lmaxd = 2
 	! Minimum number of modes with same degree

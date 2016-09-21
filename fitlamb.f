@@ -48,9 +48,9 @@ subroutine fitlamb (final_chi2)
 		select case (n)
 			case (60 :)
 				lambda = lambda_list(6)
-			case (30:59)
+			case (40:59)
 				lambda = lambda_list(4)
-			case (: 29)
+			case (: 39)
 				lambda = lambda_list(2)
 		end select
 	endif
@@ -137,7 +137,7 @@ function objfun_ga(npar, p) result(fun_val)
 	real, intent(in)    	:: p(:)
 	real                	:: fun_val
 	
-	real(dp)    :: ww, sf, resid
+	real(dp)    :: ww, sf, resid, nn, err_mult
 	integer     :: i
 	
 	! rescaling parameters
@@ -150,7 +150,9 @@ function objfun_ga(npar, p) result(fun_val)
 		do i=1,n
 			ww = w(i)
 			sf = fun(ww)
-			resid = resid + ((sd(i)-sf)/sig(i))**2
+			nn = xn(i)
+			err_mult = (1/100)*(nn**2) - (9/25)*nn + (106/25)
+			resid = resid + ((sd(i)-sf)/(sig(i) * err_mult))**2
 		end do
 	! if not using errors -
 	else if (.not. use_error_chi2) then

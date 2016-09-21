@@ -28,7 +28,6 @@
 	a_he = c(6)
 	
 	if (verbose) then
-		write (6,*) "  Frequencies from file: ", afile
 		write (6,1010)	'Results:', &
 						'tau_BCZ = ', tau_bcz, 'Phi = ', c(2), &
 						'A_BCZ = ', a_bcz, &
@@ -75,8 +74,8 @@
 	endif
 
 	! output parameters to "Results" file -
-	write (9,9003) afile, tau_bcz, c(2), a_bcz, tau_he, c(5), a_he, beta
-9003	format (a36, 7f12.4)
+	write (9,9003) afile, tau_bcz, c(2), a_bcz, tau_he, c(5), a_he, beta, chi2
+9003	format (a20, 8f12.4)
 	close(9)
 
 	if (show_plots) then

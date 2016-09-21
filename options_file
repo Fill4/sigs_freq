@@ -1,21 +1,22 @@
 &sig_bcz_controls
 
-pikaia_popd = 80			!Initial population of pikaia (Number of initial guesses)
-pikaia_gend = 2000			!Number of generations evolved to determine the parameters
+pikaia_popd = -1			!Initial population of pikaia (Number of initial guesses)
+pikaia_gend = -1			!Number of generations evolved to determine the parameters
 
-w0refd = 3000
+w0refd = -1
 
 lmind = 0
 lmaxd = 3
 nlmind = 5
-nmind = 10
+nmind = 8
+nmaxd = 28
 
 use_error_chi2d = .TRUE.
-ssmaxd = 0.100
+ssmaxd = 0.300
 
-upper_tau_bczd = 3000
-lower_tau_bczd = 1500
-upper_tau_he2d = 1000
+upper_tau_bczd = 4000
+lower_tau_bczd = 1600
+upper_tau_he2d = 1500
 lower_tau_he2d = 500
 /
 !Line added otherwise the code will report a error in the read
