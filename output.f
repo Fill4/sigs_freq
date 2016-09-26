@@ -1,10 +1,8 @@
-!*******************************************************************************
-! João Faria: Feb 2013
-!*******************************************************************************
-  subroutine output (afile, chi2)
-!   write the OUTPUT
+subroutine output (afile)
+! Writes final results to file Results_freq. Can show plots from gnuplot,
+! write results on the shell and write plot values to file data_freq_1 and 2
 
-	use types_and_interfaces, only: dp, fun, he_comp, bcz_comp
+	use types_and_interfaces
 	use commonvar
 	use commonarray, only: c, w, sd, sig, n, l
 	use lib_io
@@ -13,7 +11,6 @@
 	implicit none
 
 	character(len=80), intent(in) :: afile
-	real(dp), intent(inout)	:: chi2
 	real(dp)				:: tau_bcz, tau_he, beta
 	real(dp)				:: a_bcz, a_he
 	real(dp), dimension(150)	:: xx, resultfun, result_he, result_bcz
@@ -90,6 +87,9 @@
 			write(7,9005) l(k), w(k)*w0ref, dble(sd(k)), sig(k)
 	9005	format (i3, 3f15.6)
 		end do
+
+		call flush (7)
+		call flush (8)
 	end if
 
 	return

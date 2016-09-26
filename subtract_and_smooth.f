@@ -1,13 +1,8 @@
-!--------------------------------------------------------------------
 subroutine subtract_and_smooth (xlamb)
-!    the signal, as given in the function FUN, is subtracted from
-!    the frequencies to obtain the component to be smoothed (the
-!    reduced frequency; Y)
-!    this is then smoothed and used to get the new signal by
-!    subtracting the new smooth component from the frequencies
-!    (which is output in the array SD)
-!
-!   use gnufor2
+! First, the signal from function fun.f is subtracted from the frequencies to obtain the reduced frequencies.
+! In the first iteration no value is removed since c=0.
+! Then a n-1 polynomial with third derivative smoothing is fitted to the reduced frequencies and the resulting
+! function is then subtrated to the original frequencies to obtain the residuals from the glitches
 
 	use types_and_interfaces, only: dp, fun
 	use commonvar, only : w0ref
@@ -32,7 +27,6 @@ subroutine subtract_and_smooth (xlamb)
 			x(i+1-ni) = xn(i)
 			y(i+1-ni) = w0ref*w(i) - fun(ww)
 		end do
-
 
 		m = nf-ni+1
 

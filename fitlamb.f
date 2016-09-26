@@ -1,7 +1,4 @@
-!----------------------------------------------------------------------------
-! Joao Faria: Jan 2013  |  Revised: Filipe Pereira - Abr 2016
-!----------------------------------------------------------------------------
-subroutine fitlamb (final_chi2)
+subroutine fitlamb
 ! This subroutine iterates on various values of lambda to estimate the best
 ! guess for the parameters. For each value of lambda we run a cycle where we 
 ! remove a smooth function and then use a minimization algorithm to determine
@@ -20,14 +17,9 @@ subroutine fitlamb (final_chi2)
 
 	implicit none
 	
-	real(dp)						:: lambda_list(7)
-	real(dp), intent(inout)			:: final_chi2
-
-	character(len=80)				:: outfile
-	integer*4 						:: datee(3), timee(3)
-
-	real    :: ctrl(12), x(nconst), f, rtol, c0(nconst)
-	integer :: seed, exit_status, i, iter, j, ii
+	real(dp)	:: lambda_list(7), c0(nconst)
+	real    	:: ctrl(12), x(nconst), f, rtol
+	integer 	:: seed, exit_status, i, iter, j, ii
 
 	lambda_list = (/ 1E-4, 5E-5, 1E-5, 5E-6, 1E-6, 5E-7, 1E-7/)
 
@@ -35,12 +27,6 @@ subroutine fitlamb (final_chi2)
 	seed=TIME()
 	!Initialize the random-number generator
 	call rninit(seed)
-	
-	!Write date and time to IterInfo
-	call idate(datee)
-	call itime(timee)
-	if (verbose) write(3,'(a9, i2.2, a1, i2.2, a1, i4.4, a11, i2.2, a1, i2.2, a1, i2.2)') &
-	'  Date:  ', datee(1), '-', datee(2), '-', datee(3), '  |  Time: ', timee(1), ':', timee(2), ':', timee(3)
 
 	!Select lambda_n according to number of available frequencies
 	! TODO: Cycle for lambda not working! Change after testing rest of code.
@@ -84,7 +70,6 @@ subroutine fitlamb (final_chi2)
 		ctrl(1) = pikaia_pop
 		ctrl(2) = pikaia_gen
 		ctrl(5) = 5 ! one-point+creep, adjustable rate based on fitness
-		outfile = 'param_file'
 
 		! now call pikaia
 		CALL pikaia(objfun_ga, nconst, ctrl, x, f, exit_status)
@@ -103,19 +88,13 @@ subroutine fitlamb (final_chi2)
 			rtol=rtol+abs((c(ii)-c0(ii)))/max(1.0d0,abs(c(ii)+c0(ii)))
 		end do
 
-		!Write more complete iteration information to iter_info file
-		if (verbose) write(3, '(es10.2, i8, f10.2, f15.4, 6f10.4)') lambda, iter, 1.0/f, &
-											c(1), c(3), c(2), c(4), &
-											c(5), c(6) * (sin(c(7)))**2, c(7)
-		call flush(3)
-
 		!increase iteration number
 		iter = iter + 1
 	end do
 
 	if (verbose) write(6,*) ' '
 	!Value for the chi squared obtained for the final parameters obtained
-	final_chi2 = 1.0_dp / f
+	chi2 = 1.0_dp / f
 	close(3)
 	
 	return
@@ -133,19 +112,19 @@ function objfun_ga(npar, p) result(fun_val)
 	
 	implicit none
 	
-	integer, intent(in) 	:: npar ! size of parameter space
+	integer, intent(in) 	:: npar
 	real, intent(in)    	:: p(:)
 	real                	:: fun_val
 	
 	real(dp)    :: ww, sf, resid, nn, err_mult
 	integer     :: i
 	
-	! rescaling parameters
+	! Rescaling parameters
 	call rescale(p, c)
 
 	resid = 0.0d0
-	! Dividing by the error throws the chi2 too high and makes it difficult to evaluate result
-	! if using errors -
+	! Determine chi2 if using errors. There is a error multiplier that punishes 
+	! frequencies of radial order further from 18.
 	if (use_error_chi2) then
 		do i=1,n
 			ww = w(i)
@@ -154,7 +133,7 @@ function objfun_ga(npar, p) result(fun_val)
 			err_mult = (1/100)*(nn**2) - (9/25)*nn + (106/25)
 			resid = resid + ((sd(i)-sf)/(sig(i) * err_mult))**2
 		end do
-	! if not using errors -
+	! or if not using errors
 	else if (.not. use_error_chi2) then
 		do i=1,n
 			ww = w(i)

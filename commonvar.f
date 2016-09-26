@@ -1,11 +1,8 @@
-!--------------------------------------------------------------------
-!	Joao Faria: 20/08/2012 
-!--------------------------------------------------------------------
-!	 Module that contains the common variables that all subroutines
-!	 need to share. 
-
 module commonvar
-	
+! Module that has all the single valued variables that need to be shared between subroutines
+! This module also initializes ad sets default values to all variables that can be passed 
+! through options_file which is parsed in file set_inputs.f
+
 	use types_and_interfaces, only: dp
 	
 	implicit none
@@ -13,7 +10,7 @@ module commonvar
 	! Input variables
 	!--------------------------------------------------------
 	! Passable Arguments
-	logical		:: automatize = .FALSE.
+	logical		:: automatic = .FALSE.
 	logical		:: show_plots = .FALSE.
 	logical		:: verbose = .FALSE.
 	! Range in degree
@@ -50,7 +47,9 @@ module commonvar
 	! Time variables to measure code execution time
 	real		:: start, finish
 	! Number of parameters to fit
-	integer		:: nconst  				
+	integer		:: nconst
+	! Value of chi squared for the fitted parameters in c
+	real(dp)	:: chi2	
 	! Constants
 	real(dp)	:: pi = 4.0d0*atan(1.0d0)
 	!--------------------------------------------------------					

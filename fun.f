@@ -36,7 +36,8 @@
 end function fun
 
 subroutine rescale(array_in, array_out)
-		
+! Rescales the parameters that come out of pikaia ARRAY_IN to their physical values ARRAY_OUT
+
 	use types_and_interfaces, only: dp
 	use commonvar
 	
@@ -45,13 +46,13 @@ subroutine rescale(array_in, array_out)
 	real, dimension(:), intent(in)      :: array_in
 	real(dp), dimension(:), intent(out) :: array_out
 
-	array_out(1) = dble(array_in(1)) * (upper_tau_bcz - lower_tau_bcz) &
-												+ lower_tau_bcz
+	! Bcz
+	array_out(1) = dble(array_in(1)) * (upper_tau_bcz - lower_tau_bcz) + lower_tau_bcz
 	array_out(2) = dble(array_in(2)) * pi
 	array_out(3) = dble(array_in(3)) * 0.3_dp
 	
-	array_out(4) = dble(array_in(4)) * (upper_tau_he2 - lower_tau_he2) &
-												+ lower_tau_he2
+	! HeII
+	array_out(4) = dble(array_in(4)) * (upper_tau_he2 - lower_tau_he2) + lower_tau_he2
 	array_out(5) = dble(array_in(5)) * pi
 	array_out(6) = dble(array_in(6)) * (1.5_dp - 0.3_dp) + 0.3_dp
 	array_out(7) = dble(array_in(7)) * 300

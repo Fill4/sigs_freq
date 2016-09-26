@@ -20,7 +20,6 @@ program sigs_freq
 	integer				:: narg, iarg
 	character (len=80)	:: afile, options_file, star_file
 	character (len=20)	:: name
-	real(dp)			:: chi2
 
 	! Check if arguments are found
 	narg=command_argument_count()
@@ -36,6 +35,8 @@ program sigs_freq
 				verbose = .TRUE.
 			case('-p','--plots')
 				show_plots = .TRUE.
+			case('-a','--auto')
+				automatic = .TRUE.
 			case default
 				write(6,*)"Option ",adjustl(name),"unknown"
 			end select
@@ -59,25 +60,19 @@ program sigs_freq
 	call deffreq (afile) 	! Reads freqs_list file
 	call init (afile) 		! Reads frequencias and calculates 2nd differences
 	call openfiles			! Prepare output files
-
 	call flush (6)
 
 	! Finding the best parameters
-	call fitlamb (chi2)
-
+	call fitlamb
+	
 	! Writing the results
-	call output (afile, chi2)
+	call output (afile)
 
-	call flush (9)
-	call flush (3)
-	close (3)
 	if (verbose) write (6,*)"---------------------> PROGRAM SIGS_FREQ <---------------------"
+	call flush (9)
 	call flush (6)
 	deallocate(c)
 
 	goto 1
-
-	call cpu_time(finish)
-	print '("Time = ",f6.3," seconds.")',finish-start
 
 end program sigs_freq

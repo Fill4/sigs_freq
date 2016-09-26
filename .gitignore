@@ -1,7 +1,7 @@
 *.o
 *.mod
-*.freqs
-freqs
-Iterinfo
 Results*
 sigs_freq
+command_file.txt
+data_*
+data_file.txt

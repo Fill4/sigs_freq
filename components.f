@@ -1,4 +1,3 @@
-!*******************************************************************************
 real(dp) function bcz_comp (nu)
 !  this is the signal produced by the sharp transition in the base of the 
 !  convection zone
@@ -15,14 +14,9 @@ real(dp) function bcz_comp (nu)
 	real(dp), intent(in)    :: nu
 	real(dp)  :: xarg, bcz
 
-
 	! c(1) = tau_bcz
 	! c(2) = phi_bcz
 	! c(3) = amp_bcz
-	! c(4) = tau_he
-	! c(5) = phi_he
-	! c(6) = amp_he
-	! c(7) = width_he
 
 	xarg = 4.0_dp*pi*c(1)*nu*w0ref*1.0d-6 + 2.0_dp*c(2)
 	bcz  = ( c(3)/nu**2 ) * sin(xarg)
@@ -33,8 +27,6 @@ real(dp) function bcz_comp (nu)
 
 end function bcz_comp
 
-  
-!*******************************************************************************
 real(dp) function he_comp (nu)
 !  this is the signal from the helium ionization region
 !
@@ -49,10 +41,6 @@ real(dp) function he_comp (nu)
 	real(dp), intent(in) :: nu
 	real(dp)  :: yarg, he
 
-
-	! c(1) = tau_bcz
-	! c(2) = phi_bcz
-	! c(3) = amp_bcz
 	! c(4) = tau_he
 	! c(5) = phi_he
 	! c(6) = amp_he
