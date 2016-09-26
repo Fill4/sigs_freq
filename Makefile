@@ -1,47 +1,28 @@
 # no console output during compilation:
 #.SILENT:
 
-# *******************************************************
-# ***          Comecar por limpar os sufixos          ***
-# *******************************************************
-.SUFFIXES:
+# *********************************************************
+# ***					Directories						***
+# *********************************************************
+BASE := $(abspath ./)
 
+# library
+lib := $(abspath ../lib-fortran)
 
-# *******************************************************
-# ***                       Macros                    ***
-# *******************************************************
+# *********************************************************
+# ***					Macros							***
+# *********************************************************
 FC	= gfortran
-# for development
-#FFLAGS = -ffree-form -Wall -Wtabs -Wextra -Wimplicit-interface -fPIC -fmax-errors=1 -g -fbounds-check -fcheck-array-temporaries -fbacktrace
-FFLAGS = -O3 -ffree-form -ffast-math -fexternal-blas
-#FFLAGS = -O3 -ffree-form
-# normal
-
-# for production run
-#FFLAGS = -ffree-form -fPIC -fmax-errors=1 -O3 -march=native -ffast-math -funroll-loops
-#dbx     = -O5 -r8 -g
-#profil  = -p -O5 -r8 
-#samedir = .
-#FTN     = ftnchek
-LINK = -lmodules -llapack -lblas -L/usr/lib
+FFLAGS = -O2 -ffree-form -ffast-math
+LINK = -lmodules
 
 # *******************************************************
 # *** Regra que por defeito produz os ficheiros .o **
 # *******************************************************
 %.o: %.f
-	$(FC) $(FFLAGS) -c -o $@ $*.f -I$(lib) $(LINK) 
+	$(FC) $(FFLAGS) -c -o $@ $*.f -I$(lib) $(LINK)
 %.o: %.f90
-	$(FC) $(FFLAGS) -c -o $@ $*.f90 -I$(lib) $(LINK) 
-
-
-# *******************************************************
-# ***   Especificar as directorias com as subrotinas  ***
-# *******************************************************
-
-BASE := $(abspath $(dir $(lastword $(MAKEFILE_LIST))))
-
-# library
-lib := $(abspath $(dir $(lastword $(MAKEFILE_LIST)))../lib-fortran)
+	$(FC) $(FFLAGS) -c -o $@ $*.f90 -I$(lib) $(LINK)
 
 #----------------------------------------------------------
 
