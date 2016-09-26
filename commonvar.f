@@ -10,33 +10,49 @@ module commonvar
 	
 	implicit none
 
-	logical, public		:: use_error_chi2		! Define use of frequency errors
-	logical, public		:: show_plots = .FALSE.
-	logical, public		:: verbose = .FALSE.	! Toggle print information during execution
-	real				:: start, finish
+	! Input variables
+	!--------------------------------------------------------
+	! Passable Arguments
+	logical		:: automatize = .FALSE.
+	logical		:: show_plots = .FALSE.
+	logical		:: verbose = .FALSE.
+	! Range in degree
+	integer		:: lmin = 0, lmax = 3
+	! Minimum number of modes with same degree
+	integer		:: nlmin = 5
+	! Range in radial order
+	integer		:: nmin = 6, nmax = 30
+	! Whether it should use the errors or not
+	logical		:: use_error_chi2 = .TRUE.
+	! Upper limit for error
+	real(dp)	:: ssmax = 0.300
+	! Value to work with sigs_diff
+	integer		:: degree
+	! Fitting control parameter
+	real(dp)	:: ftol = 1.0E-04
+	! Smoothing control parameter
+	real(dp)	:: lambda = -1
+	! Fitting procedure values
+	integer		:: smooth_iter_max = 3
+	! Fitting procedure values
+	integer		:: pikaia_pop = 80, pikaia_gen = 3000
+	! Reference frequency
+	real(dp)	:: w0ref = -1
+	! Star parameters
+	real		:: large_sep, teff
+	! Initial values for parameters
+	integer		:: upper_tau_bcz = 4500, lower_tau_bcz = 1500
+	integer		:: upper_tau_he2 = 1400, lower_tau_he2 = 300
+	!--------------------------------------------------------
 
-	integer, public		:: nconst  				! Number of parameters to fit
-	real(dp), public	:: pi 					! Constants
-	real(dp), public	:: w0ref                ! Reference frequency
-
-	integer, public		:: pikaia_pop			! Controls the initial population size of pikaia
-	integer, public		:: pikaia_gen			! Controls the number of generations for pikaia
-	
-	real(dp), public	:: ftol					! Stop value for paramter improvement
-	real(dp), public	:: lambda				! Smooth parameter
-	integer, public		:: smooth_iter_max		! Number of times the minimization code tries to improve the smooth function
-	
-	integer, public		:: lmin, lmax			! Min and max degree l to consider
-	integer, public		:: nlmin				! Minimum number of l points
-	integer, public		:: nmin, nmax			! Min and max radial order n to consider
-	real(dp), public	:: vleft,vright			! Percentage of left and right bounds of frequencies to consider
-	real(dp), public	:: ssmax				! Max error allowed in frequencies
-	
-	!Variables to use in rescale function
-	real(dp), public	:: upper_tau_bcz, lower_tau_bcz
-	real(dp), public	:: upper_tau_he2, lower_tau_he2
-	real(dp), public	:: upper_beta, lower_beta
-
-	real, public		:: large_sep, teff, lum
+	! Other variables used during execution
+	!--------------------------------------------------------
+	! Time variables to measure code execution time
+	real		:: start, finish
+	! Number of parameters to fit
+	integer		:: nconst  				
+	! Constants
+	real(dp)	:: pi = 4.0d0*atan(1.0d0)
+	!--------------------------------------------------------					
 
 end module commonvar

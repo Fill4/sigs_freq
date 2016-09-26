@@ -1,6 +1,6 @@
 !----------------------------------------------------------------------------
-! 
 ! João Faria: Feb 2013  |  Revised: Filipe Pereira - Abr 2016
+! CHANGE
 !----------------------------------------------------------------------------
 program sigs_freq
 ! This program isolates an oscillatory signal that is present in the oscillation

@@ -10,8 +10,6 @@
 # *******************************************************
 # ***                       Macros                    ***
 # *******************************************************
-#FC = /usr/bin/f77
-#FC	= g77 -Wall
 FC	= gfortran
 # for development
 #FFLAGS = -ffree-form -Wall -Wtabs -Wextra -Wimplicit-interface -fPIC -fmax-errors=1 -g -fbounds-check -fcheck-array-temporaries -fbacktrace
@@ -62,9 +60,9 @@ $(BASE)/fitlamb.o \
 $(BASE)/subtract_and_smooth.o\
 $(BASE)/skpcom.o \
 $(BASE)/poly_smooth.o \
-$(BASE)/rescale.o \
 $(BASE)/help.o \
 $(BASE)/sig_bcz.o
+#$(BASE)/rescale.o \
 
 # **********************************************************
 # ***             Compilar os programas                  *** 
