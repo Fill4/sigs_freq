@@ -2,7 +2,7 @@
 ! João Faria: Feb 2013  |  Revised: Filipe Pereira - Abr 2016
 ! CHANGE
 !----------------------------------------------------------------------------
-program sigs_freq
+program main
 ! This program isolates an oscillatory signal that is present in the oscillation
 ! frequencies and associated with regions where the sound speed has a discontinuity.
 !
@@ -54,7 +54,7 @@ program sigs_freq
 	allocate(c(nconst))
 
 	! Read options_file with input parameters
-	call set_inputs(options_file)
+	call read_inputs(options_file)
 
 	! Initializing all quantities, read in frequencies and create output files
 	call deffreq (afile) 	! Reads freqs_list file
@@ -63,6 +63,9 @@ program sigs_freq
 	call flush (6)
 
 	! Finding the best parameters
+	if (automatic) then
+		call automatic_interval
+	endif
 	call fitlamb
 	
 	! Writing the results
@@ -75,4 +78,4 @@ program sigs_freq
 
 	goto 1
 
-end program sigs_freq
+end program main

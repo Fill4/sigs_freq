@@ -7,7 +7,7 @@
 BASE := $(abspath ./)
 
 # library
-lib := $(abspath ../lib-fortran)
+lib := $(abspath ./lib/)
 
 # *********************************************************
 # ***					Macros							***
@@ -31,18 +31,19 @@ $(BASE)/types.o \
 $(BASE)/commonvar.o \
 $(BASE)/commonarray.o \
 $(BASE)/deffreq.o \
-$(BASE)/set_inputs.o \
+$(BASE)/read_inputs.o \
 $(BASE)/openfiles.o \
 $(BASE)/output.o \
 $(BASE)/fun.o \
 $(BASE)/components.o \
 $(BASE)/init.o \
 $(BASE)/fitlamb.o \
-$(BASE)/subtract_and_smooth.o\
+$(BASE)/subtract_and_smooth.o \
+$(BASE)/automatic_interval.o \
 $(BASE)/skpcom.o \
 $(BASE)/poly_smooth.o \
 $(BASE)/help.o \
-$(BASE)/sig_bcz.o
+$(BASE)/main.o
 #$(BASE)/rescale.o \
 
 # **********************************************************
@@ -50,7 +51,7 @@ $(BASE)/sig_bcz.o
 # **********************************************************
 
 sigs_freq: $(FILES)
-	$(FC) $(FILES) -o sigs_freq -L$(lib) -I$(lib) $(LINK) -O3
+	$(FC) $(FILES) -o sigs_freq -L$(lib) -I$(lib) $(LINK) -O2
 
 clean:
 	rm -f $(FILES) *~ *.mod sigs_freq

@@ -10,10 +10,7 @@ subroutine fitlamb
 	use commonvar
 	use commonarray
 
-	use lib_io
 	use lib_pikaia12
-	use lib_array
-	use lib_plot
 
 	implicit none
 	

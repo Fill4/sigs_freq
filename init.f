@@ -14,7 +14,12 @@ subroutine init (afile)
 
 	close (1)
 	open (1,file=afile,status='old')
+
 	call skpcom (1)
+	if (automatic) then
+		read(1,*) teff, large_sep
+		call skpcom (1)
+	endif
 
 	wmin = 1.0d6
 	wmax = 0.0d0
@@ -40,9 +45,13 @@ subroutine init (afile)
 	if (ww.lt.wmin) wmin = ww
 	goto 10
 
- 20 rewind (1)
+20	rewind (1)
 
 	call skpcom (1)
+	if (automatic) then
+		read(1,*) teff, large_sep
+		call skpcom (1)
+	endif
 
 	if (w0ref.eq.-1) then
 		write(*,*) ' No w0ref defined and could not attribute frequency of n=18 to w0ref'
@@ -51,9 +60,11 @@ subroutine init (afile)
 	endif
 
 	if (verbose) then
-		write (*,1013) 'Range in frequencies:', wmin, wmax
-		write (*,1014) 'Reference frequency :', w0ref
-		write(*,*) ' '
+		write (*,1013) 'Range in frequencies  :', wmin, wmax
+		write (*,1014) 'Reference frequency   :', w0ref
+		write (*,1014) 'Effective temperature :', teff
+		write (*,1014) 'Large separation      :', large_sep
+		write (*,*) ' '
 	endif
 1013 format (2x, a, f10.4, x, '-', x, f9.4)
 1014 format (2x, a, f10.4)

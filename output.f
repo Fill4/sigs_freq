@@ -5,7 +5,6 @@ subroutine output (afile)
 	use types_and_interfaces
 	use commonvar
 	use commonarray, only: c, w, sd, sig, n, l
-	use lib_io
 	use lib_array
 	use lib_plot
 	implicit none

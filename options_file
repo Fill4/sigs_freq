@@ -1,7 +1,5 @@
 &opt_namelist
 
-upper_tau_bcz = 3000
-lower_tau_bcz = 1800
 
 /
 !Line added otherwise the code will report a error in the read
