@@ -6,16 +6,16 @@ subroutine openfiles
 	
 	logical :: bool_Results
 
-	! Results_freq file (unit = 9) -
-	inquire( file="Results_freq", exist=bool_Results)
+	! results_freq file (unit = 9) -
+	inquire( file="results_freq", exist=bool_Results)
 	if (bool_Results) then
-		open (9, file='Results_freq', status='old', position='append')
+		open (9, file='results_freq', status='old', position='append')
 	else 
-		open (9, file='Results_freq', status='unknown')
+		open (9, file='results_freq', status='unknown')
 		if (verbose) write (9,*) ' '
 		close (9)
 
-		open (9,file='Results_freq',status='old')
+		open (9,file='results_freq',status='old')
 
 		! Write header
 		if (verbose) then
