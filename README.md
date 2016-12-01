@@ -10,7 +10,21 @@ The signal used to describe the oscillatory signature of the glitches, adapted f
 
 ![equation](http://mathurl.com/za59qy2.png?raw=true)
 
+More details regarding the development of the methods from this repository can be found here: to be added
+
+## Dependencies
+
+This program requires the LAPACK and BLAS libraries
+
+In Linux these can be installed by running the command:
+
+'''
+sudo apt-get install liblapack-dev
+'''
+
 ## Instalation
+
+
 
 ## Testing
 
