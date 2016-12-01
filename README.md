@@ -8,7 +8,7 @@ This program fits the signal due to the acoustic glitches at the base of the con
 
 The signal used to describe the oscillatory signature of the glitches, adapted from the work of Faria [2013], is of the form:
 
-![equation](http://bit.ly/2gKA0Xh)
+![equation](http://mathurl.com/za59qy2)
 
 ## Instalation
 
