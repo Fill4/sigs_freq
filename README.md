@@ -32,7 +32,7 @@ git clone https://github.com/Fill4/sigs_freq
 # Move to repository folder
 cd /path/to/repo/
 # Compile
-make 
+./install.sh
 ```
 ## Usage
 
@@ -43,7 +43,7 @@ Then run the command:
 ```
 and when prompted, select the location of the frequencies file and click Enter.
 The command -p shows the plots of the final fit and the final parameters will be printed to a file Results_freq.
-More commands and ways of executing the code are available and can be consulted __here__
+More commands and ways of executing the code are available and can be consulted here: __to be added__
 
 ## Testing
 To test the compilation go the tests folder and execute
