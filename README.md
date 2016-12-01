@@ -2,11 +2,11 @@
 
 Fit acoustic glitches in low-degree p-mode frequencies using the PIKAIA genetic algorithm
 
-This program is independent but was developed alongside [sigs-diff](https://github.com/Fill4/sigs_diff) which fits acoustic glitches using the second differences of the frequencies.
+This program is independent but was developed alongside [sigs-diff](https://github.com/Fill4/sigs_diff) which fits acoustic glitches in the second differences of the frequencies.
 
 ## Description
 
-This program fits the signal due to the acoustic glitches at the base of the convection zone and at the Helium second ionization region, by iteratively removing a smooth component from low-degree p-mode frequencies.
+This program fits the signal due to the acoustic glitches at the base of the convection zone and at the Helium second ionization region, by iteratively removing a smooth component from low-degree p-mode frequencies and fitting the residuals to a known function.
 
 The signal used to describe the oscillatory signature of the glitches, adapted from the work of Faria [2013], is of the form:
 
