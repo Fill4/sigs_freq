@@ -1,0 +1,5 @@
+&opt_namelist
+
+
+/
+!Line added otherwise the code will report a error in the read
