@@ -2,7 +2,7 @@
 
 Fit acoustic glitches in low-degree p-mode frequencies using the PIKAIA genetic algorithm
 
-This program is independent but was developed alongside [sigs-diff](https://github.com/Fill4/sigs_diff) which fits acoustic glitches in the second differences of the frequencies.
+This program is independent but was developed alongside [sigs_diff](https://github.com/Fill4/sigs_diff) which fits acoustic glitches in the second differences of the frequencies.
 
 ## Description
 
