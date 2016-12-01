@@ -18,9 +18,9 @@ This program requires the LAPACK and BLAS libraries
 
 In Linux these can be installed by running the command:
 
-'''
+```
 sudo apt-get install liblapack-dev
-'''
+```
 
 ## Instalation
 
