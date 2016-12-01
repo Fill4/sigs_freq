@@ -2,7 +2,7 @@
 
 Fit acoustic glitches in low-degree p-mode frequencies using the PIKAIA genetic algorithm
 
-This program is independent but was developed alongside ![sigs-diff](https://github.com/Fill4/sigs_diff) which fits acoustic glitches using the second differences of the frequencies.
+This program is independent but was developed alongside [sigs-diff](https://github.com/Fill4/sigs_diff) which fits acoustic glitches using the second differences of the frequencies.
 
 ## Description
 
@@ -36,7 +36,7 @@ make
 ```
 ## Usage
 
-To use the code it is necessary a file with the format of ![sun.freqs](tests/sun.freqs) with the frequencies of oscillation of a star
+To use the code it is necessary a file with the format of [sun.freqs](tests/sun.freqs) with the frequencies of oscillation of a star
 Then run the command:
 ```
 ./sigs_freq -v -p
@@ -56,4 +56,4 @@ The plots will appear at the end of execution and the file Results_freq will hav
 
 ## Bibliography
 
-Faria, J. P. (2013), Asteroseismology of 16 cyg a and b, Master’s thesis (![link](http://hdl.handle.net/10216/69506))
+Faria, J. P. (2013), Asteroseismology of 16 cyg a and b, Master’s thesis ([link](http://hdl.handle.net/10216/69506))
