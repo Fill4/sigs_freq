@@ -2,7 +2,7 @@
 
 cd lib/
 make
-cd ../src
+cd ../src/
 make
 mv sigs-freq ../sigs-freq
 cd ../
