@@ -127,7 +127,7 @@ function objfun_ga(npar, p) result(fun_val)
 			ww = w(i)
 			sf = fun(ww)
 			nn = xn(i)
-			err_mult = (1/100)*(nn**2) - (9/25)*nn + (106/25)
+			err_mult = (1.0/100.0)*(nn**2) - (9.0/25.0)*nn + (106.0/25.0)
 			resid = resid + ((sd(i)-sf)/(sig(i) * err_mult))**2
 		end do
 	! or if not using errors
