@@ -18,10 +18,10 @@
 !ssmax = 0.500
 
 ! Smoothing control parameter
-!lambda
+!lambda = 1E-5
 
 ! Max iterations to improve smooth fit
-!smooth_iter_max
+!smooth_iter_max = 3
 
 ! Population and generation values for PIKAIA algorithm
 !pikaia_pop = 100
