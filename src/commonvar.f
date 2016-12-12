@@ -40,7 +40,7 @@ module commonvar
 	! Initial values for parameters
 	real		:: upper_tau_bcz = 4500, lower_tau_bcz = 1500
 	real		:: upper_tau_he2 = 1400, lower_tau_he2 = 300
-	integer		:: bcz_interval = 800, he2_interval = 400
+	integer		:: bcz_interval = 800, he2_interval = 500
 	!--------------------------------------------------------
 
 	! Other variables used during execution

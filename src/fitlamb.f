@@ -30,11 +30,11 @@ subroutine fitlamb
 	if (lambda==-1) then 
 		select case (n)
 			case (60 :)
-				lambda = lambda_list(6)
+				lambda = lambda_list(5)
 			case (40:59)
-				lambda = lambda_list(4)
+				lambda = lambda_list(3)
 			case (: 39)
-				lambda = lambda_list(2)
+				lambda = lambda_list(1)
 		end select
 	endif
 
@@ -128,6 +128,7 @@ function objfun_ga(npar, p) result(fun_val)
 			sf = fun(ww)
 			nn = xn(i)
 			err_mult = (1.0/100.0)*(nn**2) - (9.0/25.0)*nn + (106.0/25.0)
+			!err_mult = 1
 			resid = resid + ((sd(i)-sf)/(sig(i) * err_mult))**2
 		end do
 	! or if not using errors
