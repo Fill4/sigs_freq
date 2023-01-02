@@ -10,10 +10,14 @@ Finds the signals corresponding to the acoustic glitches at the base of the conv
 Starts by iteratively removing a smooth component from low-degree p-mode frequencies and then fits the residuals to a parametric function.
 
 The function adopted to describe the oscillatory signature of the glitches in the oscillation frequencies follows the form:
-$$\begin{align*} 
+
+$$
+\begin{align*} 
 \delta \Delta_2 \nu \simeq & \ A_{bcz} \left( \frac{\nu_r}{\nu} \right)^2 \cos \left( 4 \pi \tau_{bcz} \nu + 2 \phi_{bcz} \right) + \\
                          + & \ A_{HeII} \left( \frac{\nu_r}{\nu} \right) \sin^2 \left( 2 \pi \beta_{HeII} \nu \right) \cos \left( 4 \pi \tau_{HeII} \nu + 2 \phi_{HeII} \right)
-\end{align*}$$
+\end{align*}
+$$
+
 where $\tau_{bcz}$ and $\tau_{HeII}$ represent the acoustic depth of the base of the convective zone and of the helium second ionization zone, respectively.
 
 More details regarding the adopted methods can be found in Sections 3 and 4 of [Pereira, F. (2016)](https://hdl.handle.net/10216/90991).
