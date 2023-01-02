@@ -13,7 +13,7 @@ The function adopted to describe the oscillatory signature of the glitches in th
 
 $$
 \begin{align*} 
-\delta \Delta_2 \nu \simeq & \ A_{bcz} \left( \frac{\nu_r}{\nu} \right)^2 \cos \left( 4 \pi \tau_{bcz} \nu + 2 \phi_{bcz} \right) + \\
+\delta \Delta_2 \nu \simeq & \ A_{bcz} \left( \frac{\nu_r}{\nu} \right)^2 \cos \left( 4 \pi \tau_{bcz} \nu + 2 \phi_{bcz} \right) \ + \\
                          + & \ A_{HeII} \left( \frac{\nu_r}{\nu} \right) \sin^2 \left( 2 \pi \beta_{HeII} \nu \right) \cos \left( 4 \pi \tau_{HeII} \nu + 2 \phi_{HeII} \right)
 \end{align*}
 $$
